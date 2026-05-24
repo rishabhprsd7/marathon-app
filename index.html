@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
@@ -261,6 +263,19 @@
 </head>
 <body>
 <div id="root"></div>
+
+<script>
+  firebase.initializeApp({
+    apiKey: "AIzaSyC0bUYdMN4zEwSvil0aG51lyumthzwq4p8",
+    authDomain: "marathon-prep.firebaseapp.com",
+    databaseURL: "https://marathon-prep-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "marathon-prep",
+    storageBucket: "marathon-prep.firebasestorage.app",
+    messagingSenderId: "226000407807",
+    appId: "1:226000407807:web:fe09b62b86649e99f490ca"
+  });
+  const fbRef = firebase.database().ref('data');
+</script>
 
 <script type="text/babel">
 const { useState, useEffect, useMemo } = React;
@@ -615,7 +630,7 @@ function ProgressBar({pct, saved}){
           color: saved ? "var(--sage)" : "var(--paper-faint)",
           fontSize:10, fontWeight:600, letterSpacing:"0.06em", transition:"color .3s"
         }}>
-          {saved ? "✓ SAVED" : "auto-syncs on tick"}
+          {saved ? "✓ SYNCED" : "syncs across devices"}
         </span>
       </div>
     </div>
@@ -1251,14 +1266,27 @@ function App(){
   const [saved, setSaved] = useState(false);
 
   useEffect(()=>{
+    // Load localStorage immediately for instant first paint
     const d = lsGet("done");      if (d) try { setDone(JSON.parse(d)); } catch {}
     const n = lsGet("notes");     if (n) try { setRunNotes(JSON.parse(n)); } catch {}
     const p = lsGet("practice");  if (p === "true") setPracticeDone(true);
+
+    // Subscribe to Firebase — keeps all devices in sync
+    const handler = fbRef.on('value', snap => {
+      const r = snap.val();
+      if (!r) return;
+      if (r.done     != null) { setDone(r.done);           lsSet("done",     JSON.stringify(r.done)); }
+      if (r.notes    != null) { setRunNotes(r.notes);       lsSet("notes",    JSON.stringify(r.notes)); }
+      if (r.practice != null) { setPracticeDone(!!r.practice); lsSet("practice", String(r.practice)); }
+    }, ()=>{}); // silent on network error — localStorage still works
+
+    return () => fbRef.off('value', handler);
   },[]);
 
   const persist = (newDone, newNotes) => {
     lsSet("done", JSON.stringify(newDone));
     lsSet("notes", JSON.stringify(newNotes));
+    fbRef.update({ done: newDone, notes: newNotes }).catch(()=>{});
     setSaved(true);
     setTimeout(()=>setSaved(false), 1500);
   };
@@ -1278,6 +1306,7 @@ function App(){
     const v = !practiceDone;
     setPracticeDone(v);
     lsSet("practice", String(v));
+    fbRef.update({ practice: v }).catch(()=>{});
   };
 
   const totalRuns = useMemo(() => WEEKS.reduce((a,w) =>
