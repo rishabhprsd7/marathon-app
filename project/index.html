@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
+  <title>Half Marathon · Berlin · 04.10.25</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+
+  <style>
+    :root{
+      --ink:        #0C141C;       /* deep navy, warm-leaning */
+      --ink-2:      #111B25;
+      --ink-3:      #182434;
+      --line:       rgba(240,229,205,0.10);
+      --line-warm:  rgba(229,152,73,0.28);
+      --paper:      #F1E8D2;       /* warm cream */
+      --paper-2:    #E8DCC0;
+      --paper-mute: rgba(241,232,210,0.62);
+      --paper-dim:  rgba(241,232,210,0.42);
+      --paper-faint:rgba(241,232,210,0.22);
+      --amber:      #E59849;
+      --amber-hot:  #F2B36A;
+      --amber-deep: #B8702A;
+      --amber-tint: rgba(229,152,73,0.14);
+      --sage:       #8EB28A;
+      --sage-deep:  #4D7A4F;
+      --rust:       #C5654E;
+      --bone:       #F6EFDD;
+      --shadow-warm:0 1px 0 rgba(241,232,210,0.04) inset, 0 12px 28px -16px rgba(0,0,0,0.55), 0 1px 0 rgba(0,0,0,0.4);
+    }
+
+    *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ background:var(--ink); color:var(--paper); }
+    html{ font-size:16px; -webkit-text-size-adjust:100%; }
+    body{
+      font-family:'Manrope', system-ui, sans-serif;
+      font-feature-settings:'ss01','cv11';
+      letter-spacing:-0.005em;
+      min-height:100vh;
+      min-height:100svh;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(229,152,73,0.10), transparent 60%),
+        radial-gradient(900px 600px at 100% 100%, rgba(20,40,70,0.35), transparent 60%),
+        var(--ink);
+    }
+    button{ cursor:pointer; font-family:inherit; color:inherit; }
+    textarea{ font-family:'Manrope', system-ui, sans-serif; }
+
+    /* Paper-noise texture for tactile cards */
+    .grain{
+      position:relative;
+      isolation:isolate;
+    }
+    .grain::before{
+      content:"";
+      position:absolute; inset:0;
+      pointer-events:none;
+      border-radius:inherit;
+      opacity:0.35;
+      mix-blend-mode:overlay;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.95 0 0 0 0 0.91 0 0 0 0 0.82 0 0 0 0.5 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+    .grain-dark::before{
+      opacity:0.18;
+      background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.05 0 0 0 0 0.08 0 0 0 0 0.12 0 0 0 0.45 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar{ width:7px; height:7px; }
+    ::-webkit-scrollbar-track{ background:transparent; }
+    ::-webkit-scrollbar-thumb{ background:rgba(241,232,210,0.16); border-radius:4px; }
+
+    /* Selection */
+    ::selection{ background:var(--amber); color:var(--ink); }
+
+    /* Sticky tabs */
+    .tabbar{
+      position:sticky; top:0; z-index:80;
+      backdrop-filter:saturate(140%) blur(14px);
+      -webkit-backdrop-filter:saturate(140%) blur(14px);
+      background:linear-gradient(180deg, rgba(12,20,28,0.92), rgba(12,20,28,0.82));
+      border-bottom:1px solid var(--line);
+    }
+
+    /* Custom checkbox — the satisfying tick */
+    .runcheck{
+      position:relative;
+      width:28px; height:28px;
+      border-radius:50%;
+      border:1.5px solid rgba(241,232,210,0.28);
+      background:rgba(241,232,210,0.04);
+      flex-shrink:0;
+      display:grid; place-items:center;
+      transition:transform .18s cubic-bezier(.34,1.56,.64,1), background .25s, border-color .25s, box-shadow .25s;
+    }
+    .runcheck:hover{
+      border-color:var(--amber);
+      transform:scale(1.06);
+    }
+    .runcheck:active{ transform:scale(.92); }
+    .runcheck svg{
+      width:14px; height:14px;
+      stroke:var(--ink); stroke-width:3; fill:none;
+      stroke-linecap:round; stroke-linejoin:round;
+      stroke-dasharray:20; stroke-dashoffset:20;
+      transition:stroke-dashoffset .35s cubic-bezier(.34,1.56,.64,1) .05s;
+    }
+    .runcheck.is-done{
+      background:var(--amber);
+      border-color:var(--amber);
+      box-shadow:0 0 0 4px var(--amber-tint), 0 6px 20px -6px var(--amber);
+    }
+    .runcheck.is-done svg{ stroke-dashoffset:0; }
+    .runcheck.is-done::after{
+      content:"";
+      position:absolute; inset:-6px;
+      border-radius:50%;
+      border:2px solid var(--amber);
+      opacity:0;
+      animation:ringPulse .55s ease-out;
+    }
+    @keyframes ringPulse{
+      0%{ transform:scale(.6); opacity:0.6; }
+      100%{ transform:scale(1.25); opacity:0; }
+    }
+
+    /* Hero number tabular alignment */
+    .data-num{
+      font-family:'Bricolage Grotesque','Manrope', sans-serif;
+      font-variation-settings:'wdth' 80, 'opsz' 96;
+      font-feature-settings:'tnum','lnum';
+      letter-spacing:-0.04em;
+      line-height:0.9;
+    }
+    .data-num-tight{
+      font-family:'Bricolage Grotesque','Manrope', sans-serif;
+      font-variation-settings:'wdth' 75, 'opsz' 32;
+      font-feature-settings:'tnum','lnum';
+      letter-spacing:-0.02em;
+    }
+    .serif{ font-family:'Instrument Serif', Georgia, serif; font-weight:400; }
+    .serif-i{ font-family:'Instrument Serif', Georgia, serif; font-style:italic; font-weight:400; }
+    .mono-cap{
+      font-family:'Manrope', sans-serif;
+      font-weight:600;
+      letter-spacing:0.22em;
+      text-transform:uppercase;
+      font-size:10px;
+    }
+
+    /* Phase pip & chips */
+    .chip{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:3px 9px;
+      border-radius:999px;
+      font-family:'Manrope', sans-serif;
+      font-size:10.5px; font-weight:600;
+      letter-spacing:0.04em;
+      background:rgba(241,232,210,0.06);
+      border:1px solid rgba(241,232,210,0.10);
+      color:var(--paper-mute);
+      white-space:nowrap;
+    }
+    .chip .pip{ width:7px; height:7px; border-radius:50%; }
+    .chip-amber{ color:var(--amber-hot); background:rgba(229,152,73,0.10); border-color:rgba(229,152,73,0.32); }
+    .chip-sage { color:#A9CFA4; background:rgba(142,178,138,0.10); border-color:rgba(142,178,138,0.32); }
+    .chip-rust { color:#E89484; background:rgba(197,101,78,0.10); border-color:rgba(197,101,78,0.32); }
+
+    /* Pulsing today dot */
+    .live{ position:relative; }
+    .live::after{
+      content:""; position:absolute; right:-10px; top:50%;
+      width:6px; height:6px; border-radius:50%;
+      background:var(--amber);
+      box-shadow:0 0 0 0 var(--amber);
+      transform:translateY(-50%);
+      animation:pulse 1.8s ease-out infinite;
+    }
+    @keyframes pulse{
+      0%  { box-shadow:0 0 0 0 rgba(229,152,73,0.7); }
+      70% { box-shadow:0 0 0 8px rgba(229,152,73,0); }
+      100%{ box-shadow:0 0 0 0 rgba(229,152,73,0); }
+    }
+
+    /* Card base */
+    .card{
+      background:linear-gradient(180deg, rgba(241,232,210,0.04), rgba(241,232,210,0.015));
+      border:1px solid var(--line);
+      border-radius:14px;
+      box-shadow:var(--shadow-warm);
+    }
+    .card-warm{
+      background:linear-gradient(180deg, rgba(229,152,73,0.10), rgba(229,152,73,0.03));
+      border:1px solid var(--line-warm);
+      box-shadow:0 12px 32px -18px rgba(229,152,73,0.5), 0 1px 0 rgba(0,0,0,0.4);
+    }
+
+    textarea.note{
+      width:100%;
+      background:rgba(12,20,28,0.55);
+      border:1px solid var(--line);
+      border-radius:10px;
+      padding:10px 12px;
+      color:var(--paper);
+      font-size:13px;
+      line-height:1.55;
+      resize:none;
+      height:72px;
+      outline:none;
+    }
+    textarea.note:focus{ border-color:var(--amber); }
+
+    .btn{
+      display:inline-flex; align-items:center; gap:6px;
+      padding:8px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background:rgba(241,232,210,0.05);
+      color:var(--paper);
+      font-size:12px; font-weight:600;
+      letter-spacing:0.02em;
+      transition:all .18s ease;
+    }
+    .btn:hover{ background:rgba(241,232,210,0.1); border-color:rgba(241,232,210,0.22); }
+    .btn-amber{
+      background:var(--amber); color:var(--ink); border-color:var(--amber);
+      box-shadow:0 8px 24px -10px var(--amber);
+    }
+    .btn-amber:hover{ background:var(--amber-hot); border-color:var(--amber-hot); }
+    .btn-ghost{ background:transparent; }
+
+    .divider-warm{ height:1px; background:linear-gradient(90deg, transparent, var(--line-warm), transparent); }
+
+    /* Stat ticks under hero progress */
+    .ticks{
+      display:grid;
+      grid-template-columns:repeat(19,1fr);
+      gap:2px;
+      height:6px;
+    }
+    .ticks div{
+      background:rgba(241,232,210,0.10);
+      border-radius:1px;
+      transition:background .3s;
+    }
+
+    /* Animations on tab change */
+    .fade-in{ animation:fadeUp .35s ease-out; }
+    @keyframes fadeUp{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:none; } }
+
+    @media (min-width:720px){
+      .container{ max-width:760px; margin:0 auto; }
+    }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+/* ───────── DATES ───────── */
+const WEEK1_START = new Date("2025-05-27");
+const RACE_DATE   = new Date("2025-10-04");
+const TODAY       = new Date();
+TODAY.setHours(0,0,0,0);
+const DTR = Math.max(0, Math.floor((RACE_DATE - TODAY) / 86400000));
+const STORAGE_PREFIX = "hm2025_";
+
+function runDate(week, day){
+  const off = { Tue:0, Thu:2, Sat:4, Mon:-1, Wed:1, Fri:3, Sun:5 };
+  const d = new Date(WEEK1_START);
+  d.setDate(d.getDate() + (week-1)*7 + (off[day] ?? 0));
+  return d;
+}
+function fmt(d){ return new Date(d).toLocaleDateString("en-GB",{ day:"numeric", month:"short" }); }
+function fmtLong(d){ return new Date(d).toLocaleDateString("en-GB",{ weekday:"long", day:"numeric", month:"long" }); }
+function isToday(d){ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime()===TODAY.getTime(); }
+function isPast(d){ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime()<TODAY.getTime(); }
+
+/* ───────── DATA (unchanged) ───────── */
+const PHASE_COLOR = {
+  Foundation:"#8EB28A", Build:"#7AA7C7",
+  Endurance:"#E59849", Taper:"#C5A271", "Race Week":"#C5654E"
+};
+
+const WEEK_TEMPLATE = [
+  {day:"Mon",type:"gym",     label:"Upper Body Gym",       detail:"Holmes Place · chest, back, shoulders · hip thrusts · TKE bands"},
+  {day:"Tue",type:"run",     label:"Run Day 1",            detail:"Intervals · Duramo SL2 · Zone 2 · Prehab after"},
+  {day:"Wed",type:"optional",label:"German Class",         detail:"Easy bike ride or 15 min walk after class. No gym."},
+  {day:"Thu",type:"run",     label:"Run Day 2",            detail:"Intervals · Duramo SL2 · Zone 2 · Prehab after"},
+  {day:"Fri",type:"cross",   label:"Beat81 · Spinning",    detail:"Zone 2 ride · 45–50 min · HR 115–135 bpm"},
+  {day:"Sat",type:"longrun", label:"Long Run",             detail:"Duramo SL2 · Zone 2 · Prehab after · longest session"},
+  {day:"Sun",type:"cross",   label:"Bollywood / Hyrox / Yoga", detail:"Pick one · Holmes Place or home"},
+];
+
+const WEEKS = [
+  {w:1, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"30s run / 120s walk",t:"20 min",km:"~1.5km",n:"First official run. Easy. Note shin response."},
+    {d:"Thu",i:"30s run / 120s walk",t:"22 min",km:"~1.7km",n:"Dull ache = normal. Sharp pain = stop."},
+    {d:"Sat",i:"30s run / 90s walk", t:"25 min",km:"~2.2km",n:"First long run. Zone 2 only."}]},
+  {w:2, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"30s run / 120s walk",t:"22 min",km:"~1.8km",n:"Consistency over speed."},
+    {d:"Thu",i:"30s run / 90s walk", t:"24 min",km:"~2.0km",n:"First interval upgrade. Watch shins."},
+    {d:"Sat",i:"30s run / 90s walk", t:"28 min",km:"~2.5km",n:"Zone 2 the whole way."}]},
+  {w:3, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"45s run / 90s walk", t:"24 min",km:"~2.2km",n:"Bigger upgrade. Revert to 30s if shin pain."},
+    {d:"Thu",i:"45s run / 90s walk", t:"26 min",km:"~2.4km",n:"Short strides. Land softly."},
+    {d:"Sat",i:"45s run / 90s walk", t:"34 min",km:"~3.2km",n:"First 3km+. Real milestone."}]},
+  {w:4, phase:"Foundation",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Deload week. Volume drops 20%."},
+    {d:"Thu",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Focus on posture. Short strides."},
+    {d:"Sat",i:"45s run / 90s walk", t:"28 min",km:"~2.6km",n:"Short easy deload long run."}]},
+  {w:5, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"28 min",km:"~2.8km",n:"60s intervals — your race ratio begins."},
+    {d:"Thu",i:"60s run / 90s walk", t:"30 min",km:"~3.0km",n:"Kickboxing/Bollywood unlocked after this."},
+    {d:"Sat",i:"60s run / 90s walk", t:"40 min",km:"~4.0km",n:"First 4km long run."}]},
+  {w:6, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"30 min",km:"~3.0km",n:""},
+    {d:"Thu",i:"75s run / 90s walk", t:"32 min",km:"~3.3km",n:"Upgrade if shins feel strong."},
+    {d:"Sat",i:"60s run / 90s walk", t:"46 min",km:"~4.6km",n:"Stay conversational throughout."}]},
+  {w:7, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"75s run / 90s walk", t:"30 min",km:"~3.2km",n:""},
+    {d:"Thu",i:"75s run / 90s walk", t:"32 min",km:"~3.4km",n:""},
+    {d:"Sat",i:"75s run / 90s walk", t:"54 min",km:"~5.8km",n:"First real long effort."}]},
+  {w:8, phase:"Build",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"75s run / 75s walk", t:"28 min",km:"~3.0km",n:"Deload. Equal intervals, lower time."},
+    {d:"Thu",i:"60s run / 90s walk", t:"26 min",km:"~2.6km",n:"Step back. Protect shins."},
+    {d:"Sat",i:"75s run / 90s walk", t:"42 min",km:"~4.5km",n:"Deload long run."}]},
+  {w:9, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"90s run / 90s walk", t:"30 min",km:"~3.3km",n:"1:1 ratio unlocked."},
+    {d:"Thu",i:"90s run / 90s walk", t:"32 min",km:"~3.5km",n:""},
+    {d:"Sat",i:"90s run / 90s walk", t:"62 min",km:"~6.8km",n:"First 1-hour+ run."}]},
+  {w:10,phase:"Endurance",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"90s run / 75s walk", t:"32 min",km:"~3.6km",n:""},
+    {d:"Thu",i:"90s run / 75s walk", t:"35 min",km:"~4.0km",n:""},
+    {d:"Sat",i:"90s run / 90s walk", t:"72 min",km:"~8.0km",n:"First 8km. Stay slow."}]},
+  {w:11,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 75s walk",t:"34 min",km:"~4.0km",n:"⭐ First Boston 12 run. Short only. Watch shins."},
+    {d:"Thu",i:"90s run / 75s walk", t:"36 min",km:"~4.2km",n:"Back to Duramo SL2."},
+    {d:"Sat",i:"90s run / 90s walk", t:"76 min",km:"~8.5km",n:"Nearly 10km territory."}]},
+  {w:12,phase:"Endurance",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"32 min",km:"~3.8km",n:"Deload."},
+    {d:"Thu",i:"90s run / 75s walk", t:"30 min",km:"~3.5km",n:""},
+    {d:"Sat",i:"90s run / 90s walk", t:"62 min",km:"~7.0km",n:"Deload long run."}]},
+  {w:13,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
+    {d:"Thu",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Duramo SL2."},
+    {d:"Sat",i:"2min run / 75s walk",t:"86 min",km:"~10.0km",n:"First 10km. Huge milestone."}]},
+  {w:14,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:""},
+    {d:"Thu",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:"Boston 12."},
+    {d:"Sat",i:"2min run / 75s walk",t:"96 min",km:"~11.5km",n:"Longest run to date."}]},
+  {w:15,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:""},
+    {d:"Thu",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:"Boston 12."},
+    {d:"Sat",i:"2min run / 60s walk",t:"106 min",km:"~13.0km",n:"Last big build week."}]},
+  {w:16,phase:"Taper",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Taper begins. Trust the drop."},
+    {d:"Thu",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
+    {d:"Sat",i:"2min run / 60s walk",t:"90 min",km:"~11.0km",n:"Peak long run."}]},
+  {w:17,phase:"Taper",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Trust the taper."},
+    {d:"Thu",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Boston 12. Last medium run."},
+    {d:"Sat",i:"2min run / 75s walk",t:"76 min",km:"~9.0km",n:"Step-down week."}]},
+  {w:18,phase:"Taper",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"25 min",km:"~2.5km",n:"Easy shakeout."},
+    {d:"Thu",i:"60s run / 90s walk", t:"20 min",km:"~2.0km",n:"Light jog only."},
+    {d:"Sat",i:"60s run / 90s walk", t:"30 min",km:"~3.0km",n:"Last run before race week."}]},
+  {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
+    {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
+    {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
+    {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
+    {d:"Thu",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
+    {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear tonight."},
+    {d:"Sat",i:"RACE DAY",        t:"~2h45",  km:"21.1km",n:"Zone 2 first 6km. Then run by feel. You've got this."}]},
+];
+
+/* SVG icons for cross-training — line icons, no emoji */
+const Ico = {
+  spin:    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="17" r="3.2"/><circle cx="18" cy="17" r="3.2"/><path d="M6 17l5-7 4 3 4-9"/><circle cx="13" cy="6" r="1.4" fill="currentColor"/></svg>,
+  hiit:    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M13 3L5 14h6l-1 7 8-11h-6z" fill="currentColor" fillOpacity=".15"/></svg>,
+  glove:   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M7 21V10c0-3 1.5-5 4-5h2c3 0 4 2 4 5v3c2 .4 3 1.7 3 4v4H7z"/><path d="M11 5V3.5"/></svg>,
+  dance:   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="4.5" r="1.7"/><path d="M12 7l-3 5 2 3-2 5M12 7l4 4-3 4 4 4M9 12l-3-1M14 11l4-2"/></svg>,
+  hyrox:   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h2M19 12h2M6 9v6M18 9v6"/><rect x="6" y="10" width="12" height="4" rx="1"/></svg>,
+  bicep:   <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M4 15c2-4 6-5 8-5h3a4 4 0 014 4v0a4 4 0 01-4 4H8c-2 0-3-1-4-3z"/><path d="M14 10c0-2 .5-3 1.5-4"/></svg>,
+  yoga:    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="5" r="1.8"/><path d="M12 7v4M5 11h14M9 11l-2 6M15 11l2 6M7 17h10"/></svg>,
+  bike:    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><circle cx="6" cy="17" r="3"/><circle cx="18" cy="17" r="3"/><path d="M6 17l4-8h5l3 8M10 9h4M15 9V5h2"/></svg>,
+};
+
+const CROSS_LIST = [
+  {venue:"Beat81 · Spinning",  ico:Ico.spin, accent:"#7AA7C7",when:"Fri · Weeks 1–9",
+   why:"Zero shin load. Builds aerobic base fast. Directly fixes the gasping issue.",
+   what:"45–50 min endurance ride. Keep HR 115–135 bpm (Zone 2).",
+   tip:"Tell instructor you're half-marathon training and want to hold Zone 2."},
+  {venue:"Beat81 · HIIT",      ico:Ico.hiit, accent:"#E59849",when:"Fri · Weeks 10–15",
+   why:"By Week 10 cardio is stronger. HIIT adds intensity Zone 2 running can't provide.",
+   what:"Choose lower-impact options. Avoid box jumps and running drills. Modify freely.",
+   tip:"If legs feel heavy — go spinning instead. Long run Saturday always wins."},
+  {venue:"Kickboxing",         ico:Ico.glove,accent:"#C5654E",when:"Tue/Thu after run · From Week 5",
+   why:"Core and hip stability improve running form. Excellent cardio and upper body.",
+   what:"Technique focus. Stop sparring from Week 14 — injury risk too high near race.",
+   tip:"Weeks 1–4: skip kickboxing entirely. Shins need recovery from just the running."},
+  {venue:"Bollywood Dancing",  ico:Ico.dance,accent:"#D7799F",when:"Tue after run OR Sun · All phases",
+   why:"Hip mobility, rhythm, and cardio. Directly reduces shin splint risk.",
+   what:"Any day it's available. Sunday is perfect as active recovery.",
+   tip:"One of the best things you can do for hip mobility."},
+  {venue:"Hyrox",              ico:Ico.hyrox,accent:"#7AA7C7",when:"Sun · Weeks 5–13",
+   why:"Full-body functional strength with cardio. Zero shin stress.",
+   what:"45 min max. Upper body and rowing priority. Skip if legs still tired from Sat.",
+   tip:"Never heavy leg volume on Sunday. Save legs for Tuesday."},
+  {venue:"Upper Body Gym",     ico:Ico.bicep,accent:"#B89A6C",when:"Mon · All phases",
+   why:"Running doesn't build upper body. Raises testosterone naturally.",
+   what:"Chest, back, shoulders, arms. Add hip thrusts 3×12 and TKE bands 3×15.",
+   tip:"Keep legs out of Monday gym entirely. Save them for Tuesday's run."},
+  {venue:"Yoga",               ico:Ico.yoga, accent:"#8EB28A",when:"Sun · All phases (primary from Wk 14)",
+   why:"Targets calf tightness, hip flexors, ankle mobility — all shin splint risk factors.",
+   what:"Yin or Restorative classes. 45–60 min. YouTube 'yoga for runners' works at home.",
+   tip:"From Week 14 yoga beats Hyrox for recovery value."},
+  {venue:"Cycling",            ico:Ico.bike, accent:"#8EB28A",when:"Mon/Wed · Anytime",
+   why:"Zero shin impact. Speeds up recovery. Builds quad strength that protects knees.",
+   what:"Easy 20–30 min after German class. Keep it casual.",
+   tip:"Great for active recovery. Don't suddenly increase to long rides."},
+];
+
+const PREHAB_LIST = [
+  {name:"Eccentric Calf Raises", sets:"3×15",   when:"Every run day", note:"Step edge. Lower 3 slow seconds. Most important exercise.", anchor:true},
+  {name:"Tibialis Raises",        sets:"3×20",   when:"Every run day", note:"Back to wall, lift toes. Directly strengthens the shin muscle.", anchor:true},
+  {name:"Clamshells",             sets:"3×15",   when:"Every run day", note:"Protect knees and hips as mileage rises."},
+  {name:"TKE (resistance band)",  sets:"3×15",   when:"Mon gym day",   note:"Best exercise for knee stability. VMO strength."},
+  {name:"Hip Thrusts",            sets:"3×12",   when:"Mon gym day",   note:"Best exercise for glutes. Improves running economy."},
+  {name:"Single-leg Calf Raises", sets:"2×12",   when:"From Week 3",   note:"Add once bilateral version feels easy."},
+  {name:"Post-run Ice",           sets:"10–15m", when:"Weeks 1–8",     note:"Shins only. Frozen peas in a tea towel."},
+  {name:"Yoga / Stretching",      sets:"20–30m", when:"Every Sunday",  note:"Calves, hip flexors, hamstrings."},
+];
+
+const DIET = [
+  {section:"Core Rules", items:[
+    {t:"Carbs stay in — always",   d:"Rice, bread, pasta, tortillas. Eat freely on run days (Tue/Thu/Sat). You need them to feel full and fuel training."},
+    {t:"Protein at every meal",     d:"Chicken, eggs, paneer. Batch cook chicken Sunday — every meal is just assembly. A roll counts."},
+    {t:"Whey post-run (30 min)",    d:"One scoop within 30 min after every run. Mix with milk — masks stale taste if any."},
+    {t:"Pre-run fuel",              d:"Banana or bread with peanut butter 30 min before. Don't run fasted in the first 10 weeks."},
+    {t:"Hydration",                 d:"500ml before every run. Carry water on runs over 45 min. 500ml after."},
+  ]},
+  {section:"Meal Ideas", items:[
+    {t:"Breakfast", d:"Eggs on toast · Oats + banana + whey · Bread with eggs · Leftover chicken sandwich"},
+    {t:"Lunch",     d:"Chicken roll/wrap · Rice + chicken + veg · Salad + bread · Chicken sandwich"},
+    {t:"Dinner",    d:"Chicken curry + rice · Pasta with chicken · Paneer curry + rice · Chicken burger"},
+    {t:"Post-run (critical)", d:"Whey shake + banana · Eggs on toast · Chicken sandwich if ready"},
+  ]},
+  {section:"Sunday Meal Prep", items:[
+    {t:"Batch chicken (45 min)",  d:"Marinate 1kg chicken in olive oil, cumin, coriander, garlic, chilli, salt. Bake 200°C 25 min. Slice and store. Use all week."},
+    {t:"Big pot of rice",          d:"4–5 portions at once. Stores 4 days. Pair with batch chicken for instant meals."},
+    {t:"Chicken curry (double)",   d:"Fry onion + garlic + spices. Add tomatoes, simmer. Add chicken, cook 10 min. Make double — eat 2 days."},
+    {t:"Palak Paneer",             d:"Fry onion + garlic + cumin + tomato + turmeric + chilli. Add spinach, wilt. Blend roughly. Add paneer, simmer 5 min."},
+  ]},
+  {section:"Race Week (Oct 1–4)", items:[
+    {t:"Mon–Tue",        d:"Normal eating. No changes."},
+    {t:"Wed–Fri dinner",  d:"One extra serving of rice or pasta each evening. Loading glycogen for 21.1km."},
+    {t:"Sat race morning",d:"Rice or bread with eggs 2–2.5 hours before start. Nothing new or unfamiliar."},
+    {t:"No alcohol Wed–Sat", d:"Even one drink disrupts sleep and hydration."},
+  ]},
+];
+
+/* ───────── STORAGE ───────── */
+const lsGet = (k) => { try { return localStorage.getItem(STORAGE_PREFIX+k); } catch { return null; } };
+const lsSet = (k,v) => { try { localStorage.setItem(STORAGE_PREFIX+k, v); } catch {} };
+
+/* ───────── PARTS ───────── */
+function Chev({open}){
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+      style={{transform:open?"rotate(180deg)":"none", transition:"transform .25s ease"}}>
+      <path d="M6 9l6 6 6-6"/>
+    </svg>
+  );
+}
+
+function PhaseLegend(){
+  return (
+    <div style={{display:"flex", flexWrap:"wrap", gap:6, marginBottom:18}}>
+      {Object.entries(PHASE_COLOR).map(([p,c]) => (
+        <span key={p} className="chip" style={{color:"var(--paper-mute)"}}>
+          <span className="pip" style={{background:c}}/>{p}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+/* ───────── HERO ───────── */
+function Hero({doneCount, totalRuns, pct, currentWeek, saved}){
+  return (
+    <header style={{padding:"clamp(28px,7vw,44px) 20px 22px", position:"relative", overflow:"hidden"}}>
+      {/* warm glow */}
+      <div aria-hidden style={{
+        position:"absolute", inset:0,
+        background:"radial-gradient(60% 40% at 50% 0%, rgba(229,152,73,0.16), transparent 70%)",
+        pointerEvents:"none"
+      }}/>
+      {/* subtle map-grid lines */}
+      <div aria-hidden style={{
+        position:"absolute", inset:0, opacity:0.08, pointerEvents:"none",
+        backgroundImage:"linear-gradient(rgba(241,232,210,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(241,232,210,0.5) 1px, transparent 1px)",
+        backgroundSize:"40px 40px",
+        maskImage:"radial-gradient(ellipse at 50% 50%, #000 30%, transparent 75%)",
+        WebkitMaskImage:"radial-gradient(ellipse at 50% 50%, #000 30%, transparent 75%)"
+      }}/>
+
+      <div className="container" style={{position:"relative"}}>
+        <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", marginBottom:14}}>
+          <div>
+            <div className="mono-cap" style={{color:"var(--amber)"}}>
+              Berlin · Half Marathon
+            </div>
+            <h1 className="serif-i" style={{
+              fontSize:"clamp(38px, 9vw, 64px)",
+              marginTop:6, lineHeight:0.95,
+              color:"var(--bone)",
+              letterSpacing:"-0.01em"
+            }}>
+              October 4
+              <span style={{color:"var(--amber)"}}>.</span>
+            </h1>
+            <div style={{
+              fontSize:12, color:"var(--paper-dim)", marginTop:8, letterSpacing:"0.02em",
+              fontWeight:500
+            }}>
+              Galloway Method · Zone 2 · 19-week build
+            </div>
+          </div>
+
+          <div style={{textAlign:"right", marginTop:4}}>
+            <div className="mono-cap" style={{color:"var(--paper-faint)"}}>Week</div>
+            <div className="data-num" style={{fontSize:42, color:"var(--paper)", marginTop:2}}>
+              {String(currentWeek).padStart(2,"0")}<span style={{color:"var(--paper-faint)", fontSize:22}}>/19</span>
+            </div>
+          </div>
+        </div>
+
+        {/* dashboard stats row */}
+        <div style={{
+          display:"grid", gridTemplateColumns:"1.2fr 1fr 1fr", gap:0,
+          padding:"18px 0",
+          borderTop:"1px solid var(--line)",
+          borderBottom:"1px solid var(--line)",
+        }}>
+          <Stat big value={DTR} label="days to race" accent />
+          <Stat value={`${doneCount}/${totalRuns}`} label="runs logged" divider/>
+          <Stat value={`${pct}%`} label="complete" divider/>
+        </div>
+
+        {/* progress ticks */}
+        <div style={{marginTop:18}}>
+          <div className="ticks">
+            {Array.from({length:19}).map((_,i) => {
+              const wnum = i+1;
+              const wRuns = WEEKS[i].runs.filter(r => r.i!=="Rest" && !r.i.includes("RACE"));
+              const wDone = wRuns.filter(r => false).length; // placeholder
+              return null;
+            })}
+          </div>
+        </div>
+
+        <ProgressBar pct={pct} saved={saved} />
+      </div>
+    </header>
+  );
+}
+
+function Stat({value, label, big, accent, divider}){
+  return (
+    <div style={{
+      paddingLeft: divider ? 16 : 0,
+      borderLeft: divider ? "1px solid var(--line)" : "none",
+    }}>
+      <div className="data-num" style={{
+        fontSize: big ? "clamp(54px, 13vw, 84px)" : "clamp(34px, 8vw, 48px)",
+        color: accent ? "var(--amber)" : "var(--paper)",
+        textShadow: accent ? "0 0 30px rgba(229,152,73,0.35)" : "none",
+      }}>{value}</div>
+      <div className="mono-cap" style={{color:"var(--paper-faint)", marginTop:6}}>{label}</div>
+    </div>
+  );
+}
+
+function ProgressBar({pct, saved}){
+  return (
+    <div style={{marginTop:18}}>
+      <div style={{
+        height:8, background:"rgba(241,232,210,0.07)",
+        borderRadius:999, position:"relative", overflow:"hidden",
+        border:"1px solid var(--line)"
+      }}>
+        <div style={{
+          position:"absolute", inset:0, width:`${pct}%`,
+          background:"linear-gradient(90deg, var(--amber-deep), var(--amber), var(--amber-hot))",
+          borderRadius:999,
+          transition:"width .8s cubic-bezier(.22,1,.36,1)",
+          boxShadow:"0 0 18px rgba(229,152,73,0.45)"
+        }}/>
+      </div>
+      <div style={{
+        display:"flex", justifyContent:"space-between", alignItems:"center",
+        marginTop:8, fontSize:11
+      }}>
+        <span className="mono-cap" style={{color:"var(--paper-faint)"}}>27 May → 04 Oct</span>
+        <span style={{
+          color: saved ? "var(--sage)" : "var(--paper-faint)",
+          fontSize:10, fontWeight:600, letterSpacing:"0.06em", transition:"color .3s"
+        }}>
+          {saved ? "✓ SAVED" : "auto-syncs on tick"}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+/* ───────── PRACTICE BANNER ───────── */
+function PracticeBanner({done, onToggle}){
+  return (
+    <div className="container" style={{padding:"4px 16px 0"}}>
+      <div className={`card ${done ? "" : "card-warm"} grain grain-dark`} style={{
+        padding:"14px 16px", display:"flex", alignItems:"center", gap:14,
+        marginBottom:4
+      }}>
+        <div style={{
+          width:38, height:38, borderRadius:10, flexShrink:0,
+          background: done ? "rgba(142,178,138,0.14)" : "rgba(229,152,73,0.18)",
+          border: `1px solid ${done ? "rgba(142,178,138,0.35)" : "rgba(229,152,73,0.4)"}`,
+          display:"grid", placeItems:"center"
+        }}>
+          {done
+            ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--sage)" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+            : <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M13 4l-2 5h5l-7 11 2-8H6z" fill="var(--amber-tint)"/></svg>
+          }
+        </div>
+        <div style={{flex:1, minWidth:0}}>
+          <div className="mono-cap" style={{color: done ? "var(--sage)" : "var(--amber)"}}>
+            {done ? "Practice run · complete" : "Practice run · Sat 23 May"}
+          </div>
+          <div style={{fontSize:13.5, color:"var(--paper)", marginTop:3, lineHeight:1.45, fontWeight:500}}>
+            {done
+              ? <>2.44 km · 115 bpm avg · easy. <span style={{color:"var(--paper-dim)"}}>Week 1 begins Tue 27 May.</span></>
+              : <>20-min easy walk/jog · Duramo SL2 · no pressure.</>
+            }
+          </div>
+        </div>
+        <button onClick={onToggle} className={`btn ${done ? "" : "btn-amber"}`}>
+          {done ? "Undo" : "Mark done"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ───────── TAB BAR ───────── */
+function TabBar({tab, setTab}){
+  const tabs = [
+    {id:"week",  l:"My Week"},
+    {id:"plan",  l:"Run Plan"},
+    {id:"cross", l:"Training"},
+    {id:"diet",  l:"Diet"},
+    {id:"prehab",l:"Prehab"},
+  ];
+  return (
+    <nav className="tabbar">
+      <div className="container" style={{display:"flex", padding:"0 8px"}}>
+        {tabs.map(t => {
+          const active = tab === t.id;
+          return (
+            <button key={t.id} onClick={()=>setTab(t.id)} style={{
+              flex:1, padding:"14px 4px 12px",
+              background:"transparent", border:"none",
+              position:"relative",
+              color: active ? "var(--paper)" : "var(--paper-faint)",
+              fontSize:"clamp(11px, 2.5vw, 13px)",
+              fontWeight: active ? 700 : 500,
+              letterSpacing:"0.02em",
+              transition:"color .2s"
+            }}>
+              {t.l}
+              <span style={{
+                position:"absolute", left:"50%", bottom:0,
+                transform:`translateX(-50%) scaleX(${active?1:0})`,
+                width:32, height:2,
+                background:"var(--amber)",
+                borderRadius:2,
+                transition:"transform .25s cubic-bezier(.34,1.56,.64,1)",
+                boxShadow: active ? "0 0 12px var(--amber)" : "none"
+              }}/>
+            </button>
+          );
+        })}
+      </div>
+    </nav>
+  );
+}
+
+/* ───────── MY WEEK TAB ───────── */
+function MyWeekTab(){
+  const dowMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
+  const todayLabel = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][TODAY.getDay()];
+  const today = WEEK_TEMPLATE.find(s => s.day === todayLabel);
+
+  const typeStyles = {
+    run:     {ink:"var(--sage)",   bar:"var(--sage)",   tag:"RUN"},
+    longrun: {ink:"var(--amber)",  bar:"var(--amber)",  tag:"LONG RUN"},
+    cross:   {ink:"#B89AC7",       bar:"#B89AC7",       tag:"CROSS"},
+    optional:{ink:"#A0B380",       bar:"#A0B380",       tag:"OPTIONAL"},
+    gym:     {ink:"#B89A6C",       bar:"#B89A6C",       tag:"GYM"},
+  };
+
+  return (
+    <div className="fade-in" style={{padding:"22px 0 8px"}}>
+      <SectionHead title="This week" sub={fmtLong(TODAY)}/>
+
+      {/* Today spotlight */}
+      {today && (
+        <div className="card card-warm grain grain-dark" style={{
+          padding:"20px 20px 18px", marginBottom:18, position:"relative", overflow:"hidden"
+        }}>
+          <div style={{
+            position:"absolute", top:0, left:0, width:4, bottom:0,
+            background:"linear-gradient(180deg, var(--amber-hot), var(--amber-deep))"
+          }}/>
+          <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12}}>
+            <div>
+              <div className="mono-cap" style={{color:"var(--amber)"}}>
+                <span className="live">Today</span> &nbsp;&nbsp;· {fmt(TODAY)}
+              </div>
+              <h3 className="serif-i" style={{
+                fontSize:"clamp(28px, 6.5vw, 38px)", color:"var(--bone)", marginTop:8, lineHeight:1
+              }}>{today.label}</h3>
+            </div>
+            <span className="chip chip-amber">{typeStyles[today.type]?.tag || "ACTIVITY"}</span>
+          </div>
+          <p style={{fontSize:14, color:"var(--paper-mute)", marginTop:12, lineHeight:1.55, maxWidth:520}}>
+            {today.detail}
+          </p>
+        </div>
+      )}
+
+      <div className="mono-cap" style={{color:"var(--paper-faint)", marginBottom:10, paddingLeft:2}}>
+        The rest of the week
+      </div>
+
+      <div style={{display:"flex", flexDirection:"column", gap:8}}>
+        {WEEK_TEMPLATE.map((s,i) => {
+          let diff = dowMap[s.day] - TODAY.getDay();
+          if (diff<0) diff+=7;
+          const d = new Date(TODAY); d.setDate(TODAY.getDate()+diff);
+          const isNow = diff===0;
+          if (isNow) return null;
+          const st = typeStyles[s.type] || {ink:"var(--paper)", bar:"var(--line)", tag:""};
+          return (
+            <div key={i} className="card grain grain-dark" style={{
+              padding:"13px 14px 13px 16px",
+              display:"flex", alignItems:"center", gap:14,
+              position:"relative", overflow:"hidden"
+            }}>
+              <div style={{
+                position:"absolute", top:8, bottom:8, left:0, width:3,
+                background:st.bar, opacity:0.7, borderRadius:"0 2px 2px 0"
+              }}/>
+              <div style={{flexShrink:0, width:46}}>
+                <div className="mono-cap" style={{color:st.ink}}>{s.day}</div>
+                <div className="data-num-tight" style={{
+                  fontSize:22, color:"var(--paper)", marginTop:2
+                }}>{new Date(d).getDate()}</div>
+              </div>
+              <div style={{flex:1, minWidth:0}}>
+                <div style={{
+                  fontSize:14.5, fontWeight:600, color:"var(--paper)", letterSpacing:"-0.005em"
+                }}>{s.label}</div>
+                <div style={{fontSize:12, color:"var(--paper-dim)", marginTop:3, lineHeight:1.45}}>{s.detail}</div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Rules card */}
+      <div className="card grain grain-dark" style={{marginTop:18, padding:"18px 18px 14px"}}>
+        <div className="mono-cap" style={{color:"var(--amber)"}}>Three rules that override everything</div>
+        <div style={{marginTop:14, display:"flex", flexDirection:"column", gap:12}}>
+          {[
+            {t:"Sharp shin pain mid-run", a:"Stop. Walk home. Two full rest days.", c:"var(--rust)"},
+            {t:"HR above 140 bpm",         a:"Walk until 125, then resume.",         c:"var(--amber)"},
+            {t:"Boston 12 stays in the box", a:"Until Week 11. No exceptions.",       c:"var(--sage)"},
+          ].map((r,i) => (
+            <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
+              <div className="data-num-tight" style={{
+                fontSize:24, color:r.c, width:32, lineHeight:1, flexShrink:0
+              }}>{String(i+1).padStart(2,"0")}</div>
+              <div>
+                <div style={{fontSize:14, color:"var(--paper)", fontWeight:600}}>{r.t}</div>
+                <div style={{fontSize:12.5, color:"var(--paper-mute)", marginTop:2, lineHeight:1.5}}>{r.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SectionHead({title, sub}){
+  return (
+    <div style={{marginBottom:18, paddingLeft:2}}>
+      <h2 className="serif" style={{
+        fontSize:"clamp(26px, 6vw, 34px)", color:"var(--bone)", lineHeight:1.05
+      }}>{title}</h2>
+      {sub && <div style={{
+        fontSize:12, color:"var(--paper-dim)", marginTop:4, letterSpacing:"0.02em"
+      }}>{sub}</div>}
+    </div>
+  );
+}
+
+/* ───────── RUN PLAN TAB ───────── */
+function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingNote, setEditingNote, noteText, setNoteText, saveNote}){
+  return (
+    <div className="fade-in" style={{padding:"22px 0 8px"}}>
+      <SectionHead title="The plan" sub="19 weeks · Galloway intervals · Zone 2"/>
+      <PhaseLegend/>
+
+      <div style={{display:"flex", flexDirection:"column", gap:8}}>
+        {WEEKS.map(w => {
+          const pc = PHASE_COLOR[w.phase] || "#888";
+          const isOpen = openWeek === w.w;
+          const wStart = new Date(WEEK1_START);
+          wStart.setDate(wStart.getDate() + (w.w-1)*7 - 1);
+          const wEnd = new Date(wStart); wEnd.setDate(wStart.getDate()+7);
+          const isCurrent = TODAY >= wStart && TODAY < wEnd;
+          const wRuns = w.runs.filter(r => r.i !== "Rest" && !r.i.includes("RACE"));
+          const wDone = wRuns.filter(r => done[`${w.w}-${r.d}`]).length;
+          const weekKm = w.runs.filter(r => r.km && r.km !== "—")
+            .map(r => parseFloat(r.km.replace("~","").replace("km","")) || 0)
+            .reduce((a,b) => a+b, 0).toFixed(1);
+          const allDone = wDone === wRuns.length && wRuns.length>0;
+
+          return (
+            <div key={w.w} className="card grain grain-dark" style={{
+              overflow:"hidden",
+              borderColor: isCurrent ? "var(--line-warm)" : "var(--line)",
+              boxShadow: isCurrent ? "0 12px 32px -18px rgba(229,152,73,0.4), 0 1px 0 rgba(0,0,0,0.4)" : "var(--shadow-warm)"
+            }}>
+              <button onClick={()=>setOpenWeek(isOpen ? null : w.w)} style={{
+                width:"100%", background:"transparent", border:"none",
+                padding:"14px 16px", textAlign:"left",
+                display:"flex", alignItems:"center", gap:14
+              }}>
+                <div style={{flexShrink:0, position:"relative"}}>
+                  <div className="data-num-tight" style={{
+                    fontSize:28, color: isCurrent ? "var(--amber)" : "var(--paper)", lineHeight:1
+                  }}>{String(w.w).padStart(2,"0")}</div>
+                  <div className="mono-cap" style={{color:"var(--paper-faint)", marginTop:2}}>wk</div>
+                </div>
+                <div style={{width:1, alignSelf:"stretch", background:"var(--line)"}}/>
+                <div style={{flex:1, minWidth:0}}>
+                  <div style={{display:"flex", alignItems:"center", gap:8, flexWrap:"wrap"}}>
+                    <span style={{fontSize:15, fontWeight:600, color:"var(--paper)"}}>{w.phase}</span>
+                    {w.deload && <span className="chip" style={{color:"#D2B58C", borderColor:"rgba(210,181,140,0.3)"}}>DELOAD</span>}
+                    {isCurrent && <span className="chip chip-amber"><span className="live" style={{display:"inline-block",width:0}}/>NOW</span>}
+                    {allDone && <span className="chip chip-sage">✓ done</span>}
+                  </div>
+                  <div style={{
+                    fontSize:11.5, color:"var(--paper-dim)", marginTop:4,
+                    fontVariantNumeric:"tabular-nums"
+                  }}>
+                    <span style={{color:pc}}>●</span> &nbsp;{wDone}/{wRuns.length} runs · {weekKm} km · {w.shoe}
+                  </div>
+                </div>
+                <div style={{color:"var(--paper-faint)"}}><Chev open={isOpen}/></div>
+              </button>
+
+              {isOpen && (
+                <div className="fade-in" style={{
+                  borderTop:"1px solid var(--line)",
+                  padding:"6px 12px 12px",
+                  background:"rgba(0,0,0,0.18)"
+                }}>
+                  {w.runs.map((run,i) => (
+                    <RunRow key={i} run={run} w={w}
+                      isDone={!!done[`${w.w}-${run.d}`]}
+                      toggle={()=>toggleDone(`${w.w}-${run.d}`)}
+                      note={runNotes[`${w.w}-${run.d}`]}
+                      isEditing={editingNote === `${w.w}-${run.d}`}
+                      onEdit={()=>{ setEditingNote(`${w.w}-${run.d}`); setNoteText(runNotes[`${w.w}-${run.d}`] || ""); }}
+                      onCancel={()=>setEditingNote(null)}
+                      onSave={()=>saveNote(`${w.w}-${run.d}`)}
+                      noteText={noteText}
+                      setNoteText={setNoteText}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function RunRow({run, w, isDone, toggle, note, isEditing, onEdit, onCancel, onSave, noteText, setNoteText}){
+  const isRest = run.i === "Rest";
+  const isRace = run.i.includes("RACE");
+  const rd = runDate(w.w, run.d);
+  const todayRun = isToday(rd);
+  const pastRun = isPast(rd);
+  const km = run.km && run.km !== "—" ? run.km.replace("~","") : null;
+
+  let statusTag = null;
+  if (isRace) statusTag = <span className="chip chip-rust">RACE</span>;
+  else if (todayRun && !isDone) statusTag = <span className="chip chip-amber">TODAY</span>;
+  else if (isDone) statusTag = <span className="chip chip-sage">DONE</span>;
+  else if (pastRun && !isRest) statusTag = <span className="chip" style={{color:"#E89484"}}>MISSED?</span>;
+
+  return (
+    <div style={{
+      padding:"12px 6px 12px 6px",
+      borderBottom:"1px dashed var(--line)",
+      display:"flex", gap:14, alignItems:"flex-start",
+      opacity: isRest ? 0.55 : 1,
+      position:"relative"
+    }}>
+      {!isRest && !isRace ? (
+        <button className={`runcheck ${isDone ? "is-done" : ""}`}
+          onClick={toggle}
+          aria-label={isDone ? "Mark not done" : "Mark done"}
+        >
+          <svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>
+        </button>
+      ) : (
+        <div style={{
+          width:28, height:28, flexShrink:0,
+          display:"grid", placeItems:"center",
+          color: isRace ? "var(--amber)" : "var(--paper-faint)"
+        }}>
+          {isRace
+            ? <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></svg>
+            : <span style={{fontSize:10, letterSpacing:2, fontWeight:600}}>REST</span>
+          }
+        </div>
+      )}
+
+      <div style={{flex:1, minWidth:0}}>
+        <div style={{display:"flex", alignItems:"center", gap:8, flexWrap:"wrap"}}>
+          <span style={{
+            fontSize:11.5, fontWeight:700, letterSpacing:"0.1em",
+            color: todayRun ? "var(--amber)" : isDone ? "var(--sage)" : "var(--paper-dim)"
+          }}>{run.d.toUpperCase()}</span>
+          <span style={{fontSize:11, color:"var(--paper-faint)", fontVariantNumeric:"tabular-nums"}}>
+            {fmt(rd)}
+          </span>
+          {km && <span className="chip" style={{
+            color: todayRun ? "var(--amber)" : "var(--paper-mute)",
+            borderColor: todayRun ? "rgba(229,152,73,0.3)" : "var(--line)"
+          }}>{km}</span>}
+          {run.t !== "—" && (
+            <span style={{
+              marginLeft:"auto",
+              fontSize:11, color:"var(--paper-faint)",
+              fontVariantNumeric:"tabular-nums"
+            }}>{run.t}</span>
+          )}
+        </div>
+        <div style={{
+          fontSize: isRace ? 18 : 14.5,
+          fontFamily: isRace ? "'Instrument Serif', serif" : "inherit",
+          fontStyle: isRace ? "italic" : "normal",
+          fontWeight: isRace ? 400 : 600,
+          color: isRace ? "var(--amber-hot)" : isDone ? "var(--paper)" : "var(--paper)",
+          marginTop:5,
+          textDecoration: isDone ? "none" : "none"
+        }}>{run.i}</div>
+        <div style={{display:"flex", alignItems:"center", gap:8, marginTop:5, flexWrap:"wrap"}}>
+          {statusTag}
+          {!isRest && (
+            <span style={{fontSize:10.5, color:"var(--sage)", fontWeight:500, letterSpacing:"0.04em"}}>
+              Zone 2 · 115–140 bpm
+            </span>
+          )}
+        </div>
+        {run.n && (
+          <div style={{
+            fontSize:12, color:"var(--paper-dim)", marginTop:7,
+            fontStyle:"italic", lineHeight:1.5, fontFamily:"'Instrument Serif', serif",
+            fontWeight:400, fontSize:13.5
+          }}>{run.n}</div>
+        )}
+
+        {isDone && (
+          <div style={{marginTop:10, paddingTop:10, borderTop:"1px solid var(--line)"}}>
+            {isEditing ? (
+              <div>
+                <textarea className="note" value={noteText} onChange={e=>setNoteText(e.target.value)}
+                  placeholder="How did it go? Shins? HR? Pace?"
+                  autoFocus
+                />
+                <div style={{display:"flex", gap:6, marginTop:8, justifyContent:"flex-end"}}>
+                  <button className="btn btn-ghost" onClick={onCancel}>Cancel</button>
+                  <button className="btn btn-amber" onClick={onSave}>Save note</button>
+                </div>
+              </div>
+            ) : (
+              <button onClick={onEdit} style={{
+                background:"transparent", border:"none",
+                display:"flex", alignItems:"center", gap:8,
+                padding:0, color:"var(--paper-dim)",
+                fontSize:12, textAlign:"left", width:"100%"
+              }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" style={{flexShrink:0, color:"var(--amber)"}}>
+                  <path d="M12 20h9M16.5 3.5a2.1 2.1 0 113 3L7 19l-4 1 1-4z"/>
+                </svg>
+                <span style={{
+                  fontStyle: note ? "italic" : "normal",
+                  fontFamily: note ? "'Instrument Serif',serif" : "inherit",
+                  fontSize: note ? 14 : 12,
+                  color: note ? "var(--paper-mute)" : "var(--paper-faint)",
+                  lineHeight:1.5
+                }}>
+                  {note || "Add a note about this run…"}
+                </span>
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ───────── TRAINING TAB ───────── */
+function TrainingTab({openCross, setOpenCross}){
+  return (
+    <div className="fade-in" style={{padding:"22px 0 8px"}}>
+      <SectionHead title="Cross-training" sub="Tap each to see the why, what, and one tip."/>
+      <div style={{display:"flex", flexDirection:"column", gap:8}}>
+        {CROSS_LIST.map((s,i) => {
+          const isOpen = openCross === i;
+          return (
+            <div key={i} className="card grain grain-dark" style={{
+              overflow:"hidden",
+              borderColor: isOpen ? `${s.accent}55` : "var(--line)"
+            }}>
+              <button onClick={()=>setOpenCross(isOpen?null:i)} style={{
+                width:"100%", background:"transparent", border:"none",
+                padding:"14px 16px", textAlign:"left",
+                display:"flex", alignItems:"center", gap:14
+              }}>
+                <div style={{
+                  width:42, height:42, borderRadius:11, flexShrink:0,
+                  background:`${s.accent}18`, border:`1px solid ${s.accent}40`,
+                  display:"grid", placeItems:"center", color:s.accent
+                }}>{s.ico}</div>
+                <div style={{flex:1, minWidth:0}}>
+                  <div style={{fontSize:14.5, fontWeight:600, color:"var(--paper)"}}>{s.venue}</div>
+                  <div className="mono-cap" style={{color:s.accent, marginTop:3, opacity:0.95}}>{s.when}</div>
+                </div>
+                <div style={{color:"var(--paper-faint)"}}><Chev open={isOpen}/></div>
+              </button>
+              {isOpen && (
+                <div className="fade-in" style={{
+                  borderTop:`1px solid ${s.accent}33`,
+                  padding:"14px 16px",
+                  background:"rgba(0,0,0,0.18)"
+                }}>
+                  <DetailBlock label="Why" color={s.accent} text={s.why}/>
+                  <DetailBlock label="What to do" color={s.accent} text={s.what}/>
+                  <div style={{
+                    marginTop:10, padding:"12px 14px",
+                    background:`${s.accent}12`, border:`1px solid ${s.accent}40`,
+                    borderRadius:10
+                  }}>
+                    <div className="mono-cap" style={{color:s.accent}}>One tip</div>
+                    <div style={{fontSize:13, color:"var(--paper-mute)", marginTop:6, lineHeight:1.55, fontFamily:"'Instrument Serif',serif", fontStyle:"italic", fontSize:14.5}}>
+                      “{s.tip}”
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function DetailBlock({label, color, text}){
+  return (
+    <div style={{marginBottom:12}}>
+      <div className="mono-cap" style={{color, marginBottom:5}}>{label}</div>
+      <div style={{fontSize:13.5, color:"var(--paper-mute)", lineHeight:1.6}}>{text}</div>
+    </div>
+  );
+}
+
+/* ───────── DIET TAB ───────── */
+function DietTab({openDiet, setOpenDiet}){
+  return (
+    <div className="fade-in" style={{padding:"22px 0 8px"}}>
+      <SectionHead title="Fuel" sub="Built around chicken, eggs, rice, bread, paneer. Carbs stay in."/>
+
+      <div className="card grain grain-dark" style={{padding:"14px 16px", marginBottom:14, borderColor:"rgba(142,178,138,0.3)"}}>
+        <div className="mono-cap" style={{color:"var(--sage)"}}>Protein powder</div>
+        <div style={{fontSize:13.5, color:"var(--paper-mute)", marginTop:6, lineHeight:1.55}}>
+          Use the newer 2.5 kg packet — post-run and in morning oats. Bin the 3-month-expired one. When gone: <span style={{color:"var(--paper)"}}>myprotein.de</span> · ~€25/kg.
+        </div>
+      </div>
+
+      <div style={{display:"flex", flexDirection:"column", gap:8}}>
+        {DIET.map(({section,items}) => {
+          const isOpen = openDiet === section;
+          return (
+            <div key={section} className="card grain grain-dark" style={{overflow:"hidden"}}>
+              <button onClick={()=>setOpenDiet(isOpen?null:section)} style={{
+                width:"100%", background:"transparent", border:"none",
+                padding:"14px 16px", textAlign:"left",
+                display:"flex", justifyContent:"space-between", alignItems:"center"
+              }}>
+                <span style={{fontSize:14.5, fontWeight:600, color:"var(--paper)"}}>{section}</span>
+                <span style={{color:"var(--paper-faint)"}}><Chev open={isOpen}/></span>
+              </button>
+              {isOpen && (
+                <div className="fade-in" style={{
+                  borderTop:"1px solid var(--line)",
+                  padding:"10px 14px 14px",
+                  background:"rgba(0,0,0,0.18)"
+                }}>
+                  {items.map((item,i) => (
+                    <div key={i} style={{
+                      padding:"11px 0",
+                      borderBottom: i < items.length-1 ? "1px dashed var(--line)" : "none",
+                      display:"flex", gap:14
+                    }}>
+                      <div className="data-num-tight" style={{
+                        fontSize:16, color:"var(--amber)", flexShrink:0, width:24, paddingTop:1
+                      }}>{String(i+1).padStart(2,"0")}</div>
+                      <div>
+                        <div style={{fontSize:14, fontWeight:600, color:"var(--paper)"}}>{item.t}</div>
+                        <div style={{fontSize:12.5, color:"var(--paper-mute)", marginTop:3, lineHeight:1.55}}>{item.d}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ───────── PREHAB TAB ───────── */
+function PrehabTab(){
+  return (
+    <div className="fade-in" style={{padding:"22px 0 8px"}}>
+      <SectionHead title="Prehab" sub="After every run · 8–10 minutes · run → prehab → ice (Wk 1–8)"/>
+
+      <div style={{display:"flex", flexDirection:"column", gap:8}}>
+        {PREHAB_LIST.map((p,i) => (
+          <div key={i} className="card grain grain-dark" style={{
+            padding:"14px 16px",
+            borderColor: p.anchor ? "rgba(229,152,73,0.28)" : "var(--line)"
+          }}>
+            <div style={{display:"flex", justifyContent:"space-between", alignItems:"flex-start", gap:12}}>
+              <div style={{flex:1}}>
+                <div style={{display:"flex", alignItems:"center", gap:8, flexWrap:"wrap"}}>
+                  <span style={{fontSize:15, fontWeight:600, color:"var(--paper)"}}>{p.name}</span>
+                  {p.anchor && <span className="chip chip-amber">essential</span>}
+                </div>
+                <div className="mono-cap" style={{color:"var(--amber)", marginTop:5}}>{p.when}</div>
+                <div style={{fontSize:13, color:"var(--paper-mute)", marginTop:8, lineHeight:1.55}}>{p.note}</div>
+              </div>
+              <div style={{
+                padding:"6px 10px", borderRadius:8,
+                background:"rgba(241,232,210,0.06)",
+                border:"1px solid var(--line)",
+                color:"var(--paper)", flexShrink:0,
+                fontFamily:"'Bricolage Grotesque', sans-serif",
+                fontWeight:700, fontSize:13,
+                letterSpacing:"-0.01em",
+                fontVariantNumeric:"tabular-nums"
+              }}>{p.sets}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="card grain grain-dark" style={{
+        marginTop:14, padding:"16px 18px",
+        borderColor:"rgba(197,101,78,0.32)"
+      }}>
+        <div className="mono-cap" style={{color:"var(--rust)"}}>Pain traffic light</div>
+        <div style={{marginTop:14, display:"flex", flexDirection:"column", gap:14}}>
+          {[
+            {c:"var(--sage)",   s:"Dull ache",             a:"Normal. Continue, monitor daily."},
+            {c:"var(--amber)",  s:"Sharp mid-run",          a:"Stop. Walk home. Two rest days."},
+            {c:"var(--rust)",   s:"Worsening over days",    a:"Physio. Do not push through."},
+          ].map((l,i) => (
+            <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
+              <div style={{
+                width:10, height:10, borderRadius:"50%", background:l.c,
+                marginTop:6, flexShrink:0,
+                boxShadow:`0 0 12px ${l.c}`
+              }}/>
+              <div style={{flex:1}}>
+                <div style={{fontSize:13, color:l.c, fontWeight:700, letterSpacing:"0.04em", textTransform:"uppercase"}}>{l.s}</div>
+                <div style={{fontSize:13.5, color:"var(--paper-mute)", marginTop:2, lineHeight:1.5}}>{l.a}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="card grain grain-dark" style={{
+        marginTop:10, padding:"16px 18px",
+        borderColor:"rgba(122,167,199,0.32)"
+      }}>
+        <div className="mono-cap" style={{color:"#7AA7C7"}}>Book GP this week</div>
+        <div style={{fontSize:13.5, color:"var(--paper-mute)", marginTop:8, lineHeight:1.6}}>
+          Ask about a <span style={{color:"var(--paper)"}}>nasal steroid spray</span> (Mometason — cheap on prescription in Germany). Takes 2–4 weeks to work. Book now and Zone 2 breathing transforms by Week 4.
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───────── APP ───────── */
+function App(){
+  const [tab, setTab] = useState("week");
+  const [openWeek, setOpenWeek] = useState(1);
+  const [openCross, setOpenCross] = useState(null);
+  const [openDiet, setOpenDiet]   = useState(null);
+  const [done, setDone] = useState({});
+  const [practiceDone, setPracticeDone] = useState(false);
+  const [runNotes, setRunNotes] = useState({});
+  const [editingNote, setEditingNote] = useState(null);
+  const [noteText, setNoteText] = useState("");
+  const [saved, setSaved] = useState(false);
+
+  useEffect(()=>{
+    const d = lsGet("done");      if (d) try { setDone(JSON.parse(d)); } catch {}
+    const n = lsGet("notes");     if (n) try { setRunNotes(JSON.parse(n)); } catch {}
+    const p = lsGet("practice");  if (p === "true") setPracticeDone(true);
+  },[]);
+
+  const persist = (newDone, newNotes) => {
+    lsSet("done", JSON.stringify(newDone));
+    lsSet("notes", JSON.stringify(newNotes));
+    setSaved(true);
+    setTimeout(()=>setSaved(false), 1500);
+  };
+
+  const toggleDone = (key) => {
+    const nd = {...done, [key]: !done[key]};
+    setDone(nd); persist(nd, runNotes);
+  };
+
+  const saveNote = (key) => {
+    const nn = {...runNotes, [key]: noteText};
+    setRunNotes(nn); persist(done, nn);
+    setEditingNote(null); setNoteText("");
+  };
+
+  const togglePractice = () => {
+    const v = !practiceDone;
+    setPracticeDone(v);
+    lsSet("practice", String(v));
+  };
+
+  const totalRuns = useMemo(() => WEEKS.reduce((a,w) =>
+    a + w.runs.filter(r => r.i !== "Rest" && !r.i.includes("RACE")).length, 0), []);
+  const doneCount = Object.values(done).filter(Boolean).length;
+  const pct = Math.round((doneCount/totalRuns) * 100);
+
+  /* current week index */
+  const currentWeek = useMemo(() => {
+    for (const w of WEEKS) {
+      const s = new Date(WEEK1_START); s.setDate(s.getDate() + (w.w-1)*7 - 1);
+      const e = new Date(s); e.setDate(s.getDate()+7);
+      if (TODAY >= s && TODAY < e) return w.w;
+    }
+    return TODAY < WEEK1_START ? 1 : 19;
+  }, []);
+
+  /* keep openWeek synced to current week on first mount */
+  useEffect(() => { setOpenWeek(currentWeek); }, [currentWeek]);
+
+  return (
+    <div style={{minHeight:"100vh", paddingBottom:60}}>
+      <Hero
+        doneCount={doneCount}
+        totalRuns={totalRuns}
+        pct={pct}
+        currentWeek={currentWeek}
+        saved={saved}
+      />
+      <PracticeBanner done={practiceDone} onToggle={togglePractice}/>
+      <TabBar tab={tab} setTab={setTab}/>
+
+      <main className="container" style={{padding:"0 16px"}}>
+        {tab === "week"   && <MyWeekTab/>}
+        {tab === "plan"   && <RunPlanTab
+            openWeek={openWeek} setOpenWeek={setOpenWeek}
+            done={done} toggleDone={toggleDone}
+            runNotes={runNotes}
+            editingNote={editingNote} setEditingNote={setEditingNote}
+            noteText={noteText} setNoteText={setNoteText}
+            saveNote={saveNote}
+          />}
+        {tab === "cross"  && <TrainingTab openCross={openCross} setOpenCross={setOpenCross}/>}
+        {tab === "diet"   && <DietTab openDiet={openDiet} setOpenDiet={setOpenDiet}/>}
+        {tab === "prehab" && <PrehabTab/>}
+      </main>
+
+      <footer style={{
+        padding:"30px 20px 24px", textAlign:"center",
+        color:"var(--paper-faint)", fontSize:11, letterSpacing:"0.04em"
+      }}>
+        <div className="serif-i" style={{fontSize:18, color:"var(--paper-dim)", marginBottom:4}}>
+          One run at a time.
+        </div>
+        21.0975 km · Berlin · 04.10.2025
+      </footer>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
+</script>
+</body>
+</html>
