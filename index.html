@@ -6,7 +6,7 @@
   <title>Half Marathon · Berlin · 04.10.26</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
@@ -41,7 +41,7 @@
     html,body{ background:var(--ink); color:var(--paper); }
     html{ font-size:16px; -webkit-text-size-adjust:100%; }
     body{
-      font-family:'Manrope', system-ui, sans-serif;
+      font-family:'Plus Jakarta Sans', system-ui, sans-serif;
       font-feature-settings:'ss01','cv11';
       letter-spacing:-0.005em;
       min-height:100vh;
@@ -52,7 +52,7 @@
         var(--ink);
     }
     button{ cursor:pointer; font-family:inherit; color:inherit; }
-    textarea{ font-family:'Manrope', system-ui, sans-serif; }
+    textarea{ font-family:'Plus Jakarta Sans', system-ui, sans-serif; }
 
     /* Paper-noise texture for tactile cards */
     .grain{
@@ -134,24 +134,22 @@
 
     /* Hero number tabular alignment */
     .data-num{
-      font-family:'Bricolage Grotesque','Manrope', sans-serif;
-      font-variation-settings:'wdth' 80, 'opsz' 96;
+      font-family:'Space Grotesk','Plus Jakarta Sans', sans-serif;
       font-feature-settings:'tnum','lnum';
       letter-spacing:-0.04em;
       line-height:0.9;
     }
     .data-num-tight{
-      font-family:'Bricolage Grotesque','Manrope', sans-serif;
-      font-variation-settings:'wdth' 75, 'opsz' 32;
+      font-family:'Space Grotesk','Plus Jakarta Sans', sans-serif;
       font-feature-settings:'tnum','lnum';
       letter-spacing:-0.02em;
     }
-    .serif{ font-family:'Instrument Serif', Georgia, serif; font-weight:400; }
-    .serif-i{ font-family:'Instrument Serif', Georgia, serif; font-style:italic; font-weight:400; }
+    .serif{ font-family:'DM Serif Display', Georgia, serif; font-weight:400; }
+    .serif-i{ font-family:'DM Serif Display', Georgia, serif; font-style:italic; font-weight:400; }
     .mono-cap{
-      font-family:'Manrope', sans-serif;
-      font-weight:600;
-      letter-spacing:0.22em;
+      font-family:'Plus Jakarta Sans', sans-serif;
+      font-weight:700;
+      letter-spacing:0.20em;
       text-transform:uppercase;
       font-size:10px;
     }
@@ -161,7 +159,7 @@
       display:inline-flex; align-items:center; gap:6px;
       padding:3px 9px;
       border-radius:999px;
-      font-family:'Manrope', sans-serif;
+      font-family:'Plus Jakarta Sans', sans-serif;
       font-size:10.5px; font-weight:600;
       letter-spacing:0.04em;
       background:rgba(241,232,210,0.06);
@@ -990,7 +988,7 @@ function RunRow({run, w, isDone, toggle, note, isEditing, onEdit, onCancel, onSa
         </div>
         <div style={{
           fontSize: isRace ? 18 : 14.5,
-          fontFamily: isRace ? "'Instrument Serif', serif" : "inherit",
+          fontFamily: isRace ? "'DM Serif Display', serif" : "inherit",
           fontStyle: isRace ? "italic" : "normal",
           fontWeight: isRace ? 400 : 600,
           color: isRace ? "var(--amber-hot)" : isDone ? "var(--paper)" : "var(--paper)",
@@ -1008,7 +1006,7 @@ function RunRow({run, w, isDone, toggle, note, isEditing, onEdit, onCancel, onSa
         {run.n && (
           <div style={{
             fontSize:12, color:"var(--paper-dim)", marginTop:7,
-            fontStyle:"italic", lineHeight:1.5, fontFamily:"'Instrument Serif', serif",
+            fontStyle:"italic", lineHeight:1.5, fontFamily:"'DM Serif Display', serif",
             fontWeight:400, fontSize:13.5
           }}>{run.n}</div>
         )}
@@ -1038,7 +1036,7 @@ function RunRow({run, w, isDone, toggle, note, isEditing, onEdit, onCancel, onSa
                 </svg>
                 <span style={{
                   fontStyle: note ? "italic" : "normal",
-                  fontFamily: note ? "'Instrument Serif',serif" : "inherit",
+                  fontFamily: note ? "'DM Serif Display',serif" : "inherit",
                   fontSize: note ? 14 : 12,
                   color: note ? "var(--paper-mute)" : "var(--paper-faint)",
                   lineHeight:1.5
@@ -1097,7 +1095,7 @@ function TrainingTab({openCross, setOpenCross}){
                     borderRadius:10
                   }}>
                     <div className="mono-cap" style={{color:s.accent}}>One tip</div>
-                    <div style={{fontSize:13, color:"var(--paper-mute)", marginTop:6, lineHeight:1.55, fontFamily:"'Instrument Serif',serif", fontStyle:"italic", fontSize:14.5}}>
+                    <div style={{fontSize:13, color:"var(--paper-mute)", marginTop:6, lineHeight:1.55, fontFamily:"'DM Serif Display',serif", fontStyle:"italic", fontSize:14.5}}>
                       “{s.tip}”
                     </div>
                   </div>
@@ -1203,7 +1201,7 @@ function PrehabTab(){
                 background:"rgba(241,232,210,0.06)",
                 border:"1px solid var(--line)",
                 color:"var(--paper)", flexShrink:0,
-                fontFamily:"'Bricolage Grotesque', sans-serif",
+                fontFamily:"'Space Grotesk', sans-serif",
                 fontWeight:700, fontSize:13,
                 letterSpacing:"-0.01em",
                 fontVariantNumeric:"tabular-nums"
