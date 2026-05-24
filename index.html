@@ -1248,6 +1248,128 @@ function PrehabTab(){
           Ask about a <span style={{color:"var(--paper)"}}>nasal steroid spray</span> (Mometason — cheap on prescription in Germany). Takes 2–4 weeks to work. Book now and Zone 2 breathing transforms by Week 4.
         </div>
       </div>
+
+      <AppleWatchCard/>
+    </div>
+  );
+}
+
+function AppleWatchCard(){
+  const WatchIco = () => (
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="6.5" y="4.5" width="11" height="15" rx="3.5"/>
+      <path d="M9 2.5h6M9 21.5h6"/>
+      <path d="M9.5 12h3M9.5 9.5h5M9.5 14.5h3.5"/>
+    </svg>
+  );
+
+  const sections = [
+    {
+      label:"Training runs · Custom Workout",
+      color:"#4DB8F5",
+      steps:[
+        {t:"Create the workout once, reuse all plan",    d:"Workout app → scroll to bottom → Create Workout → Running · Interval"},
+        {t:"Set your Work phase",                        d:"Tap Work → Goal: Time → set to your current week's run interval (e.g. 2 min). Pace: none — HR is your guide."},
+        {t:"Set your Recovery phase",                    d:"Tap Recovery → Goal: Time → set walk interval (e.g. 60 s). Keep it walking pace."},
+        {t:"Repetitions: 999",                          d:"Enough to cover any run. It'll end when you stop the workout."},
+        {t:"Auto-Pause: OFF",                           d:"Settings → Workout → Auto-Pause → Off. Critical — the watch will pause during walk breaks otherwise and mess up your stats."},
+        {t:"Every week: update the intervals",           d:"Edit the workout as your intervals change — takes 20 seconds. Keeps your stats clean."},
+      ]
+    },
+    {
+      label:"Race night · Setup checklist",
+      color:"#F5A028",
+      steps:[
+        {t:"Charge to 100%",                            d:"Plug in before dinner. An Outdoor Run for ~3 hours uses roughly 30% on Series 7+."},
+        {t:"Always On Display: ON",                     d:"Watch Settings → Display & Brightness → Always On. You want to glance HR without raising your wrist mid-stride."},
+        {t:"Wake on Wrist Raise: Crown Side Up",        d:"Settings → General → Orientation → Crown on left if wearing on right wrist. Makes raise-to-wake more reliable while running."},
+        {t:"Do Not Disturb: ON",                        d:"Set it before bed so it carries to race morning. Notifications kill focus."},
+        {t:"Heart Rate notifications: OFF",             d:"Settings → Heart Rate → High HR Notifications → Off. You'll be managing HR manually — alerts just distract."},
+        {t:"Low Power Mode: OFF",                       d:"You need continuous HR and full GPS. Low Power halves sampling rate."},
+      ]
+    },
+    {
+      label:"Race morning · On the start line",
+      color:"#5EC95A",
+      steps:[
+        {t:"Start Outdoor Run — not Custom Workout",    d:"On race day use the standard Outdoor Run. No interval pressure. You'll run by feel + HR, not a beep."},
+        {t:"Set up your metrics screen",                d:"Swipe to configure: Row 1 → Heart Rate (large). Row 2 → Current Pace. Row 3 → Distance. Row 4 → Elapsed Time."},
+        {t:"Start 5 minutes before the gun",            d:"Lets GPS lock properly before you cross the start mat. Don't skip this — first km pace data will be garbage if you don't."},
+        {t:"Lock the screen",                           d:"Side button hold → Lock. Prevents accidental taps when your wrist brushes your body."},
+      ]
+    },
+    {
+      label:"During the race · HR rules",
+      color:"#FF5A35",
+      steps:[
+        {t:"Zone 2: 115–135 bpm for first 6km",        d:"Ignore everyone overtaking you. Your engine is small right now. Zone 2 early means you finish strong."},
+        {t:"Hit 140 → walk immediately",                d:"Don't negotiate. Walk until 125, then resume running. This is your race strategy — not a failure."},
+        {t:"Check HR at every km marker",               d:"Make it a habit. 1km mark → glance watch → all good → continue. Keeps you honest."},
+        {t:"Don't check pace until km 10",              d:"Pace is a trap early in a race. Run by HR only for the first half. Check time at 10km if curious."},
+        {t:"Final 3km: run by feel",                    d:"HR will spike as adrenaline kicks in. Ignore it. Run by perceived effort — you know your body by now."},
+      ]
+    },
+  ];
+
+  const [open, setOpen] = React.useState(null);
+
+  return (
+    <div className="card grain grain-dark" style={{
+      marginTop:14, overflow:"hidden",
+      borderColor:"rgba(77,184,245,0.38)"
+    }}>
+      <div style={{padding:"16px 18px 14px"}}>
+        <div style={{display:"flex", alignItems:"center", gap:10, marginBottom:4}}>
+          <div style={{
+            width:36, height:36, borderRadius:10, flexShrink:0,
+            background:"rgba(77,184,245,0.12)", border:"1px solid rgba(77,184,245,0.35)",
+            display:"grid", placeItems:"center", color:"#4DB8F5"
+          }}><WatchIco/></div>
+          <div>
+            <div className="mono-cap" style={{color:"#4DB8F5"}}>Apple Watch · Race Setup</div>
+            <div style={{fontSize:12, color:"var(--paper-dim)", marginTop:2}}>4 sections · tap to expand</div>
+          </div>
+        </div>
+      </div>
+
+      <div style={{borderTop:"1px solid var(--line)"}}>
+        {sections.map((s,si) => {
+          const isOpen = open === si;
+          return (
+            <div key={si} style={{borderBottom: si < sections.length-1 ? "1px solid var(--line)" : "none"}}>
+              <button onClick={()=>setOpen(isOpen?null:si)} style={{
+                width:"100%", background:"transparent", border:"none",
+                padding:"13px 18px", textAlign:"left",
+                display:"flex", alignItems:"center", gap:12
+              }}>
+                <div style={{width:8, height:8, borderRadius:"50%", background:s.color, flexShrink:0, boxShadow:`0 0 8px ${s.color}`}}/>
+                <span style={{flex:1, fontSize:13.5, fontWeight:600, color:"var(--paper)"}}>{s.label}</span>
+                <Chev open={isOpen}/>
+              </button>
+              {isOpen && (
+                <div className="fade-in" style={{padding:"4px 18px 16px", background:"rgba(0,0,0,0.18)"}}>
+                  {s.steps.map((step,i) => (
+                    <div key={i} style={{
+                      display:"flex", gap:14, alignItems:"flex-start",
+                      padding:"10px 0",
+                      borderBottom: i < s.steps.length-1 ? "1px dashed var(--line)" : "none"
+                    }}>
+                      <div className="data-num-tight" style={{
+                        fontSize:13, color:s.color, flexShrink:0, width:20,
+                        paddingTop:2, opacity:0.9
+                      }}>{String(i+1).padStart(2,"0")}</div>
+                      <div>
+                        <div style={{fontSize:13.5, fontWeight:600, color:"var(--paper)", lineHeight:1.3}}>{step.t}</div>
+                        <div style={{fontSize:12.5, color:"var(--paper-mute)", marginTop:4, lineHeight:1.6}}>{step.d}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
