@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
-  <title>Half Marathon · Berlin · 04.10.25</title>
+  <title>Half Marathon · Berlin · 04.10.26</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -281,8 +281,8 @@
 const { useState, useEffect, useMemo } = React;
 
 /* ───────── DATES ───────── */
-const WEEK1_START = new Date("2025-05-27");
-const RACE_DATE   = new Date("2025-10-04");
+const WEEK1_START = new Date("2026-05-27");
+const RACE_DATE   = new Date("2026-10-04");
 const TODAY       = new Date();
 TODAY.setHours(0,0,0,0);
 const DTR = Math.max(0, Math.floor((RACE_DATE - TODAY) / 86400000));
@@ -1361,7 +1361,7 @@ function App(){
         <div className="serif-i" style={{fontSize:18, color:"var(--paper-dim)", marginBottom:4}}>
           One run at a time.
         </div>
-        21.0975 km · Berlin · 04.10.2025
+        21.0975 km · Berlin · 04.10.2026
       </footer>
     </div>
   );
