@@ -370,19 +370,19 @@ const WEEKS = [
   {w:13,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
     {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
     {d:"Thu",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:"Duramo SL2."},
-    {d:"Sat",i:"2min run / 75s walk",t:"96 min",km:"~11.2km",n:"First 11km. Huge milestone. Go slow — your body will surprise you."}]},
+    {d:"Sat",i:"2min run / 75s walk",t:"96 min",km:"~11.2km",n:"First 11km. Huge milestone. Target 7:30/km — slower than race pace. Building distance, not speed."}]},
   {w:14,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
     {d:"Tue",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:""},
     {d:"Thu",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"110 min",km:"~13.0km",n:"13km. Over halfway to race distance. This is your biggest confidence run."}]},
+    {d:"Sat",i:"2min run / 60s walk",t:"110 min",km:"~13.0km",n:"13km. Over halfway. First 11km at 7:20/km — last 2km at race pace (7:05/km). First taste of how 2h30 feels."}]},
   {w:15,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
     {d:"Tue",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:""},
     {d:"Thu",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"122 min",km:"~14.5km",n:"Peak run. 14.5km. After this you know you can finish race day. Take it very slow."}]},
+    {d:"Sat",i:"2min run / 60s walk",t:"122 min",km:"~14.5km",n:"Peak run. First 10km at 7:20/km. Last 4.5km at race pace (7:05/km). Dress rehearsal for 2h30 — if this feels good, 2h15 is on the table race day."}]},
   {w:16,phase:"Taper",shoe:"Mixed",deload:false,runs:[
     {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Taper begins. The drop in volume feels wrong — it isn't."},
     {d:"Thu",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"100 min",km:"~12.0km",n:"Last long run over 10km. Keep it easy — legs should feel fresh at the end."}]},
+    {d:"Sat",i:"2min run / 60s walk",t:"100 min",km:"~12.0km",n:"Last long run over 10km. Hold goal pace 7:05/km throughout. Should feel sustainable — that's the whole point."}]},
   {w:17,phase:"Taper",shoe:"Mixed",deload:false,runs:[
     {d:"Tue",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Trust the taper."},
     {d:"Thu",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Boston 12. Last medium run."},
@@ -397,7 +397,7 @@ const WEEKS = [
     {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
     {d:"Thu",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
     {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear tonight."},
-    {d:"Sat",i:"RACE DAY",        t:"~2h45",  km:"21.1km",n:"Zone 2 first 6km. Then run by feel. You've got this."}]},
+    {d:"Sat",i:"RACE DAY",        t:"~2h30",  km:"21.1km",n:"Open at 7:05/km, Zone 2 first 6km. Km 6–12 by feel. At km 12: if HR steady and shins quiet, push toward 2h15 (6:25/km). Otherwise hold for a safe 2h30. You've got this."}]},
 ];
 
 /* SVG icons for cross-training — line icons, no emoji */
@@ -550,7 +550,7 @@ function Hero({doneCount, totalRuns, pct, currentWeek, saved}){
               fontSize:12, color:"var(--paper-dim)", marginTop:8, letterSpacing:"0.02em",
               fontWeight:500
             }}>
-              Galloway Method · Zone 2 · 19-week build
+              Goal 2h30 · Stretch 2h15 · 19-week Galloway build
             </div>
           </div>
 
@@ -805,8 +805,41 @@ function MyWeekTab(){
         })}
       </div>
 
+      {/* Race Targets card */}
+      <div className="card grain grain-dark" style={{marginTop:18, padding:"18px 18px 16px", borderColor:"rgba(245,160,40,0.34)"}}>
+        <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:14}}>
+          <div className="mono-cap" style={{color:"var(--amber)"}}>Race targets · Berlin 04.10</div>
+          <span className="chip chip-amber">21.0975 km</span>
+        </div>
+
+        <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:0, borderTop:"1px solid var(--line)", borderBottom:"1px solid var(--line)"}}>
+          <div style={{padding:"14px 0 14px 0"}}>
+            <div className="mono-cap" style={{color:"var(--paper-faint)"}}>Target</div>
+            <div className="data-num" style={{fontSize:"clamp(38px, 9vw, 52px)", color:"var(--paper)", marginTop:4, letterSpacing:"-0.04em"}}>
+              2:30
+            </div>
+            <div style={{fontSize:11.5, color:"var(--paper-dim)", marginTop:3, fontFamily:"'Space Grotesk', sans-serif", letterSpacing:"-0.01em"}}>
+              7:05 /km avg
+            </div>
+          </div>
+          <div style={{padding:"14px 0 14px 18px", borderLeft:"1px solid var(--line)"}}>
+            <div className="mono-cap" style={{color:"var(--amber)"}}>Stretch</div>
+            <div className="data-num" style={{fontSize:"clamp(38px, 9vw, 52px)", color:"var(--amber-hot)", marginTop:4, letterSpacing:"-0.04em", textShadow:"0 0 24px rgba(245,160,40,0.4)"}}>
+              2:15
+            </div>
+            <div style={{fontSize:11.5, color:"var(--paper-dim)", marginTop:3, fontFamily:"'Space Grotesk', sans-serif", letterSpacing:"-0.01em"}}>
+              6:25 /km avg
+            </div>
+          </div>
+        </div>
+
+        <div className="serif-i" style={{fontSize:14, color:"var(--paper-mute)", lineHeight:1.7, marginTop:14}}>
+          "Open at target pace. At km 12 — if HR is steady and shins are quiet — pick it up toward stretch. Otherwise hold for a safe 2h30."
+        </div>
+      </div>
+
       {/* Rules card */}
-      <div className="card grain grain-dark" style={{marginTop:18, padding:"18px 18px 14px"}}>
+      <div className="card grain grain-dark" style={{marginTop:14, padding:"18px 18px 14px"}}>
         <div className="mono-cap" style={{color:"var(--amber)"}}>Three rules that override everything</div>
         <div style={{marginTop:14, display:"flex", flexDirection:"column", gap:12}}>
           {[
