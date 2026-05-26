@@ -1470,7 +1470,7 @@ Style: coach texting a friend — short paragraphs, warm but direct, never gener
 
     try{
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=AIzaSyAyiH73VVX4VsgrJRjOchsS7PI6atKRuks`,
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=AIzaSyAyiH73VVX4VsgrJRjOchsS7PI6atKRuks`,
         {method:"POST", headers:{"Content-Type":"application/json"},
           body:JSON.stringify({
             systemInstruction:{parts:[{text:system}]},
@@ -1480,10 +1480,22 @@ Style: coach texting a friend — short paragraphs, warm but direct, never gener
         }
       );
       const data = await res.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      setMessages(prev=>[...prev,{role:"ai", text:text||"Something went wrong — try again?"}]);
+      if (!res.ok || data.error) {
+        const msg = data.error?.message || `HTTP ${res.status}`;
+        setMessages(prev=>[...prev,{role:"ai", text:`API error: ${msg}`}]);
+        return;
+      }
+      const cand = data.candidates?.[0];
+      const text = cand?.content?.parts?.map(p=>p.text).filter(Boolean).join("\n");
+      if (text) {
+        setMessages(prev=>[...prev,{role:"ai", text}]);
+      } else if (cand?.finishReason && cand.finishReason !== "STOP") {
+        setMessages(prev=>[...prev,{role:"ai", text:`Response blocked (${cand.finishReason}). Try rephrasing or a different screenshot.`}]);
+      } else {
+        setMessages(prev=>[...prev,{role:"ai", text:"Empty response from model. Try again?"}]);
+      }
     }catch(e){
-      setMessages(prev=>[...prev,{role:"ai", text:"Connection issue. Check internet and try again."}]);
+      setMessages(prev=>[...prev,{role:"ai", text:`Connection issue: ${e.message}`}]);
     }finally{ setLoading(false); }
   };
 
