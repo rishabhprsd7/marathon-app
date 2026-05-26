@@ -284,7 +284,7 @@
 const { useState, useEffect, useMemo, useRef } = React;
 
 /* ───────── DATES ───────── */
-const WEEK1_START = new Date("2026-05-27");
+const WEEK1_START = new Date("2026-05-25");
 const RACE_DATE   = new Date("2026-10-04");
 const TODAY       = new Date();
 TODAY.setHours(0,0,0,0);
@@ -292,13 +292,21 @@ const DTR = Math.max(0, Math.floor((RACE_DATE - TODAY) / 86400000));
 const STORAGE_PREFIX = "hm2025_";
 
 function runDate(week, day){
-  const off = { Tue:0, Thu:2, Sat:4, Mon:-1, Wed:1, Fri:3, Sun:5 };
+  const off = { Mon:0, Tue:1, Wed:2, Thu:3, Fri:4, Sat:5, Sun:6 };
   const d = new Date(WEEK1_START);
   d.setDate(d.getDate() + (week-1)*7 + (off[day] ?? 0));
   return d;
 }
 function fmt(d){ return new Date(d).toLocaleDateString("en-GB",{ day:"numeric", month:"short" }); }
 function fmtLong(d){ return new Date(d).toLocaleDateString("en-GB",{ weekday:"long", day:"numeric", month:"long" }); }
+function weekRange(weekNum){
+  const s = new Date(WEEK1_START); s.setDate(s.getDate() + (weekNum-1)*7);
+  const e = new Date(s); e.setDate(s.getDate() + 6);
+  const sameMonth = s.getMonth() === e.getMonth();
+  const sd = s.toLocaleDateString("en-GB",{day:"numeric"});
+  const ed = e.toLocaleDateString("en-GB",{day:"numeric", month:"short"});
+  return sameMonth ? `${sd}–${ed}` : `${s.toLocaleDateString("en-GB",{day:"numeric",month:"short"})} – ${ed}`;
+}
 function isToday(d){ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime()===TODAY.getTime(); }
 function isPast(d){ const x=new Date(d); x.setHours(0,0,0,0); return x.getTime()<TODAY.getTime(); }
 
@@ -394,10 +402,11 @@ const WEEKS = [
   {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
     {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
     {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
-    {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
-    {d:"Thu",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Carb load at dinner."},
-    {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear tonight."},
-    {d:"Sat",i:"RACE DAY",        t:"~2h30",  km:"21.1km",n:"Open at 7:05/km, Zone 2 first 6km. Km 6–12 by feel. At km 12: if HR steady and shins quiet, push toward 2h15 (6:25/km). Otherwise hold for a safe 2h30. You've got this."}]},
+    {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Hydrate."},
+    {d:"Thu",i:"60s / 120s walk", t:"12 min", km:"~1.2km",n:"Final shakeout. Loose legs, then done."},
+    {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Carb-load lunch & dinner."},
+    {d:"Sat",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear. Bib, shoes, gels, watch charged. Early to bed."},
+    {d:"Sun",i:"RACE DAY",        t:"~2h30",  km:"21.1km",n:"Open at 7:05/km, Zone 2 first 6km. Km 6–12 by feel. At km 12: if HR steady and shins quiet, push toward 2h15 (6:25/km). Otherwise hold for a safe 2h30. You've got this."}]},
 ];
 
 /* SVG icons for cross-training — line icons, no emoji */
@@ -888,7 +897,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
           const pc = PHASE_COLOR[w.phase] || "#888";
           const isOpen = openWeek === w.w;
           const wStart = new Date(WEEK1_START);
-          wStart.setDate(wStart.getDate() + (w.w-1)*7 - 1);
+          wStart.setDate(wStart.getDate() + (w.w-1)*7);
           const wEnd = new Date(wStart); wEnd.setDate(wStart.getDate()+7);
           const isCurrent = TODAY >= wStart && TODAY < wEnd;
           const wRuns = w.runs.filter(r => r.i !== "Rest" && !r.i.includes("RACE"));
@@ -924,7 +933,14 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
                     {allDone && <span className="chip chip-sage">✓ done</span>}
                   </div>
                   <div style={{
-                    fontSize:11.5, color:"var(--paper-dim)", marginTop:4,
+                    fontSize:11.5, color: isCurrent ? "var(--amber)" : "var(--paper-faint)",
+                    marginTop:4, fontVariantNumeric:"tabular-nums",
+                    fontFamily:"'Space Grotesk', sans-serif", letterSpacing:"-0.005em"
+                  }}>
+                    {weekRange(w.w)}
+                  </div>
+                  <div style={{
+                    fontSize:11.5, color:"var(--paper-dim)", marginTop:3,
                     fontVariantNumeric:"tabular-nums"
                   }}>
                     <span style={{color:pc}}>●</span> &nbsp;{wDone}/{wRuns.length} runs · {weekKm} km · {w.shoe}
@@ -1423,7 +1439,7 @@ function CoachTab(){
 
   const currentWeek = useMemo(()=>{
     for(const w of WEEKS){
-      const s=new Date(WEEK1_START); s.setDate(s.getDate()+(w.w-1)*7-1);
+      const s=new Date(WEEK1_START); s.setDate(s.getDate()+(w.w-1)*7);
       const e=new Date(s); e.setDate(s.getDate()+7);
       if(TODAY>=s && TODAY<e) return w.w;
     }
@@ -1694,7 +1710,7 @@ function AICoachCard(){
 
   const currentWeek = useMemo(()=>{
     for(const w of WEEKS){
-      const s=new Date(WEEK1_START); s.setDate(s.getDate()+(w.w-1)*7-1);
+      const s=new Date(WEEK1_START); s.setDate(s.getDate()+(w.w-1)*7);
       const e=new Date(s); e.setDate(s.getDate()+7);
       if(TODAY>=s && TODAY<e) return w.w;
     }
@@ -1859,7 +1875,7 @@ function App(){
   /* current week index */
   const currentWeek = useMemo(() => {
     for (const w of WEEKS) {
-      const s = new Date(WEEK1_START); s.setDate(s.getDate() + (w.w-1)*7 - 1);
+      const s = new Date(WEEK1_START); s.setDate(s.getDate() + (w.w-1)*7);
       const e = new Date(s); e.setDate(s.getDate()+7);
       if (TODAY >= s && TODAY < e) return w.w;
     }
