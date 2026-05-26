@@ -333,12 +333,13 @@ const WEEKS = [
     {d:"Sat",i:"30s run / 90s walk", t:"25 min",km:"~2.2km",n:"First long run. Zone 2 only."}]},
   {w:2, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"30s run / 120s walk",t:"22 min",km:"~1.8km",n:"Consistency over speed."},
-    {d:"Thu",i:"30s run / 90s walk", t:"24 min",km:"~2.0km",n:"First interval upgrade. Watch shins."},
-    {d:"Sat",i:"30s run / 90s walk", t:"28 min",km:"~2.5km",n:"Zone 2 the whole way."}]},
-  {w:3, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"24 min",km:"~2.2km",n:"Bigger upgrade. Revert to 30s if shin pain."},
-    {d:"Thu",i:"45s run / 90s walk", t:"26 min",km:"~2.4km",n:"Short strides. Land softly."},
-    {d:"Sat",i:"45s run / 90s walk", t:"34 min",km:"~3.2km",n:"First 3km+. Real milestone."}]},
+    {d:"Thu",i:"30s run / 90s walk", t:"26 min",km:"~2.2km",n:"First interval upgrade. Watch shins."},
+    {d:"Sat",i:"30s run / 90s walk", t:"38 min",km:"~3.5km",n:"Biggest run yet — and your rehearsal for next Sunday's 5K. Same intervals you'll race with. Stay Zone 2."}]},
+  {w:3, phase:"Foundation",shoe:"Duramo SL2",deload:false,tuneup:"5K SUN",runs:[
+    {d:"Tue",i:"45s run / 90s walk", t:"20 min",km:"~1.8km",n:"Sharpening week begins. Slightly lighter — saving legs for Sunday."},
+    {d:"Thu",i:"45s run / 90s walk", t:"18 min",km:"~1.6km",n:"Short and sharp. Last quality session before the race."},
+    {d:"Sat",i:"30s run / 90s walk", t:"12 min",km:"~1.0km",n:"Pre-race shakeout. Very gentle. Hydrate, lay out gear (bib, shoes, watch charged), early bed — you've got a 4:30 AM start."},
+    {d:"Sun",i:"5K TUNE-UP RACE",    t:"~50 min",km:"5.0km",  n:"🏁 04:30 AM. Use your 45s/90s intervals — no heroics. Goal: finish, not race. Going out fast is the #1 first-race mistake. Hold Zone 2 first 3km, run by feel km 3–5. Banked confidence for the half."}]},
   {w:4, phase:"Foundation",shoe:"Duramo SL2",deload:true,runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Deload week. Volume drops 20%."},
     {d:"Thu",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Focus on posture. Short strides."},
@@ -814,8 +815,37 @@ function MyWeekTab(){
         })}
       </div>
 
+      {/* Tune-up race countdown */}
+      {(() => {
+        const fiveK = new Date("2026-06-14"); fiveK.setHours(0,0,0,0);
+        const days = Math.floor((fiveK - TODAY) / 86400000);
+        if (days < 0) return null;
+        const label = days === 0 ? "TODAY" : days === 1 ? "tomorrow" : `in ${days} days`;
+        return (
+          <div className="card grain grain-dark" style={{marginTop:18, padding:"14px 18px 14px", borderColor:"rgba(255,128,96,0.32)"}}>
+            <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", gap:12}}>
+              <div style={{minWidth:0}}>
+                <div className="mono-cap" style={{color:"#FF8060"}}>Tune-up race · {label}</div>
+                <div style={{fontSize:17, color:"var(--paper)", marginTop:6, fontWeight:600, letterSpacing:"-0.01em"}}>
+                  5K · Sunday 14 June
+                </div>
+                <div style={{fontSize:11.5, color:"var(--paper-dim)", marginTop:3, fontFamily:"'Space Grotesk', sans-serif"}}>
+                  04:30 AM start · 45s / 90s intervals · Zone 2
+                </div>
+              </div>
+              <div style={{textAlign:"right", flexShrink:0}}>
+                <div className="data-num-tight" style={{fontSize:34, color:"#FF8060", lineHeight:1, textShadow:"0 0 20px rgba(255,128,96,0.3)"}}>
+                  {days === 0 ? "🏁" : days}
+                </div>
+                {days > 0 && <div className="mono-cap" style={{color:"var(--paper-faint)", marginTop:3}}>{days === 1 ? "day" : "days"}</div>}
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* Race Targets card */}
-      <div className="card grain grain-dark" style={{marginTop:18, padding:"18px 18px 16px", borderColor:"rgba(245,160,40,0.34)"}}>
+      <div className="card grain grain-dark" style={{marginTop:14, padding:"18px 18px 16px", borderColor:"rgba(245,160,40,0.34)"}}>
         <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", marginBottom:14}}>
           <div className="mono-cap" style={{color:"var(--amber)"}}>Race targets · Berlin 04.10</div>
           <span className="chip chip-amber">21.0975 km</span>
@@ -929,6 +959,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
                   <div style={{display:"flex", alignItems:"center", gap:8, flexWrap:"wrap"}}>
                     <span style={{fontSize:15, fontWeight:600, color:"var(--paper)"}}>{w.phase}</span>
                     {w.deload && <span className="chip" style={{color:"#D2B58C", borderColor:"rgba(210,181,140,0.3)"}}>DELOAD</span>}
+                    {w.tuneup && <span className="chip chip-rust">{w.tuneup}</span>}
                     {isCurrent && <span className="chip chip-amber"><span className="live" style={{display:"inline-block",width:0}}/>NOW</span>}
                     {allDone && <span className="chip chip-sage">✓ done</span>}
                   </div>
