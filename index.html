@@ -329,77 +329,77 @@ const WEEK_TEMPLATE = [
 const WEEKS = [
   {w:1, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"30s run / 120s walk",t:"20 min",km:"~1.5km",n:"First official run. Easy. Note shin response."},
-    {d:"Thu",i:"30s run / 120s walk",t:"22 min",km:"~1.7km",n:"Dull ache = normal. Sharp pain = stop."},
+    {d:"Thu",i:"30s run / 120s walk + strides",t:"24 min",km:"~1.7km",n:"After your intervals, walk 2 min, then 4 × 15s strides on flat ground (controlled-fast, not sprint), walk 60s between each. Strides build form — short enough not to stress shins."},
     {d:"Sat",i:"30s run / 90s walk", t:"25 min",km:"~2.2km",n:"First long run. Zone 2 only."}]},
   {w:2, phase:"Foundation",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"30s run / 120s walk",t:"22 min",km:"~1.8km",n:"Consistency over speed."},
-    {d:"Thu",i:"30s run / 90s walk", t:"26 min",km:"~2.2km",n:"First interval upgrade. Watch shins."},
-    {d:"Sat",i:"30s run / 90s walk", t:"38 min",km:"~3.5km",n:"Biggest run yet — and your rehearsal for next Sunday's 5K. Same intervals you'll race with. Stay Zone 2."}]},
+    {d:"Thu",i:"30s run / 90s walk + strides", t:"28 min",km:"~2.2km",n:"First interval upgrade. After intervals: 4 × 15s strides, full recovery between. Watch shins."},
+    {d:"Sat",i:"30s run / 90s walk", t:"38 min",km:"~3.5km",n:"Biggest run yet — and your rehearsal for next Sunday's 5K. After the intervals, finish with 2 min continuous Zone 2 running. First taste of running without a walk break."}]},
   {w:3, phase:"Foundation",shoe:"Duramo SL2",deload:false,tuneup:"5K SUN",runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"20 min",km:"~1.8km",n:"Sharpening week begins. Slightly lighter — saving legs for Sunday."},
-    {d:"Thu",i:"45s run / 90s walk", t:"18 min",km:"~1.6km",n:"Short and sharp. Last quality session before the race."},
+    {d:"Thu",i:"45s run / 90s walk", t:"18 min",km:"~1.6km",n:"Short and sharp. No strides this week — already a taper. Keep intervals crisp."},
     {d:"Sat",i:"30s run / 90s walk", t:"12 min",km:"~1.0km",n:"Pre-race shakeout. Very gentle. Hydrate, lay out gear (bib, shoes, watch charged), early bed — you've got a 4:30 AM start."},
-    {d:"Sun",i:"5K TUNE-UP RACE",    t:"~50 min",km:"5.0km",  n:"🏁 04:30 AM. Use your 45s/90s intervals — no heroics. Goal: finish, not race. Going out fast is the #1 first-race mistake. Hold Zone 2 first 3km, run by feel km 3–5. Banked confidence for the half."}]},
+    {d:"Sun",i:"5K TUNE-UP RACE",    t:"~50 min",km:"5.0km",  n:"🏁 04:30 AM. Use your 45s/90s intervals. Strategy: Galloway intervals km 0–4, hold Zone 2. At km 4, check in — if shins are quiet and HR is steady, drop the walk breaks and run continuous to the finish. That's your negative split. Don't chase anyone off the line. Finishing standing tall is the win."}]},
   {w:4, phase:"Foundation",shoe:"Duramo SL2",deload:true,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Deload week. Volume drops 20%."},
-    {d:"Thu",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Focus on posture. Short strides."},
-    {d:"Sat",i:"45s run / 90s walk", t:"28 min",km:"~2.6km",n:"Short easy deload long run."}]},
+    {d:"Tue",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Recovery week after the 5K. Easy intervals. How are the shins?"},
+    {d:"Thu",i:"45s run / 90s walk + strides", t:"24 min",km:"~2.0km",n:"Focus on posture. After intervals: 4 × 15s strides, full recovery."},
+    {d:"Sat",i:"45s run / 90s walk", t:"28 min",km:"~2.6km",n:"Easy deload long run. Body is absorbing the 5K. Bank the rest."}]},
   {w:5, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"60s run / 90s walk", t:"28 min",km:"~2.8km",n:"60s intervals — your race ratio begins."},
-    {d:"Thu",i:"60s run / 90s walk", t:"30 min",km:"~3.0km",n:"Kickboxing/Bollywood unlocked after this."},
-    {d:"Sat",i:"60s run / 90s walk", t:"44 min",km:"~4.5km",n:"First real long run. Push steady — Zone 2 all the way."}]},
+    {d:"Thu",i:"60s run / 90s walk + strides", t:"32 min",km:"~3.0km",n:"After intervals: 5 × 15s strides. Kickboxing/Bollywood unlocked after this."},
+    {d:"Sat",i:"60s run / 90s walk + finisher", t:"44 min",km:"~4.5km",n:"First real long run. Last 5 min: drop the walk breaks, run continuous Zone 2. New milestone — running without stopping."}]},
   {w:6, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"75s run / 90s walk", t:"30 min",km:"~3.2km",n:"Bumped to 75s — you're ready for it."},
-    {d:"Thu",i:"90s run / 90s walk", t:"32 min",km:"~3.5km",n:"First 90s intervals. Walk fully between — no cheating the rest."},
-    {d:"Sat",i:"75s run / 90s walk", t:"52 min",km:"~5.2km",n:"Biggest run yet. Stay conversational throughout."}]},
+    {d:"Thu",i:"90s run / 90s walk + strides", t:"34 min",km:"~3.5km",n:"First 90s intervals. Walk fully between — no cheating the rest. Finish with 5 × 15s strides."},
+    {d:"Sat",i:"75s run / 90s walk + finisher", t:"52 min",km:"~5.2km",n:"Biggest run yet. Last 6 min continuous Zone 2. Stay conversational throughout."}]},
   {w:7, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"90s run / 75s walk", t:"30 min",km:"~3.4km",n:"Rest is getting shorter — this is intentional."},
-    {d:"Thu",i:"90s run / 75s walk", t:"33 min",km:"~3.8km",n:""},
-    {d:"Sat",i:"90s run / 90s walk", t:"62 min",km:"~6.8km",n:"First proper long run. This is a big milestone — enjoy it."}]},
+    {d:"Thu",i:"90s run / 75s walk + strides", t:"36 min",km:"~3.8km",n:"6 × 15s strides after intervals."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"62 min",km:"~6.8km",n:"First proper long run. Last 8 min continuous Zone 2. This is a big milestone — enjoy it."}]},
   {w:8, phase:"Build",shoe:"Duramo SL2",deload:true,runs:[
     {d:"Tue",i:"90s run / 90s walk", t:"28 min",km:"~3.0km",n:"Deload week — volume drops but intervals hold. Let the body absorb the work."},
-    {d:"Thu",i:"75s run / 90s walk", t:"26 min",km:"~2.8km",n:"Step back. Protect shins."},
-    {d:"Sat",i:"90s run / 90s walk", t:"46 min",km:"~5.0km",n:"Shorter than last week, but same pace. Trust the deload."}]},
+    {d:"Thu",i:"75s run / 90s walk", t:"26 min",km:"~2.8km",n:"Step back. No strides this week. Protect shins."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"46 min",km:"~5.0km",n:"Shorter than last week, last 5 min continuous. Trust the deload."}]},
   {w:9, phase:"Build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"2min run / 90s walk", t:"30 min",km:"~3.5km",n:"2-minute blocks — big jump. This is where it clicks."},
-    {d:"Thu",i:"2min run / 90s walk", t:"33 min",km:"~3.8km",n:"Keep it Zone 2. Breathing should be hard but controlled."},
-    {d:"Sat",i:"90s run / 90s walk", t:"70 min",km:"~7.8km",n:"First 70-min run. Huge. Eat a banana 30 min before."}]},
+    {d:"Thu",i:"2min run / 90s walk + strides", t:"36 min",km:"~3.8km",n:"6 × 20s strides after intervals. Keep it Zone 2 — breathing hard but controlled."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"70 min",km:"~7.8km",n:"First 70-min run. Huge. Last 10 min continuous Zone 2. Eat a banana 30 min before."}]},
   {w:10,phase:"Endurance",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"2min run / 75s walk", t:"32 min",km:"~3.8km",n:""},
-    {d:"Thu",i:"2min run / 75s walk", t:"35 min",km:"~4.2km",n:""},
-    {d:"Sat",i:"2min run / 90s walk", t:"82 min",km:"~9.2km",n:"First 9km. You're running a 10k next month. Stay slow — this is pure time on feet."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"32 min",km:"~3.8km",n:"⭐ New session type. Warm up 10 min Galloway. Then 3 × 90s at controlled-hard pace (you should be able to say 3 words, not 10), 90s walk between. Cool down 5 min. Teaching legs how race effort feels."},
+    {d:"Thu",i:"2min run / 75s walk + strides", t:"38 min",km:"~4.2km",n:"Easy aerobic day. 6 × 20s strides at the end."},
+    {d:"Sat",i:"2min run / 90s walk + finisher", t:"82 min",km:"~9.2km",n:"First 9km. Last 12 min continuous Zone 2. This is pure time on feet — stay slow."}]},
   {w:11,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 75s walk",t:"34 min",km:"~4.0km",n:"⭐ First Boston 12 run. Short only. Watch shins."},
-    {d:"Thu",i:"2min run / 75s walk", t:"36 min",km:"~4.4km",n:"Back to Duramo SL2. Feeling stronger — trust it."},
-    {d:"Sat",i:"2min run / 90s walk", t:"86 min",km:"~9.6km",n:"Cracking 9.5km. You're close to 10."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"34 min",km:"~4.0km",n:"⭐ Boston 12 unboxing run. Warm up 10 min, then 4 × 90s at race effort with 90s walk. Cool down. Short only — watch shins."},
+    {d:"Thu",i:"2min run / 75s walk + strides", t:"38 min",km:"~4.4km",n:"Back to Duramo SL2. Easy Galloway. 6 × 20s strides at end."},
+    {d:"Sat",i:"2min run / 90s walk + finisher", t:"86 min",km:"~9.6km",n:"Cracking 9.5km. Last 14 min continuous Zone 2. You're close to 10."}]},
   {w:12,phase:"Endurance",shoe:"Duramo SL2",deload:true,runs:[
-    {d:"Tue",i:"2min run / 75s walk",t:"32 min",km:"~3.8km",n:"Deload. Body is rebuilding. Sleep extra if you can."},
-    {d:"Thu",i:"2min run / 75s walk", t:"30 min",km:"~3.5km",n:""},
-    {d:"Sat",i:"2min run / 90s walk", t:"66 min",km:"~7.4km",n:"Deload long run — easier than last week but intervals hold."}]},
+    {d:"Tue",i:"2min run / 75s walk",  t:"32 min",km:"~3.8km",n:"Deload — no race-pace this week. Easy intervals only. Body is rebuilding. Sleep extra if you can."},
+    {d:"Thu",i:"2min run / 75s walk",  t:"30 min",km:"~3.5km",n:"Easy. No strides this week."},
+    {d:"Sat",i:"2min run / 90s walk + finisher", t:"66 min",km:"~7.4km",n:"Deload long run, last 10 min continuous Zone 2. Easier than last week — trust it."}]},
   {w:13,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
-    {d:"Thu",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:"Duramo SL2."},
-    {d:"Sat",i:"2min run / 75s walk",t:"96 min",km:"~11.2km",n:"First 11km. Huge milestone. Target 7:30/km — slower than race pace. Building distance, not speed."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"38 min",km:"~4.4km",n:"⭐ Boston 12. Warm up 10 min, then 4 × 2min at race effort with 90s walk. Cool down. This is where pace tolerance starts to stick."},
+    {d:"Thu",i:"2min run / 60s walk + strides", t:"40 min",km:"~4.6km",n:"Easy Galloway, 6 × 20s strides at end. Duramo SL2."},
+    {d:"Sat",i:"2min run / 75s walk + finisher", t:"96 min",km:"~11.2km",n:"First 11km. Huge milestone. Last 16 min continuous Zone 2. Slower than race pace — building durability."}]},
   {w:14,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 60s walk",t:"38 min",km:"~4.6km",n:""},
-    {d:"Thu",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"110 min",km:"~13.0km",n:"13km. Over halfway. First 11km at 7:20/km — last 2km at race pace (7:05/km). First taste of how 2h30 feels."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"40 min",km:"~4.6km",n:"⭐ 5 × 2min at race effort with 90s walk. Sandwich with 10 min warm-up and 5 min cool-down."},
+    {d:"Thu",i:"2min run / 60s walk + strides", t:"42 min",km:"~4.8km",n:"Easy. Boston 12. 6 × 20s strides at end."},
+    {d:"Sat",i:"2min run / 60s walk + finisher", t:"110 min",km:"~13.0km",n:"13km. Over halfway. Last 18 min continuous Zone 2 — building toward running a meaningful stretch of the race without walk breaks."}]},
   {w:15,phase:"Endurance",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:""},
-    {d:"Thu",i:"2min run / 60s walk",t:"40 min",km:"~4.8km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"122 min",km:"~14.5km",n:"Peak run. First 10km at 7:20/km. Last 4.5km at race pace (7:05/km). Dress rehearsal for 2h30 — if this feels good, 2h15 is on the table race day."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"42 min",km:"~4.8km",n:"⭐ Peak race-pace session. 4 × 3min at race effort with 2 min walk. Big confidence builder — this is the rhythm you'll race in."},
+    {d:"Thu",i:"2min run / 60s walk + strides", t:"42 min",km:"~4.8km",n:"Easy. Boston 12. 6 × 20s strides at end."},
+    {d:"Sat",i:"2min run / 60s walk + finisher", t:"122 min",km:"~14.5km",n:"Peak run. Last 20 min continuous Zone 2 — your longest unbroken running yet. If this feels good, race day will go well."}]},
   {w:16,phase:"Taper",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Taper begins. The drop in volume feels wrong — it isn't."},
-    {d:"Thu",i:"2min run / 60s walk",t:"36 min",km:"~4.4km",n:"Boston 12."},
-    {d:"Sat",i:"2min run / 60s walk",t:"100 min",km:"~12.0km",n:"Last long run over 10km. Hold goal pace 7:05/km throughout. Should feel sustainable — that's the whole point."}]},
+    {d:"Tue",i:"Race-pace intervals",  t:"36 min",km:"~4.4km",n:"Taper. Quality stays — 3 × 2min at race effort with 90s walk. Volume drops, sharpness stays."},
+    {d:"Thu",i:"2min run / 60s walk + strides", t:"38 min",km:"~4.4km",n:"Easy. Boston 12. 4 × 20s strides at end."},
+    {d:"Sat",i:"2min run / 60s walk + finisher", t:"100 min",km:"~12.0km",n:"Last long run over 10km. Last 15 min continuous at goal-pace feel. Should feel sustainable — that's the point."}]},
   {w:17,phase:"Taper",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Trust the taper."},
-    {d:"Thu",i:"2min run / 60s walk",t:"30 min",km:"~3.6km",n:"Boston 12. Last medium run."},
-    {d:"Sat",i:"2min run / 75s walk",t:"76 min",km:"~9.0km",n:"Step-down week."}]},
+    {d:"Tue",i:"Race-pace intervals", t:"30 min",km:"~3.6km",n:"Last race-pace session. 3 × 90s at race effort with 90s walk. Sharp, not depleting. Trust the taper."},
+    {d:"Thu",i:"2min run / 60s walk + strides", t:"32 min",km:"~3.6km",n:"Easy. Boston 12. 4 × 15s strides — keep the legs lively."},
+    {d:"Sat",i:"2min run / 75s walk + finisher", t:"76 min",km:"~9.0km",n:"Step-down week. Last 10 min continuous at goal-pace feel. Volume is down — that's the plan."}]},
   {w:18,phase:"Taper",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"25 min",km:"~2.5km",n:"Easy shakeout."},
-    {d:"Thu",i:"60s run / 90s walk", t:"20 min",km:"~2.0km",n:"Light jog only."},
-    {d:"Sat",i:"60s run / 90s walk", t:"30 min",km:"~3.0km",n:"Last run before race week."}]},
+    {d:"Tue",i:"60s run / 90s walk + strides", t:"25 min",km:"~2.5km",n:"Easy shakeout. 4 × 15s strides at end to keep legs alert. Nothing taxing."},
+    {d:"Thu",i:"60s run / 90s walk",  t:"20 min",km:"~2.0km",n:"Light jog only. Zero hero stuff."},
+    {d:"Sat",i:"60s run / 90s walk",  t:"30 min",km:"~3.0km",n:"Last run before race week. Easy and short. The work is done."}]},
   {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
     {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
     {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
@@ -919,8 +919,38 @@ function SectionHead({title, sub}){
 function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingNote, setEditingNote, noteText, setNoteText, saveNote}){
   return (
     <div className="fade-in" style={{padding:"22px 0 8px"}}>
-      <SectionHead title="The plan" sub="19 weeks · Galloway intervals · Zone 2"/>
+      <SectionHead title="The plan" sub="Hybrid · Galloway base + strides + continuous + race-pace"/>
       <PhaseLegend/>
+
+      {/* Methods explainer */}
+      <details className="card grain grain-dark" style={{marginBottom:14, padding:"14px 16px", borderColor:"rgba(94,201,90,0.28)"}}>
+        <summary style={{listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12}}>
+          <div>
+            <div className="mono-cap" style={{color:"var(--sage)"}}>The four tools in this plan</div>
+            <div style={{fontSize:12.5, color:"var(--paper-dim)", marginTop:4}}>Tap to learn what each session type does</div>
+          </div>
+          <span style={{color:"var(--paper-faint)", fontSize:11}}>▾</span>
+        </summary>
+        <div style={{marginTop:14, paddingTop:12, borderTop:"1px solid var(--line)", display:"flex", flexDirection:"column", gap:14}}>
+          {[
+            {n:"Galloway intervals", c:"#5EC95A", w:"Every run", d:"Run/walk pattern (e.g. 60s run / 90s walk). The chassis of the plan. Walk breaks keep impact low — your shins' best friend. You'll race with these too."},
+            {n:"Strides", c:"#B89AC7", w:"After Thu runs (wks 1–18)", d:"4–6 × 15s controlled-fast pickups on flat ground, full recovery between. Too short to stress shins; huge payoff for form, leg turnover, and a faster top gear."},
+            {n:"Continuous-run finisher", c:"#4DB8F5", w:"End of Sat long runs (wks 5–17)", d:"After the intervals, drop the walk breaks and run continuous Zone 2. Starts at 5 min, builds to 20 min. Trains your body to run without stopping — the actual unlock for faster finish times."},
+            {n:"Race-pace intervals", c:"#F5A028", w:"Tue (wks 10–17)", d:"Short reps at controlled-hard race effort (~6:30–7:00/km), with walk recovery. Teaches your legs the rhythm of race pace so it feels familiar, not new, on race day."},
+          ].map((m,i) => (
+            <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
+              <div style={{width:8, height:8, borderRadius:"50%", background:m.c, marginTop:6, flexShrink:0}}/>
+              <div style={{flex:1, minWidth:0}}>
+                <div style={{display:"flex", alignItems:"baseline", gap:8, flexWrap:"wrap"}}>
+                  <span style={{fontSize:14, fontWeight:600, color:"var(--paper)"}}>{m.n}</span>
+                  <span style={{fontSize:10.5, color:"var(--paper-faint)", letterSpacing:"0.04em"}}>{m.w}</span>
+                </div>
+                <div style={{fontSize:12.5, color:"var(--paper-dim)", marginTop:4, lineHeight:1.55}}>{m.d}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </details>
 
       <div style={{display:"flex", flexDirection:"column", gap:8}}>
         {WEEKS.map(w => {
@@ -1500,11 +1530,19 @@ function CoachTab(){
     setMessages(next);
     setInputText(""); setPendingImages([]); setLoading(true);
 
-    const system = `You are a warm, direct running coach for a complete beginner training for the Berlin Half Marathon, October 4 2026. Currently week ${currentWeek}/19, Galloway run/walk method. Background: occasional cardio 2-3x/month, shin splint risk, cross-trains with spinning, gym, yoga, Bollywood dance. Wears Apple Watch, based in Berlin.
+    const system = `You are a warm, direct running coach for a complete beginner training for the Berlin Half Marathon, Sunday October 4 2026. Currently week ${currentWeek}/19.
+
+Tune-up race: 5K on Sunday June 14 2026, 04:30 AM start (week 3 Sunday).
+
+Plan is a hybrid: Galloway run/walk intervals as the base/chassis, plus three layered tools — strides (4–6 × 15s pickups after Thursday runs), continuous-run finishers (drop walk breaks for the final X minutes of Saturday long runs, building 5→20 min through the plan), and race-pace intervals on Tuesdays in weeks 10–17. Race-day intervals will be 60s run / 30s walk; goal pace 7:05/km for 2h30, stretch 6:25/km for 2h15.
+
+Athlete background: occasional cardio 2-3x/month, shin splint risk (highest priority to protect), cross-trains with spinning (Fri Beat81), gym (Mon), yoga/Bollywood/Hyrox (Sun), German class (Wed). Wears Apple Watch, based in Berlin.
+
+Athlete's stated priorities, in order: stay healthy, enjoy the process, learn something new this year, finish the half marathon standing tall. Time goals are secondary to those.
 
 When they share screenshots: carefully read every metric visible, describe what you see, then ask one follow-up about how the session felt.
 When they describe feelings: give specific, honest feedback referencing their actual numbers. If the data looks concerning (HR too high, HRV dropping, poor sleep), flag it directly.
-If the plan needs adjusting: suggest a concrete change (e.g. "drop Tuesday back to 90s intervals this week").
+If the plan needs adjusting: suggest a concrete change (e.g. "skip strides this Thursday, save the legs"). Don't push them toward 2h15 if their body is telling them otherwise.
 Style: coach texting a friend — short paragraphs, warm but direct, never generic.`;
 
     const contents = next.map(msg=>({
