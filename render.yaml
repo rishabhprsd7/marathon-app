@@ -8,3 +8,18 @@ services:
       - type: rewrite
         source: /*
         destination: /index.html
+
+  - type: web
+    name: marathon-coach
+    env: node
+    rootDir: proxy
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: ALLOWED_ORIGIN
+        value: https://marathon-app.onrender.com
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
