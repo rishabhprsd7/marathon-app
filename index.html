@@ -715,20 +715,21 @@ function TabBar({tab, setTab}){
     {id:"cross", l:"Train"},
     {id:"diet",  l:"Diet"},
     {id:"prehab",l:"Prehab"},
+    {id:"log",   l:"Log"},
     {id:"coach", l:"Coach"},
   ];
   return (
     <nav className="tabbar">
-      <div className="container" style={{display:"flex", padding:"0 8px"}}>
+      <div className="container" style={{display:"flex", padding:"0 4px"}}>
         {tabs.map(t => {
           const active = tab === t.id;
           return (
             <button key={t.id} onClick={()=>setTab(t.id)} style={{
-              flex:1, padding:"14px 4px 12px",
+              flex:1, padding:"13px 2px 11px",
               background:"transparent", border:"none",
               position:"relative",
               color: active ? "var(--paper)" : "var(--paper-faint)",
-              fontSize:"clamp(10px, 2.2vw, 12px)",
+              fontSize:"clamp(9px, 1.9vw, 11px)",
               fontWeight: active ? 700 : 500,
               letterSpacing:"0.02em",
               transition:"color .2s"
@@ -737,7 +738,7 @@ function TabBar({tab, setTab}){
               <span style={{
                 position:"absolute", left:"50%", bottom:0,
                 transform:`translateX(-50%) scaleX(${active?1:0})`,
-                width:32, height:2,
+                width:24, height:2,
                 background:"var(--amber)",
                 borderRadius:2,
                 transition:"transform .25s cubic-bezier(.34,1.56,.64,1)",
@@ -1519,6 +1520,163 @@ function AppleWatchCard(){
   );
 }
 
+/* ───────── LOG BOOK TAB ───────── */
+function LogBookTab(){
+  const [entries, setEntries] = useState([]);
+  const [editingId, setEditingId] = useState(null);
+  const [editShins, setEditShins] = useState("");
+
+  useEffect(()=>{
+    const saved = lsGet("logbook");
+    if (saved) try { setEntries(JSON.parse(saved)); } catch {}
+  },[]);
+
+  const deleteEntry = id => {
+    const next = entries.filter(e=>e.id!==id);
+    setEntries(next);
+    lsSet("logbook", JSON.stringify(next));
+  };
+
+  const saveShins = id => {
+    const next = entries.map(e=>e.id===id?{...e, shins:editShins}:e);
+    setEntries(next);
+    lsSet("logbook", JSON.stringify(next));
+    setEditingId(null);
+  };
+
+  const sorted = [...entries].sort((a,b)=>b.id-a.id);
+  const totalKm = entries.reduce((s,e)=>s+(parseFloat(e.distance)||0),0).toFixed(1);
+
+  return (
+    <div className="fade-in" style={{padding:"22px 0 30px"}}>
+      <div style={{display:"flex", alignItems:"flex-end", justifyContent:"space-between", marginBottom:4}}>
+        <div>
+          <h2 className="serif" style={{fontSize:"clamp(26px,6vw,34px)", color:"var(--bone)", lineHeight:1.05}}>Log Book</h2>
+          <div style={{fontSize:12, color:"var(--paper-dim)", marginTop:4}}>
+            {entries.length} run{entries.length!==1?"s":""} · {totalKm} km total
+          </div>
+        </div>
+      </div>
+
+      {entries.length === 0 ? (
+        <div className="card grain grain-dark fade-in" style={{padding:"22px 18px", marginTop:18, borderColor:"rgba(94,201,90,0.28)", textAlign:"center"}}>
+          <div style={{fontSize:28, marginBottom:12}}>📓</div>
+          <div className="mono-cap" style={{color:"var(--sage)", marginBottom:8}}>No runs logged yet</div>
+          <div style={{fontSize:13.5, color:"var(--paper-dim)", lineHeight:1.65}}>
+            After each run, share your Apple Watch screenshots in the <strong style={{color:"var(--paper)"}}>Coach</strong> tab. A "Save to Log Book" button will appear — tap it to record your stats here.
+          </div>
+        </div>
+      ) : (
+        <div style={{display:"flex", flexDirection:"column", gap:12, marginTop:18}}>
+          {sorted.map(e=>{
+            const pc = PHASE_COLOR[WEEKS.find(w=>w.w===e.week)?.phase] || "var(--amber)";
+            const isEditing = editingId === e.id;
+            return (
+              <div key={e.id} className="card grain grain-dark" style={{padding:"16px 16px 14px", borderLeft:`3px solid ${pc}`, borderRadius:"0 12px 12px 0"}}>
+                {/* Header row */}
+                <div style={{display:"flex", alignItems:"flex-start", justifyContent:"space-between", marginBottom:10}}>
+                  <div>
+                    <div style={{display:"flex", alignItems:"center", gap:8, flexWrap:"wrap"}}>
+                      <span style={{fontSize:15, fontWeight:700, color:"var(--paper)", fontVariantNumeric:"tabular-nums"}}>
+                        {new Date(e.date).toLocaleDateString("en-GB",{weekday:"short", day:"numeric", month:"short"})}
+                      </span>
+                      <span className="chip" style={{color:pc, borderColor:`${pc}44`}}>Wk {e.week}</span>
+                      {e.effort && <span className="chip" style={{
+                        color: e.effort==="Easy"?"var(--sage)":e.effort==="Moderate"?"var(--amber)":"var(--rust)",
+                        borderColor: e.effort==="Easy"?"rgba(94,201,90,0.3)":e.effort==="Moderate"?"rgba(245,160,40,0.3)":"rgba(255,90,53,0.3)"
+                      }}>{e.effort}</span>}
+                    </div>
+                    {e.sessionName && <div style={{fontSize:12, color:"var(--paper-faint)", marginTop:4, fontFamily:"'Space Grotesk',sans-serif"}}>{e.sessionName}</div>}
+                  </div>
+                  <button onClick={()=>deleteEntry(e.id)} style={{
+                    background:"none", border:"none", color:"var(--paper-faint)", fontSize:14,
+                    cursor:"pointer", padding:"2px 4px", lineHeight:1, opacity:0.5
+                  }}>✕</button>
+                </div>
+
+                {/* Stats row */}
+                <div style={{display:"flex", gap:8, flexWrap:"wrap", marginBottom:10}}>
+                  {e.distance && (
+                    <div style={{textAlign:"center", minWidth:52}}>
+                      <div className="data-num-tight" style={{fontSize:20, color:"var(--paper)", letterSpacing:"-0.03em"}}>{e.distance}</div>
+                      <div className="mono-cap" style={{fontSize:9, color:"var(--paper-faint)", marginTop:1}}>km</div>
+                    </div>
+                  )}
+                  {e.distance && e.pace && <div style={{width:1, background:"var(--line)", alignSelf:"stretch"}}/>}
+                  {e.pace && (
+                    <div style={{textAlign:"center", minWidth:52}}>
+                      <div className="data-num-tight" style={{fontSize:20, color:"var(--paper)", letterSpacing:"-0.03em"}}>{e.pace}</div>
+                      <div className="mono-cap" style={{fontSize:9, color:"var(--paper-faint)", marginTop:1}}>/km</div>
+                    </div>
+                  )}
+                  {e.pace && e.hr && <div style={{width:1, background:"var(--line)", alignSelf:"stretch"}}/>}
+                  {e.hr && (
+                    <div style={{textAlign:"center", minWidth:52}}>
+                      <div className="data-num-tight" style={{fontSize:20, color: e.hr>140?"var(--amber)":"var(--sage)", letterSpacing:"-0.03em"}}>{e.hr}</div>
+                      <div className="mono-cap" style={{fontSize:9, color:"var(--paper-faint)", marginTop:1}}>bpm</div>
+                    </div>
+                  )}
+                  {e.hr && e.duration && <div style={{width:1, background:"var(--line)", alignSelf:"stretch"}}/>}
+                  {e.duration && (
+                    <div style={{textAlign:"center", minWidth:52}}>
+                      <div className="data-num-tight" style={{fontSize:20, color:"var(--paper)", letterSpacing:"-0.03em"}}>{e.duration}</div>
+                      <div className="mono-cap" style={{fontSize:9, color:"var(--paper-faint)", marginTop:1}}>time</div>
+                    </div>
+                  )}
+                  {e.cal && (
+                    <div style={{textAlign:"center", minWidth:44}}>
+                      <div className="data-num-tight" style={{fontSize:20, color:"var(--paper-dim)", letterSpacing:"-0.03em"}}>{e.cal}</div>
+                      <div className="mono-cap" style={{fontSize:9, color:"var(--paper-faint)", marginTop:1}}>kcal</div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Coach note */}
+                {e.note && (
+                  <div className="serif-i" style={{
+                    fontSize:13.5, color:"var(--paper-mute)", lineHeight:1.65,
+                    borderTop:"1px solid var(--line)", paddingTop:10, marginBottom:10
+                  }}>"{e.note}"</div>
+                )}
+
+                {/* Shins note */}
+                {!isEditing ? (
+                  <div style={{display:"flex", alignItems:"center", gap:8}}>
+                    <span style={{fontSize:11.5, color: e.shins ? "var(--paper-dim)" : "var(--paper-faint)", fontStyle: e.shins ? "normal" : "italic"}}>
+                      {e.shins || "Shins: tap to note"}
+                    </span>
+                    <button onClick={()=>{ setEditingId(e.id); setEditShins(e.shins||""); }} style={{
+                      background:"none", border:"1px solid var(--line)", borderRadius:6,
+                      color:"var(--paper-faint)", fontSize:10.5, padding:"2px 8px", cursor:"pointer",
+                      fontFamily:"'Space Grotesk',sans-serif"
+                    }}>edit</button>
+                  </div>
+                ) : (
+                  <div style={{display:"flex", gap:6, alignItems:"center"}}>
+                    <input
+                      value={editShins}
+                      onChange={e=>setEditShins(e.target.value)}
+                      placeholder="e.g. Left shin fine, mild ache right"
+                      autoFocus
+                      style={{
+                        flex:1, background:"rgba(247,240,220,0.05)", border:"1px solid var(--line-warm)",
+                        borderRadius:8, color:"var(--paper)", fontSize:12.5,
+                        padding:"7px 10px", fontFamily:"'Space Grotesk',sans-serif", outline:"none"
+                      }}
+                    />
+                    <button onClick={()=>saveShins(e.id)} className="btn btn-amber" style={{fontSize:11, padding:"6px 12px"}}>Save</button>
+                    <button onClick={()=>setEditingId(null)} className="btn btn-ghost" style={{fontSize:11}}>✕</button>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /* ───────── COACH TAB ───────── */
 function CoachTab(){
   const [messages, setMessages]       = useState([]);
@@ -1590,7 +1748,11 @@ Athlete's stated priorities, in order: stay healthy, enjoy the process, learn so
 When they share screenshots: carefully read every metric visible, describe what you see, then ask one follow-up about how the session felt.
 When they describe feelings: give specific, honest feedback referencing their actual numbers. If the data looks concerning (HR too high, HRV dropping, poor sleep), flag it directly.
 If the plan needs adjusting: suggest a concrete change (e.g. "skip strides this Thursday, save the legs"). Don't push them toward 2h15 if their body is telling them otherwise.
-Style: coach texting a friend — short paragraphs, warm but direct, never generic.`;
+Style: coach texting a friend — short paragraphs, warm but direct, never generic.
+
+IMPORTANT — Log Book integration: When the user shares a workout screenshot and you can read the metrics, append this block EXACTLY at the very end of your response with no text after it:
+<log>{"distance":"X.XX","pace":"M:SS","hr":NNN,"duration":"H:MM:SS","cal":NNN,"effort":"Easy","sessionName":"interval format e.g. 30s/120s","note":"One coaching sentence max 12 words"}</log>
+Only include fields visible in the screenshots. Omit any field you cannot read. If no workout data is visible, omit the block entirely.`;
 
     const contents = next.slice(-12).map(msg=>({
       role: msg.role==="ai"?"model":"user",
@@ -1618,9 +1780,16 @@ Style: coach texting a friend — short paragraphs, warm but direct, never gener
         return;
       }
       const cand = data.candidates?.[0];
-      const text = cand?.content?.parts?.map(p=>p.text).filter(Boolean).join("\n");
-      if (text) {
-        setMessages(prev=>[...prev,{role:"ai", text}]);
+      const rawText = cand?.content?.parts?.map(p=>p.text).filter(Boolean).join("\n");
+      if (rawText) {
+        const logMatch = rawText.match(/<log>([\s\S]*?)<\/log>/);
+        let logData = null;
+        let text = rawText;
+        if (logMatch) {
+          text = rawText.replace(/<log>[\s\S]*?<\/log>/, "").trim();
+          try { logData = JSON.parse(logMatch[1]); } catch {}
+        }
+        setMessages(prev=>[...prev,{role:"ai", text, logData, logSaved:false}]);
       } else if (cand?.finishReason && cand.finishReason !== "STOP") {
         setMessages(prev=>[...prev,{role:"ai", text:`Response blocked (${cand.finishReason}). Try rephrasing or a different screenshot.`}]);
       } else {
@@ -1633,6 +1802,20 @@ Style: coach texting a friend — short paragraphs, warm but direct, never gener
 
   const handleKey = e=>{ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send();} };
   const canSend = !loading && (inputText.trim().length>0 || pendingImages.length>0);
+
+  const saveToLog = (msgIdx, logData) => {
+    const entry = {
+      id: Date.now(),
+      date: TODAY.toISOString().slice(0,10),
+      week: currentWeek,
+      shins: "",
+      ...logData
+    };
+    const existing = JSON.parse(lsGet("logbook") || "[]");
+    existing.push(entry);
+    lsSet("logbook", JSON.stringify(existing));
+    setMessages(prev => prev.map((m,i) => i===msgIdx ? {...m, logSaved:true} : m));
+  };
 
   const AiAvatar = ()=>(
     <div style={{
@@ -1719,6 +1902,26 @@ Style: coach texting a friend — short paragraphs, warm but direct, never gener
               {msg.text && (
                 <div style={{fontSize:13.5, color:"var(--paper-mute)", lineHeight:1.8, whiteSpace:"pre-wrap"}}>
                   {msg.text.replace(/\*\*(.*?)\*\*/g,(_,t)=>t)}
+                </div>
+              )}
+              {msg.logData && (
+                <div style={{marginTop:10, paddingTop:10, borderTop:"1px solid var(--line)"}}>
+                  {msg.logSaved ? (
+                    <div style={{display:"flex", alignItems:"center", gap:6, fontSize:12, color:"var(--sage)"}}>
+                      <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+                      Saved to Log Book
+                    </div>
+                  ) : (
+                    <button onClick={()=>saveToLog(i, msg.logData)} style={{
+                      display:"flex", alignItems:"center", gap:6,
+                      background:"rgba(94,201,90,0.1)", border:"1px solid rgba(94,201,90,0.35)",
+                      borderRadius:8, color:"var(--sage)", fontSize:12, fontWeight:600,
+                      padding:"7px 12px", cursor:"pointer", width:"100%", justifyContent:"center",
+                      fontFamily:"'Space Grotesk',sans-serif", letterSpacing:"0.02em"
+                    }}>
+                      <span>📓</span> Save to Log Book
+                    </button>
+                  )}
                 </div>
               )}
             </div>
@@ -2031,6 +2234,7 @@ function App(){
         {tab === "cross"  && <TrainingTab openCross={openCross} setOpenCross={setOpenCross}/>}
         {tab === "diet"   && <DietTab openDiet={openDiet} setOpenDiet={setOpenDiet}/>}
         {tab === "prehab" && <PrehabTab/>}
+        {tab === "log"    && <LogBookTab/>}
         {tab === "coach"  && <CoachTab/>}
       </main>
 
