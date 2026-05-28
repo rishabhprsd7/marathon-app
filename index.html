@@ -1521,15 +1521,38 @@ function AppleWatchCard(){
 }
 
 /* ───────── LOG BOOK TAB ───────── */
+const EMPTY_FORM = {date:"", distance:"", pace:"", hr:"", duration:"", cal:"", effort:"Easy", sessionName:"", note:"", shins:""};
+
 function LogBookTab(){
   const [entries, setEntries] = useState([]);
   const [editingId, setEditingId] = useState(null);
   const [editShins, setEditShins] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState({...EMPTY_FORM, date: TODAY.toISOString().slice(0,10)});
 
   useEffect(()=>{
     const saved = lsGet("logbook");
     if (saved) try { setEntries(JSON.parse(saved)); } catch {}
   },[]);
+
+  const saveEntry = () => {
+    if (!form.date) return;
+    const weekNum = (() => {
+      const d = new Date(form.date); d.setHours(0,0,0,0);
+      for (const w of WEEKS) {
+        const s = new Date(WEEK1_START); s.setDate(s.getDate()+(w.w-1)*7);
+        const e = new Date(s); e.setDate(s.getDate()+7);
+        if (d>=s && d<e) return w.w;
+      }
+      return 1;
+    })();
+    const entry = { id: Date.now(), week: weekNum, ...form };
+    const next = [...entries, entry];
+    setEntries(next);
+    lsSet("logbook", JSON.stringify(next));
+    setShowForm(false);
+    setForm({...EMPTY_FORM, date: TODAY.toISOString().slice(0,10)});
+  };
 
   const deleteEntry = id => {
     const next = entries.filter(e=>e.id!==id);
@@ -1556,7 +1579,66 @@ function LogBookTab(){
             {entries.length} run{entries.length!==1?"s":""} · {totalKm} km total
           </div>
         </div>
+        <button onClick={()=>setShowForm(v=>!v)} className="btn btn-amber" style={{fontSize:12, padding:"8px 14px"}}>
+          {showForm ? "Cancel" : "+ Add run"}
+        </button>
       </div>
+
+      {showForm && (
+        <div className="card grain grain-dark fade-in" style={{marginTop:14, padding:"16px 16px 14px", borderColor:"rgba(94,201,90,0.3)"}}>
+          <div className="mono-cap" style={{color:"var(--sage)", marginBottom:14}}>Manual log entry</div>
+          <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:10}}>
+            {[
+              {k:"date",     l:"Date",     type:"date",   ph:""},
+              {k:"distance", l:"Distance", type:"text",   ph:"e.g. 3.08"},
+              {k:"pace",     l:"Pace /km", type:"text",   ph:"e.g. 7:15"},
+              {k:"hr",       l:"Avg HR",   type:"number", ph:"e.g. 113"},
+              {k:"duration", l:"Duration", type:"text",   ph:"e.g. 41:56"},
+              {k:"cal",      l:"kcal",     type:"number", ph:"e.g. 224"},
+            ].map(({k,l,type,ph})=>(
+              <div key={k}>
+                <div style={{fontSize:10.5, color:"var(--paper-faint)", marginBottom:4, letterSpacing:"0.06em", textTransform:"uppercase", fontFamily:"'Space Grotesk',sans-serif"}}>{l}</div>
+                <input type={type} value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))}
+                  placeholder={ph}
+                  style={{width:"100%", boxSizing:"border-box", background:"rgba(247,240,220,0.05)", border:"1px solid var(--line)",
+                    borderRadius:8, color:"var(--paper)", fontSize:13, padding:"7px 10px",
+                    fontFamily:"'Space Grotesk',sans-serif", outline:"none"}}/>
+              </div>
+            ))}
+          </div>
+          <div style={{marginTop:10}}>
+            <div style={{fontSize:10.5, color:"var(--paper-faint)", marginBottom:4, letterSpacing:"0.06em", textTransform:"uppercase", fontFamily:"'Space Grotesk',sans-serif"}}>Effort</div>
+            <div style={{display:"flex", gap:6}}>
+              {["Easy","Moderate","Hard"].map(e=>(
+                <button key={e} onClick={()=>setForm(f=>({...f,effort:e}))} style={{
+                  flex:1, padding:"7px 0", borderRadius:8, fontSize:12, fontWeight:600, cursor:"pointer",
+                  fontFamily:"'Space Grotesk',sans-serif",
+                  background: form.effort===e ? "rgba(94,201,90,0.18)" : "rgba(247,240,220,0.04)",
+                  border: form.effort===e ? "1px solid rgba(94,201,90,0.45)" : "1px solid var(--line)",
+                  color: form.effort===e ? "var(--sage)" : "var(--paper-faint)"
+                }}>{e}</button>
+              ))}
+            </div>
+          </div>
+          {[
+            {k:"sessionName", l:"Session (e.g. 30s/120s)"},
+            {k:"note",        l:"Note"},
+            {k:"shins",       l:"Shins"},
+          ].map(({k,l})=>(
+            <div key={k} style={{marginTop:10}}>
+              <div style={{fontSize:10.5, color:"var(--paper-faint)", marginBottom:4, letterSpacing:"0.06em", textTransform:"uppercase", fontFamily:"'Space Grotesk',sans-serif"}}>{l}</div>
+              <input value={form[k]} onChange={e=>setForm(f=>({...f,[k]:e.target.value}))}
+                placeholder=""
+                style={{width:"100%", boxSizing:"border-box", background:"rgba(247,240,220,0.05)", border:"1px solid var(--line)",
+                  borderRadius:8, color:"var(--paper)", fontSize:13, padding:"7px 10px",
+                  fontFamily:"'Space Grotesk',sans-serif", outline:"none"}}/>
+            </div>
+          ))}
+          <button onClick={saveEntry} className="btn btn-amber" style={{width:"100%", marginTop:14, padding:"10px", fontSize:13}}>
+            Save to Log Book
+          </button>
+        </div>
+      )}
 
       {entries.length === 0 ? (
         <div className="card grain grain-dark fade-in" style={{padding:"22px 18px", marginTop:18, borderColor:"rgba(94,201,90,0.28)", textAlign:"center"}}>
