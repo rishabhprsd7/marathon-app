@@ -1523,6 +1523,14 @@ function AppleWatchCard(){
 /* ───────── LOG BOOK TAB ───────── */
 const EMPTY_FORM = {date:"", distance:"", pace:"", hr:"", duration:"", cal:"", effort:"Easy", sessionName:"", note:"", shins:""};
 
+/* Historical runs logged retroactively from shared Apple Watch screenshots */
+const SEED_RUNS = [
+  {date:"2026-05-26", week:1, distance:"2.33", pace:"11:18", hr:116, duration:"26:26", cal:161, effort:"Easy", sessionName:"30s/120s", note:"First official run. HR textbook Zone 1.", shins:"No issues."},
+  {date:"2026-05-28", week:1, distance:"3.08", pace:"13:37", hr:113, duration:"41:56", cal:224, effort:"Easy", sessionName:"30s/120s", note:"Cadence dropped to 97. Stitch from eating too close to the run.", shins:"Right rib stitch (food, not injury); shins fine."},
+  {date:"2026-05-30", week:1, distance:"2.84", pace:"9:37", hr:119, duration:"27:19", cal:199, effort:"Easy", sessionName:"30s/90s", note:"Cadence back up to 125. Nailed 12 sets clean.", shins:"Left knee + right foot twinge mid-run, both vanished, nothing after."},
+  {date:"2026-06-02", week:2, distance:"2.24", pace:"12:16", hr:116, duration:"27:33", cal:160, effort:"Easy", sessionName:"30s/120s", note:"Cleanest HR yet — held work intervals easy, max only 138.", shins:"No pain. Tired but fine."},
+];
+
 function LogBookTab(){
   const [entries, setEntries] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -1531,8 +1539,24 @@ function LogBookTab(){
   const [form, setForm] = useState({...EMPTY_FORM, date: TODAY.toISOString().slice(0,10)});
 
   useEffect(()=>{
+    let existing = [];
     const saved = lsGet("logbook");
-    if (saved) try { setEntries(JSON.parse(saved)); } catch {}
+    if (saved) try { existing = JSON.parse(saved); } catch {}
+
+    /* One-time backfill of historical runs. Guarded by a flag so it never
+       runs twice, and deduped by date so it won't clobber manual entries. */
+    if (lsGet("logbook_seeded") !== "true") {
+      const haveDates = new Set(existing.map(e=>e.date));
+      const seeded = SEED_RUNS
+        .filter(r => !haveDates.has(r.date))
+        .map(r => ({ id: new Date(r.date).getTime(), shins:"", ...r }));
+      const merged = [...existing, ...seeded];
+      lsSet("logbook", JSON.stringify(merged));
+      lsSet("logbook_seeded", "true");
+      setEntries(merged);
+    } else {
+      setEntries(existing);
+    }
   },[]);
 
   const saveEntry = () => {
