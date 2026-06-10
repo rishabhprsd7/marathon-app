@@ -356,9 +356,9 @@ const WEEKS = [
     {d:"Sat",i:"30s run / 90s walk", t:"38 min",km:"~3.5km",n:"Biggest run yet — and your rehearsal for next Sunday's 5K. After the intervals, finish with 2 min continuous Zone 2 running. First taste of running without a walk break."}]},
   {w:3, phase:"Foundation",shoe:"Duramo SL2",deload:false,tuneup:"5K SUN",runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"20 min",km:"~1.8km",n:"Sharpening week begins. Slightly lighter — saving legs for Sunday."},
-    {d:"Thu",i:"45s run / 90s walk", t:"18 min",km:"~1.6km",n:"Short and sharp. No strides this week — already a taper. Keep intervals crisp."},
-    {d:"Sat",i:"30s run / 90s walk", t:"12 min",km:"~1.0km",n:"Pre-race shakeout. Very gentle. Hydrate, lay out gear (bib, shoes, watch charged), early bed — you've got a 4:30 AM start."},
-    {d:"Sun",i:"5K TUNE-UP RACE",    t:"~50 min",km:"5.0km",  n:"🏁 04:30 AM. Use your 45s/90s intervals. Strategy: Galloway intervals km 0–4, hold Zone 2. At km 4, check in — if shins are quiet and HR is steady, drop the walk breaks and run continuous to the finish. That's your negative split. Don't chase anyone off the line. Finishing standing tall is the win."}]},
+    {d:"Thu",i:"rest",               t:"—",      km:"—",     n:"⚕️ Modified — Health hold. Shins and Achilles sore after Tuesday. Full rest today is the highest-value thing you can do before Sunday's race. Walk, stretch calves gently, ice shins 10 min if tender. No running."},
+    {d:"Sat",i:"30s run / 90s walk", t:"8 min",  km:"~0.7km",n:"⚕️ Shortened shakeout — shin check. Only run if shins feel at least 80% fine. 3–4 intervals max, then walk it out. Goal: wake the legs, NOT add load. If shins still ache, skip entirely and rest. Hydrate, lay out race gear (bib, shoes, watch charged), early bed — 4:30 AM start."},
+    {d:"Sun",i:"5K TUNE-UP RACE",    t:"~50 min",km:"5.0km",  n:"🏁 04:30 AM. Use 45s/90s intervals the whole way — no continuous finisher this time given the shins. Strategy: Galloway all 5km, stay Zone 2. If shins are pain-free at km 3, you can try a continuous last 500m — but don't chase it. Finishing upright and smiling is the win. Don't chase anyone off the line."}]},
   {w:4, phase:"Foundation",shoe:"Duramo SL2",deload:true,runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"22 min",km:"~2.0km",n:"Recovery week after the 5K. Easy intervals. How are the shins?"},
     {d:"Thu",i:"45s run / 90s walk + strides", t:"24 min",km:"~2.0km",n:"Focus on posture. After intervals: 4 × 15s strides, full recovery."},
@@ -1531,6 +1531,10 @@ const SEED_RUNS = [
   {date:"2026-06-02", week:2, distance:"2.24", pace:"12:16", hr:116, duration:"27:33", cal:160, effort:"Easy", sessionName:"30s/120s", note:"Cleanest HR yet — held work intervals easy, max only 138.", shins:"No pain. Tired but fine."},
 ];
 
+const SEED_RUNS_V2 = [
+  {date:"2026-06-09", week:3, distance:"4.01", pace:"9:32", hr:125, duration:"38:18", cal:253, effort:"Moderate", sessionName:"45s/90s", note:"Smoked before run. Both feet tired, right ankle especially. Open phase: ~500m surge with GF at 6:00/km spiked HR to 164 and triggered sharp right-rib pain — resolved within 5 min post-run. Cadence 128.", shins:"Both shins sore post-run. Right ankle fatigue. Rib stitch (resolved 5 min)."},
+];
+
 function LogBookTab(){
   const [entries, setEntries] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -1545,18 +1549,25 @@ function LogBookTab(){
 
     /* One-time backfill of historical runs. Guarded by a flag so it never
        runs twice, and deduped by date so it won't clobber manual entries. */
+    let current = existing;
     if (lsGet("logbook_seeded") !== "true") {
-      const haveDates = new Set(existing.map(e=>e.date));
+      const haveDates = new Set(current.map(e=>e.date));
       const seeded = SEED_RUNS
         .filter(r => !haveDates.has(r.date))
-        .map(r => ({ id: new Date(r.date).getTime(), shins:"", ...r }));
-      const merged = [...existing, ...seeded];
-      lsSet("logbook", JSON.stringify(merged));
+        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
+      current = [...current, ...seeded];
       lsSet("logbook_seeded", "true");
-      setEntries(merged);
-    } else {
-      setEntries(existing);
     }
+    if (lsGet("logbook_seeded_v2") !== "true") {
+      const haveDates = new Set(current.map(e=>e.date));
+      const seeded = SEED_RUNS_V2
+        .filter(r => !haveDates.has(r.date))
+        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
+      current = [...current, ...seeded];
+      lsSet("logbook_seeded_v2", "true");
+    }
+    if (current !== existing) lsSet("logbook", JSON.stringify(current));
+    setEntries(current);
   },[]);
 
   const saveEntry = () => {
