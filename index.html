@@ -1535,6 +1535,10 @@ const SEED_RUNS_V2 = [
   {date:"2026-06-09", week:3, distance:"4.01", pace:"9:32", hr:125, duration:"38:18", cal:253, effort:"Moderate", sessionName:"45s/90s", note:"Smoked before run. Both feet tired, right ankle especially. Open phase: ~500m surge with GF at 6:00/km spiked HR to 164 and triggered sharp right-rib pain — resolved within 5 min post-run. Cadence 128.", shins:"Both shins sore post-run. Right ankle fatigue. Rib stitch (resolved 5 min)."},
 ];
 
+const SEED_RUNS_V3 = [
+  {date:"2026-06-14", week:3, distance:"6.09", pace:"9:28", hr:128, duration:"57:37", cal:388, effort:"Moderate", sessionName:"Solo 5K · 45s/90s + finisher", note:"🏅 LONGEST RUN EVER (~6km). Official 5K cancelled (moth) — ran solo. Interval setup mixed up so it became two continuous sessions. S1 (2.68km): textbook, avg HR 117, 99% Zone 1, max 138. S2 (3.41km): 8:23 continuous finisher, HR drifted to 159 / peaked 165 (Zone 4). Wanted to keep going; pushed slowly on tired legs and finished. Cadence climbed to 140.", shins:"No shin pain. Legs hurt during the continuous finisher but pain cleared within 5 min, leaving only fatigue — muscular, not injury."},
+];
+
 function LogBookTab(){
   const [entries, setEntries] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -1565,6 +1569,14 @@ function LogBookTab(){
         .map(r => ({ id: new Date(r.date).getTime(), ...r }));
       current = [...current, ...seeded];
       lsSet("logbook_seeded_v2", "true");
+    }
+    if (lsGet("logbook_seeded_v3") !== "true") {
+      const haveDates = new Set(current.map(e=>e.date));
+      const seeded = SEED_RUNS_V3
+        .filter(r => !haveDates.has(r.date))
+        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
+      current = [...current, ...seeded];
+      lsSet("logbook_seeded_v3", "true");
     }
     if (current !== existing) lsSet("logbook", JSON.stringify(current));
     setEntries(current);
