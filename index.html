@@ -343,7 +343,7 @@ const WEEK_TEMPLATE = [
   {day:"Thu",type:"run",     label:"Run Day 2",            detail:"Intervals · Duramo SL2 · Zone 2 · Prehab after"},
   {day:"Fri",type:"cross",   label:"Beat81 · Spinning",    detail:"Zone 2 ride · 45–50 min · HR 115–135 bpm"},
   {day:"Sat",type:"longrun", label:"Long Run",             detail:"Duramo SL2 · Zone 2 · Prehab after · longest session"},
-  {day:"Sun",type:"cross",   label:"Bollywood / Hyrox / Yoga", detail:"Pick one · Holmes Place or home"},
+  {day:"Sun",type:"cross",   label:"Cross-train / Run Day 4", detail:"Wks 1–11 & 17–19: Bollywood, Hyrox or yoga · Wks 12–16: short easy 4th run (check the Plan tab)"},
 ];
 
 const WEEKS = [
@@ -385,41 +385,45 @@ const WEEKS = [
     {d:"Thu",i:"30s run / 90s walk", t:"30 min",km:"~3.5km",n:"A boring body-check, not a test. How did the shins respond to Tuesday? Walk breaks are the plan, never a weakness."},
     {d:"Sat",i:"30s run / 90s walk", t:"39 min",km:"~4.5km",n:"Longest of the week. Time on feet, not speed. Shins quiet and energy good? Then the body is truly back and next week we build."}]},
   {w:10,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"28 min",km:"~3.0km",n:"Upgrade granted — run blocks go to 45s. But note the REAL jump this week: you go from one run in six weeks to three runs in seven days. That's the load, not the ratio. Keep all three genuinely easy. Early morning or after sunset only."},
-    {d:"Thu",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Second run of the week — this is the one that actually rebuilds you. How did the shins feel after Tuesday? Any front-of-shin ache means shorten this one, no ego. Quick light feet."},
-    {d:"Sat",i:"45s run / 90s walk", t:"56 min",km:"~6.0km",n:"Longest since the layoff, at the new ratio. No end-of-run surge — finish this one still calm and you've earned the whole ladder above. Land soft, quiet feet."}]},
+    {d:"Tue",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Upgrade granted — run blocks go to 45s. But note the REAL jump this week: you go from one run in six weeks to three runs in seven days. That's the load, not the ratio. Keep all three genuinely easy. Early morning or after sunset only."},
+    {d:"Thu",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Second run of the week — this is the one that actually rebuilds you. How did the shins feel after Tuesday? Any front-of-shin ache means shorten this one, no ego. Quick light feet."},
+    {d:"Sat",i:"45s run / 90s walk", t:"61 min",km:"~6.5km",n:"Longest since the layoff. No end-of-run surge — finish this one still calm. Nail all three runs this week and the 30km ladder above is live. Land soft, quiet feet."}]},
   {w:11,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Same 45/90 — distance does the growing now, not the ratio. Conversational the whole way."},
-    {d:"Thu",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Relaxed shoulders, calm breathing. The walk break does the recovery, so honor every one."},
-    {d:"Sat",i:"45s run / 90s walk", t:"65 min",km:"~7.0km",n:"If HR drifts toward the 150s you're pushing — walk sooner and let it settle. Finish feeling you had more in the tank."}]},
+    {d:"Tue",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Same 45/90 — distance does the growing now, not the ratio. Conversational the whole way."},
+    {d:"Thu",i:"45s run / 90s walk", t:"42 min",km:"~4.5km",n:"Relaxed shoulders, calm breathing. The walk break does the recovery, so honor every one."},
+    {d:"Sat",i:"45s run / 90s walk", t:"70 min",km:"~7.5km",n:"Last 3-run week before the 4th day arrives. If HR drifts toward the 150s you're pushing — walk sooner and let it settle. Finish with something left."}]},
   {w:12,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Steady week. Nothing new, just repetition — this is where the adaptation actually banks."},
-    {d:"Thu",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Quick light feet, boring effort. Boring is exactly right."},
-    {d:"Sat",i:"45s run / 90s walk", t:"75 min",km:"~8.0km",n:"Over an hour on feet. Drink before you go and carry a bottle if it's warm. Settle into a rhythm you could hold all day."}]},
+    {d:"Tue",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Big structural week: a 4th run day arrives Sunday. Keep Tue–Sat exactly as easy as before — the new volume comes from frequency, not effort."},
+    {d:"Thu",i:"45s run / 90s walk", t:"42 min",km:"~4.5km",n:"Quick light feet, boring effort. Boring is exactly right."},
+    {d:"Sat",i:"45s run / 90s walk", t:"79 min",km:"~8.5km",n:"Over an hour on feet. Drink before you go and carry a bottle if it's warm. Hold back deliberately — you're running again tomorrow."},
+    {d:"Sun",i:"45s run / 90s walk", t:"23 min",km:"~2.5km",n:"⭐ NEW — 4th run day. Tiny, and it MUST be the easiest run of your week. Running on slightly tired legs is what builds endurance without long-run risk. If your shins are sore from Saturday, skip this entirely — it's the first thing to cut, always."}]},
   {w:13,phase:"Base build",shoe:"Duramo SL2",deload:true,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"28 min",km:"~3.0km",n:"Deload week — we back off on purpose so the tissues absorb the work. Shorter and extra easy."},
-    {d:"Thu",i:"45s run / 90s walk", t:"28 min",km:"~3.0km",n:"Recovery pace. Honest check-in: shins, Achilles, ankle. Any niggle means walk more, no ego."},
-    {d:"Sat",i:"45s run / 90s walk", t:"61 min",km:"~6.5km",n:"Cutback long run. Legs should finish fresh, not tired. Recovery is training too — trust the step-down."}]},
+    {d:"Tue",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Deload week — back to 3 runs, everything shorter. We back off on purpose so the tissues absorb the jump."},
+    {d:"Thu",i:"45s run / 90s walk", t:"33 min",km:"~3.5km",n:"Recovery pace. Honest check-in: shins, Achilles, ankle. This is the checkpoint — if anything is grumbling, tell me before W14, because W14 is where the volume gets serious."},
+    {d:"Sat",i:"45s run / 90s walk", t:"65 min",km:"~7.0km",n:"Cutback long run. Legs should finish fresh, not tired. Recovery is training too — trust the step-down."}]},
   {w:14,phase:"Build",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"31 min",km:"~3.5km",n:"Fresh off the deload, run blocks step to a full minute — the ratio is the only new thing. Easy Zone 2 throughout."},
-    {d:"Thu",i:"60s run / 90s walk + strides", t:"36 min",km:"~4.0km",n:"First Boston 12 outing — start breaking them in on a short, easy run. Add 3-4 relaxed strides at the end: smooth, quick feet, never a sprint. Strides are the best cadence drill you have."},
-    {d:"Sat",i:"60s run / 90s walk + finisher", t:"81 min",km:"~9.0km",n:"Longest since the layoff, at a ratio your legs now know. Back in the Duramos for this one. Try dropping the walks for the last 2-3 min, gentle continuous Zone 2. Shin or Achilles soreness = repeat this distance next week instead of climbing."}]},
+    {d:"Tue",i:"60s run / 90s walk", t:"40 min",km:"~4.5km",n:"Run blocks step to a full minute — the ratio is the only new thing today. Easy Zone 2 throughout."},
+    {d:"Thu",i:"60s run / 90s walk + strides", t:"45 min",km:"~5.0km",n:"First Boston 12 outing — start breaking them in on a short, easy run. Add 3-4 relaxed strides at the end: smooth, quick feet, never a sprint. Strides are the best cadence drill you have."},
+    {d:"Sat",i:"60s run / 90s walk + finisher", t:"90 min",km:"~10.0km",n:"Double digits. Back in the Duramos. Drop the walks for the last 2-3 min, gentle continuous Zone 2. Shin or Achilles soreness = repeat this distance next week instead of climbing. That rule is not optional."},
+    {d:"Sun",i:"60s run / 90s walk", t:"27 min",km:"~3.0km",n:"Easy shakeout on tired legs. Slowest run of the week by a wide margin. Skip it without guilt if Saturday left anything sore."}]},
   {w:15,phase:"Build",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"31 min",km:"~3.5km",n:"More Boston 12 break-in miles on easy legs. Familiar 60/90 — the long run does this week's growing."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"34 min",km:"~4.0km",n:"Preview 90s run blocks on a SHORT run only, so the peak isn't the first taste. Matched with a full 90s walk. Longer, not faster."},
-    {d:"Sat",i:"60s run / 90s walk + finisher", t:"95 min",km:"~10.5km",n:"Double digits — 10.5km, in the race shoes. Settle early, hit every walk break on time, easy finisher. This is race-day patience rehearsed, nothing more."}]},
+    {d:"Tue",i:"60s run / 90s walk", t:"45 min",km:"~5.0km",n:"More Boston 12 break-in miles on easy legs. Familiar 60/90 — the long run does this week's growing."},
+    {d:"Thu",i:"90s run / 90s walk + strides", t:"47 min",km:"~5.5km",n:"Preview 90s run blocks on a shorter run, so the peak isn't the first taste. Matched with a full 90s walk. Longer, not faster."},
+    {d:"Sat",i:"60s run / 90s walk + finisher", t:"108 min",km:"~12.0km",n:"12km — longest ever, and nearly two hours out there. Fuel: eat properly 2h before, carry water. Settle early, hit every walk break on time, easy finisher. This is race-day patience rehearsed."},
+    {d:"Sun",i:"60s run / 90s walk", t:"32 min",km:"~3.5km",n:"Easy legs, quiet feet. Purely aerobic — no pace, no ego. This run's only job is to add volume cheaply."}]},
   {w:16,phase:"Peak",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"30 min",km:"~3.5km",n:"Peak week. The long-run ratio catches up to 90/90 — your legs already met it midweek. Shoes are broken in now. Nothing to prove on the short runs. Good week to ease off the cigarettes for your race-day lungs."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"34 min",km:"~4.0km",n:"Short, easy, a couple of light strides. Save absolutely everything for Saturday."},
-    {d:"Sat",i:"90s run / 90s walk + finisher", t:"102 min",km:"~12.0km",n:"PEAK — 12km, your longest ever, in the race shoes at the race-default 90/90. You earned this number back by pushing the early weeks. Go slow, walk every single break, easy finisher standing tall. If you can talk the whole way, you paced it right. Finish this and you can finish the half. Really proud of you."}]},
+    {d:"Tue",i:"90s run / 90s walk", t:"42 min",km:"~5.0km",n:"PEAK WEEK — 30km total. The long-run ratio catches up to 90/90; your legs already met it midweek. Nothing to prove on the short runs. Good week to ease off the cigarettes for your race-day lungs."},
+    {d:"Thu",i:"90s run / 90s walk + strides", t:"51 min",km:"~6.0km",n:"Easy with a couple of light strides. Resist the urge to make this one count — Saturday is the whole point of the week."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"119 min",km:"~14.0km",n:"🏔️ THE BIG ONE — 14km, two hours, race shoes, race-default 90/90. This is the run that makes race day possible: two-thirds of the distance, and the last 7km on race day will be the only truly new ground. Go slow, walk every single break, eat 2h before, carry water. Finish this and you WILL finish the half."},
+    {d:"Sun",i:"90s run / 90s walk", t:"42 min",km:"~5.0km",n:"Peak-week closer on tired legs — this is the single best simulation of how the back half of the race will feel. Very slow. If Saturday hurt anything, skip this without a second thought."}]},
   {w:17,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"30 min",km:"~3.5km",n:"Taper begins — volume drops, freshness rises. You're banking rest now; resist testing yourself. Keep easing off the cigarettes."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"30 min",km:"~3.5km",n:"Short and easy with a couple of light strides to stay snappy. The hard work is already done."},
-    {d:"Sat",i:"90s run / 90s walk + finisher", t:"72 min",km:"~8.5km",n:"Last longer run, well short of peak. Relaxed, smooth, confidence-building. Protect what you've built — no heroics."}]},
+    {d:"Tue",i:"90s run / 90s walk", t:"38 min",km:"~4.5km",n:"Taper begins — back to 3 runs, volume drops hard, freshness rises. You're banking rest now; resist testing yourself. Keep easing off the cigarettes."},
+    {d:"Thu",i:"90s run / 90s walk + strides", t:"38 min",km:"~4.5km",n:"Short and easy with a couple of light strides to stay snappy. The hard work is already done."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"85 min",km:"~10.0km",n:"Last longer run, well short of peak. Relaxed, smooth, confidence-building. Protect what you've built — no heroics."}]},
   {w:18,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"26 min",km:"~3.0km",n:"Legs should feel springy and restless — that's the taper working. Tiny and easy, shorter run blocks."},
-    {d:"Thu",i:"60s run / 90s walk", t:"26 min",km:"~3.0km",n:"Short shakeout. Stay loose, stay healthy, trust your training."},
-    {d:"Sat",i:"60s run / 90s walk", t:"51 min",km:"~6.0km",n:"Last real run before race week. Easy and joyful — the work is done. Sleep, hydrate, and arrive fresh."}]},
+    {d:"Tue",i:"60s run / 90s walk", t:"31 min",km:"~3.5km",n:"Legs should feel springy and restless — that's the taper working. Short and easy, shorter run blocks."},
+    {d:"Thu",i:"60s run / 90s walk", t:"31 min",km:"~3.5km",n:"Short shakeout. Stay loose, stay healthy, trust your training."},
+    {d:"Sat",i:"60s run / 90s walk", t:"58 min",km:"~6.5km",n:"Last real run before race week. Easy and joyful — the work is done. Sleep, hydrate, and arrive fresh."}]},
   {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
     {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
     {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
@@ -427,7 +431,7 @@ const WEEKS = [
     {d:"Thu",i:"60s / 120s walk", t:"12 min", km:"~1.2km",n:"Final shakeout. Loose legs, then done."},
     {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Carb-load lunch & dinner."},
     {d:"Sat",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear. Bib, shoes, gels, watch charged. Early to bed."},
-    {d:"Sun",i:"RACE DAY",        t:"~3h00",  km:"21.1km",n:"Sun Oct 4, Berlin Half, in the Boston 12s. Your one job: start SLOWER than feels right and stay there. Take your run-walk from the very first minute — 90s run / 90s walk is your safe default (2min/90s only if you genuinely feel great) — and take every early walk break even when you feel fresh and everyone sprints off around you. Especially then. Hold easy Zone 2 the whole first half; if your HR drifts toward the 160s like it has before, you are over-pushing — walk longer and let it settle, no exceptions. Keep cadence quick and light to protect the shins over 21.1km. Walk every single water station. Be honest: your longest training run was ~12km, so the last ~9km is new ground — respect it and lean on the walk breaks to carry you rather than gutting it out. Only past 15km, and ONLY if your HR is still solidly in Zone 2 and your shins are completely silent, may you stretch the run segments a touch — cap it at 2min/90s, never beyond, and the moment anything complains go straight back to 90s/90s. Save a short continuous finisher for the final stretch and cross the line smiling. HONEST TARGET: ~3h00 on run-walk, and that is a real half marathon and a real achievement. The 2h30 number belonged to an uninterrupted build; chasing it now is how you'd get hurt at km 15. Finishing healthy is the win, not the clock. Boring is the goal."}]},
+    {d:"Sun",i:"RACE DAY",        t:"~3h00",  km:"21.1km",n:"Sun Oct 4, Berlin Half, in the Boston 12s. Your one job: start SLOWER than feels right and stay there. Take your run-walk from the very first minute — 90s run / 90s walk is your safe default (2min/90s only if you genuinely feel great) — and take every early walk break even when you feel fresh and everyone sprints off around you. Especially then. Hold easy Zone 2 the whole first half; if your HR drifts toward the 160s like it has before, you are over-pushing — walk longer and let it settle, no exceptions. Keep cadence quick and light to protect the shins over 21.1km. Walk every single water station. Be honest: your longest training run was ~14km, so only the last ~7km is genuinely new ground — respect it and lean on the walk breaks to carry you rather than gutting it out. Only past 15km, and ONLY if your HR is still solidly in Zone 2 and your shins are completely silent, may you stretch the run segments a touch — cap it at 2min/90s, never beyond, and the moment anything complains go straight back to 90s/90s. Save a short continuous finisher for the final stretch and cross the line smiling. HONEST TARGET: ~3h00 on run-walk, and that is a real half marathon and a real achievement. The 2h30 number belonged to an uninterrupted build; chasing it now is how you'd get hurt at km 15. Finishing healthy is the win, not the clock. Boring is the goal."}]},
 ];
 
 /* SVG icons for cross-training — line icons, no emoji */
