@@ -478,13 +478,13 @@ const CROSS_LIST = [
 ];
 
 const PREHAB_LIST = [
-  {name:"Eccentric Calf Raises", sets:"3×15",   when:"Every run day", note:"Step edge. Lower 3 slow seconds. Most important exercise.", anchor:true},
+  {name:"Eccentric Calf Raises", sets:"3×15",   when:"Every run day", note:"Step edge. Lower 3 slow seconds. Most important exercise. Restarting after a layoff? Begin at 2×10 flat-footed, no slow tempo, and build back over ~3 weeks — a big eccentric dose on detrained calves gives you 48h DOMS you'll mistake for a shin problem.", anchor:true},
   {name:"Tibialis Raises",        sets:"3×20",   when:"Every run day", note:"Back to wall, lift toes. Directly strengthens the shin muscle.", anchor:true},
   {name:"Clamshells",             sets:"3×15",   when:"Every run day", note:"Protect knees and hips as mileage rises."},
   {name:"TKE (resistance band)",  sets:"3×15",   when:"Mon gym day",   note:"Best exercise for knee stability. VMO strength."},
   {name:"Hip Thrusts",            sets:"3×12",   when:"Mon gym day",   note:"Best exercise for glutes. Improves running economy."},
   {name:"Single-leg Calf Raises", sets:"2×12",   when:"From Week 3",   note:"Add once bilateral version feels easy."},
-  {name:"Post-run Ice",           sets:"10–15m", when:"Weeks 1–8",     note:"Shins only. Frozen peas in a tea towel."},
+  {name:"Post-run Ice",           sets:"10–15m", when:"If shins grumble", note:"Shins only. Frozen peas in a tea towel. Not routine — use it when they've actually complained."},
   {name:"Yoga / Stretching",      sets:"20–30m", when:"Every Sunday",  note:"Calves, hip flexors, hamstrings."},
 ];
 
@@ -955,7 +955,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
         <div style={{marginTop:14, paddingTop:12, borderTop:"1px solid var(--line)", display:"flex", flexDirection:"column", gap:14}}>
           {[
             {n:"Galloway intervals", c:"#5EC95A", w:"Every run", d:"Run/walk pattern (e.g. 60s run / 90s walk). The chassis of the plan. Walk breaks keep impact low — your shins' best friend. You'll race with these too."},
-            {n:"Cadence", c:"#F5A028", w:"Every run segment", d:"Steps per minute while running — your single best shin-splint defence. Target 165–175 SPM during run blocks (your watch's run-average blends in walking, so it reads lower). Quicker, shorter steps land the foot under your hip instead of out in front, which cuts the braking force that loads the shin. Cue: quick, light, QUIET feet. Never force it by more than ~5–10% at a time."},
+            {n:"Cadence — NOT footstrike", c:"#F5A028", w:"Every run segment", d:"Cadence = how MANY steps per minute. Footstrike = which PART of the foot lands. They are independent — you can run 175 SPM heel-striking. Only cadence is worth changing. Target ~160 SPM first, then 165–175 over several weeks (your watch's run-average blends in walking, so it reads lower). The cue is SHORTER STEPS — that alone lands your foot under your hip instead of out in front, cutting the braking force that loads the shin. ⚠️ Do NOT deliberately land on your forefoot/toes. It doesn't reduce injury risk — it just moves load onto the Achilles, calf and metatarsals — and forcing it usually produces toe-reaching (foot pointed down but still landing out in front), which is the worst of both worlds. Land however you naturally land and forget about your feet."},
             {n:"Strides", c:"#B89AC7", w:"After Thu runs (wks 14–17)", d:"3–6 × 15s controlled-fast pickups on flat ground, full recovery between. Too short to stress shins; huge payoff for form and leg turnover. Doubles as your best cadence drill — turnover naturally goes quick here."},
             {n:"Continuous-run finisher", c:"#4DB8F5", w:"End of Sat long runs (wks 14–17)", d:"After the intervals, drop the walk breaks and run continuous Zone 2 for the last 2–3 min. Trains your body to keep moving without a break — and gives you a finish gear for the last stretch on race day."},
           ].map((m,i) => (
