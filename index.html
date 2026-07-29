@@ -955,7 +955,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
         <div style={{marginTop:14, paddingTop:12, borderTop:"1px solid var(--line)", display:"flex", flexDirection:"column", gap:14}}>
           {[
             {n:"Galloway intervals", c:"#5EC95A", w:"Every run", d:"Run/walk pattern (e.g. 60s run / 90s walk). The chassis of the plan. Walk breaks keep impact low — your shins' best friend. You'll race with these too."},
-            {n:"Cadence — NOT footstrike", c:"#F5A028", w:"Every run segment", d:"Cadence = how MANY steps per minute. Footstrike = which PART of the foot lands. They are independent — you can run 175 SPM heel-striking. Only cadence is worth changing. Target ~160 SPM first, then 165–175 over several weeks (your watch's run-average blends in walking, so it reads lower). The cue is SHORTER STEPS — that alone lands your foot under your hip instead of out in front, cutting the braking force that loads the shin. ⚠️ Do NOT deliberately land on your forefoot/toes. It doesn't reduce injury risk — it just moves load onto the Achilles, calf and metatarsals — and forcing it usually produces toe-reaching (foot pointed down but still landing out in front), which is the worst of both worlds. Land however you naturally land and forget about your feet."},
+            {n:"Cadence — NOT footstrike", c:"#F5A028", w:"Every run segment", d:"Cadence = how MANY steps per minute. Footstrike = which PART of the foot lands. They are independent — you can run 175 SPM heel-striking. Only cadence is worth changing. Target ~160 SPM first, then 165–175 over several weeks (your watch's run-average blends in walking, so it reads lower — check the per-interval breakdown for your true running number). ⛔ 175 is a ceiling, not a scoreboard: past ~180 at easy pace you're just taking tiny choppy steps, burning extra energy and tiring your calves for no gain. More is NOT better. The cue is SHORTER STEPS — that alone lands your foot under your hip instead of out in front, cutting the braking force that loads the shin. ⚠️ Do NOT deliberately land on your forefoot/toes. It doesn't reduce injury risk — it just moves load onto the Achilles, calf and metatarsals — and forcing it usually produces toe-reaching (foot pointed down but still landing out in front), which is the worst of both worlds. Land however you naturally land and forget about your feet."},
             {n:"Strides", c:"#B89AC7", w:"After Thu runs (wks 14–17)", d:"3–6 × 15s controlled-fast pickups on flat ground, full recovery between. Too short to stress shins; huge payoff for form and leg turnover. Doubles as your best cadence drill — turnover naturally goes quick here."},
             {n:"Continuous-run finisher", c:"#4DB8F5", w:"End of Sat long runs (wks 14–17)", d:"After the intervals, drop the walk breaks and run continuous Zone 2 for the last 2–3 min. Trains your body to keep moving without a break — and gives you a finish gear for the last stretch on race day."},
           ].map((m,i) => (
@@ -1536,6 +1536,10 @@ const SEED_RUNS_V2 = [
   {date:"2026-06-09", week:3, distance:"4.01", pace:"9:32", hr:125, duration:"38:18", cal:253, effort:"Moderate", sessionName:"45s/90s", note:"Smoked before run. Both feet tired, right ankle especially. Open phase: ~500m surge with GF at 6:00/km spiked HR to 164 and triggered sharp right-rib pain — resolved within 5 min post-run. Cadence 128.", shins:"Both shins sore post-run. Right ankle fatigue. Rib stitch (resolved 5 min)."},
 ];
 
+const SEED_RUNS_V5 = [
+  {date:"2026-07-28", week:10, distance:"5.35", pace:"12:17", hr:118, duration:"1:05:47", cal:373, effort:"Easy", sessionName:"45s/90s", note:"🎯 CADENCE BREAKTHROUGH — run-segment cadence 165–188 SPM (avg ~177), up from ~150. Target hit and then some; 184–188 reps are above the useful ceiling. Ran 23:27–00:33 (heat avoided, but late). HR superb again: 52:04 in Zone 1, only 0:49 in Zone 4, Effort Easy. Slow overall pace is mostly a ~22 min cooldown walk in the total. Felt tired — most likely the cadence overshoot, which costs real energy.", shins:"No shin pain reported."},
+];
+
 const SEED_RUNS_V4 = [
   {date:"2026-07-26", week:9, distance:"5.34", pace:"10:33", hr:116, duration:"56:18", cal:368, effort:"Easy", sessionName:"30s/90s", note:"First run back after ~6 weeks off (exams + heat sickness). Ran 14:12 — peak afternoon heat. HR control excellent for the first 40 min (85–110, pure Zone 1), then steady drift to 118–129 and a final Open 2:32 at 6:51/km hitting 150 BPM. Work intervals 6:14–7:15/km, recoveries honest at 11–12:47/km. Cadence 120 (down from 140 in June).", shins:"—"},
 ];
@@ -1590,6 +1594,14 @@ function LogBookTab(){
         .map(r => ({ id: new Date(r.date).getTime(), ...r }));
       current = [...current, ...seeded];
       lsSet("logbook_seeded_v4", "true");
+    }
+    if (lsGet("logbook_seeded_v5") !== "true") {
+      const haveDates = new Set(current.map(e=>e.date));
+      const seeded = SEED_RUNS_V5
+        .filter(r => !haveDates.has(r.date))
+        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
+      current = [...current, ...seeded];
+      lsSet("logbook_seeded_v5", "true");
     }
     if (current !== existing) lsSet("logbook", JSON.stringify(current));
     setEntries(current);
