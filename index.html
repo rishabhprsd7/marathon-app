@@ -387,7 +387,7 @@ const WEEKS = [
   {w:10,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"37 min",km:"~4.0km",n:"Load bumped as requested — 45s run blocks and a longer midweek. Three run days, three real recovery days: that's the structure now, and it's a good one. Early morning or after sunset only."},
     {d:"Thu",i:"45s run / 90s walk", t:"42 min",km:"~4.5km",n:"The midweek runs carry more weight now that there are only three. How did the shins feel after Tuesday? Any front-of-shin ache means shorten this one, no ego. Quick light feet."},
-    {d:"Sat",i:"45s run / 90s walk", t:"65 min",km:"~7.0km",n:"Longest since the layoff, and a big step from last Sunday's 5.34km. No end-of-run surge — finish calm. Land soft, quiet feet, walk every break."}]},
+    {d:"Sat",i:"45s run / 90s walk", t:"61 min",km:"~6.5km",n:"⚕️ Trimmed from 7km — you finished Thursday exhausted and flew that evening, so this lands on legs that haven't fully cleared. Cool part of the day, water with you, eat ~2h before. Work intervals 6:30–7:15/km: if you see a 5 at the front, you're going too hard. Feeling strong at 5km? Take it to 7. Feeling flat? Stop at 5.5 — that's a win too."}]},
   {w:11,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"45s run / 90s walk", t:"42 min",km:"~4.5km",n:"Same 45/90 — distance does the growing, not the ratio. Conversational the whole way."},
     {d:"Thu",i:"45s run / 90s walk", t:"47 min",km:"~5.0km",n:"Relaxed shoulders, calm breathing. The walk break does the recovery, so honor every one."},
@@ -900,12 +900,13 @@ function MyWeekTab(){
 
       {/* Rules card */}
       <div className="card grain grain-dark" style={{marginTop:14, padding:"18px 18px 14px"}}>
-        <div className="mono-cap" style={{color:"var(--amber)"}}>Three rules that override everything</div>
+        <div className="mono-cap" style={{color:"var(--amber)"}}>Four rules that override everything</div>
         <div style={{marginTop:14, display:"flex", flexDirection:"column", gap:12}}>
           {[
             {t:"Sharp shin pain mid-run", a:"Stop. Walk home. Two full rest days.", c:"var(--rust)"},
-            {t:"HR above 140 bpm",         a:"Walk until 125, then resume.",         c:"var(--amber)"},
-            {t:"Boston 12 stays in the box", a:"Until Week 11. No exceptions.",       c:"var(--sage)"},
+            {t:"Exhausted ≠ tired",        a:"Tired legs feel heavy and warm up after 10 min — keep going. Exhausted legs feel dead and never improve — end the run there. Stopping is the training working, not you failing.", c:"var(--rust)"},
+            {t:"Walk break stops lowering your HR", a:"Session over, walk home. A walk break exists to bring HR down; when it can't, every extra interval is fatigue with no benefit. This beats how you feel — trust the number.", c:"var(--amber)"},
+            {t:"Boston 12 stays in the box", a:"Until Week 14, then easy midweek runs only. Never a new shoe on a long run.", c:"var(--sage)"},
           ].map((r,i) => (
             <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
               <div className="data-num-tight" style={{
