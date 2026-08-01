@@ -1548,6 +1548,20 @@ const SEED_RUNS_V3 = [
   {date:"2026-06-14", week:3, distance:"6.09", pace:"9:28", hr:128, duration:"57:37", cal:388, effort:"Moderate", sessionName:"Solo 5K · 45s/90s + finisher", note:"🏅 LONGEST RUN EVER (~6km). Official 5K cancelled (moth) — ran solo. Interval setup mixed up so it became two continuous sessions. S1 (2.68km): textbook, avg HR 117, 99% Zone 1, max 138. S2 (3.41km): 8:23 continuous finisher, HR drifted to 159 / peaked 165 (Zone 4). Wanted to keep going; pushed slowly on tired legs and finished. Cadence climbed to 140.", shins:"No shin pain. Legs hurt during the continuous finisher but pain cleared within 5 min, leaving only fatigue — muscular, not injury."},
 ];
 
+const SEED_RUNS_V6 = [
+  {date:"2026-07-30", week:10, distance:"4.98", pace:"11:26", hr:137, duration:"57:01", cal:366, effort:"Moderate", sessionName:"45s/90s", note:"⚠️ Ran 11:53–12:50 — MIDDAY heat. Work intervals far too fast: 4:42, 4:46, 5:24, 5:28/km against an easy pace of ~6:30–7:15. HR climbed all run and never came back: started work 120 / recovery 113, finished work 161 / recovery 161 — walking at 161 BPM. Avg 137 vs 118 on Tuesday for a similar distance. Effort rated Moderate on what should have been an easy day.", shins:"No shin pain reported."},
+];
+
+/* [localStorage flag, batch] — order matters only for dedupe-by-date. */
+const SEED_BATCHES = [
+  ["logbook_seeded",    SEED_RUNS],
+  ["logbook_seeded_v2", SEED_RUNS_V2],
+  ["logbook_seeded_v3", SEED_RUNS_V3],
+  ["logbook_seeded_v4", SEED_RUNS_V4],
+  ["logbook_seeded_v5", SEED_RUNS_V5],
+  ["logbook_seeded_v6", SEED_RUNS_V6],
+];
+
 function LogBookTab(){
   const [entries, setEntries] = useState([]);
   const [editingId, setEditingId] = useState(null);
@@ -1560,48 +1574,18 @@ function LogBookTab(){
     const saved = lsGet("logbook");
     if (saved) try { existing = JSON.parse(saved); } catch {}
 
-    /* One-time backfill of historical runs. Guarded by a flag so it never
-       runs twice, and deduped by date so it won't clobber manual entries. */
+    /* One-time backfill of historical runs. Each batch is guarded by its own
+       flag so it never runs twice, and deduped by date so it won't clobber
+       manual entries. Add a new batch by appending to SEED_BATCHES. */
     let current = existing;
-    if (lsGet("logbook_seeded") !== "true") {
+    for (const [flag, batch] of SEED_BATCHES) {
+      if (lsGet(flag) === "true") continue;
       const haveDates = new Set(current.map(e=>e.date));
-      const seeded = SEED_RUNS
+      const seeded = batch
         .filter(r => !haveDates.has(r.date))
         .map(r => ({ id: new Date(r.date).getTime(), ...r }));
       current = [...current, ...seeded];
-      lsSet("logbook_seeded", "true");
-    }
-    if (lsGet("logbook_seeded_v2") !== "true") {
-      const haveDates = new Set(current.map(e=>e.date));
-      const seeded = SEED_RUNS_V2
-        .filter(r => !haveDates.has(r.date))
-        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
-      current = [...current, ...seeded];
-      lsSet("logbook_seeded_v2", "true");
-    }
-    if (lsGet("logbook_seeded_v3") !== "true") {
-      const haveDates = new Set(current.map(e=>e.date));
-      const seeded = SEED_RUNS_V3
-        .filter(r => !haveDates.has(r.date))
-        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
-      current = [...current, ...seeded];
-      lsSet("logbook_seeded_v3", "true");
-    }
-    if (lsGet("logbook_seeded_v4") !== "true") {
-      const haveDates = new Set(current.map(e=>e.date));
-      const seeded = SEED_RUNS_V4
-        .filter(r => !haveDates.has(r.date))
-        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
-      current = [...current, ...seeded];
-      lsSet("logbook_seeded_v4", "true");
-    }
-    if (lsGet("logbook_seeded_v5") !== "true") {
-      const haveDates = new Set(current.map(e=>e.date));
-      const seeded = SEED_RUNS_V5
-        .filter(r => !haveDates.has(r.date))
-        .map(r => ({ id: new Date(r.date).getTime(), ...r }));
-      current = [...current, ...seeded];
-      lsSet("logbook_seeded_v5", "true");
+      lsSet(flag, "true");
     }
     if (current !== existing) lsSet("logbook", JSON.stringify(current));
     setEntries(current);
