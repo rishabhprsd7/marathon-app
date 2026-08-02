@@ -1553,6 +1553,10 @@ const SEED_RUNS_V6 = [
   {date:"2026-07-30", week:10, distance:"4.98", pace:"11:26", hr:137, duration:"57:01", cal:366, effort:"Moderate", sessionName:"45s/90s", note:"⚠️ Ran 11:53–12:50 — MIDDAY heat. Work intervals far too fast: 4:42, 4:46, 5:24, 5:28/km against an easy pace of ~6:30–7:15. HR climbed all run and never came back: started work 120 / recovery 113, finished work 161 / recovery 161 — walking at 161 BPM. Avg 137 vs 118 on Tuesday for a similar distance. Effort rated Moderate on what should have been an easy day.", shins:"No shin pain reported."},
 ];
 
+const SEED_RUNS_V7 = [
+  {date:"2026-08-01", week:10, distance:"7.37", pace:"10:05", hr:123, duration:"1:14:26", cal:501, effort:"Easy", sessionName:"45s/90s", note:"🏅 LONGEST RUN EVER — 7.37km, beating the old 6.09km best by 21%, and rated Easy. Run in Rovinj, Croatia, 23:21–00:35. Pacing executed perfectly: work intervals almost all inside 6:30–7:15/km after Thursday's 4:42s. Avg HR 123 (vs 137 Thu) and walk breaks lowered HR the whole way through (129→119, 125→114) instead of failing at halfway. Cadence avg 124.", shins:"No shin pain. LEFT FOOT front-side pain after the run — screening for metatarsal stress vs lace-pressure extensor tendinitis."},
+];
+
 /* [localStorage flag, batch] — order matters only for dedupe-by-date. */
 const SEED_BATCHES = [
   ["logbook_seeded",    SEED_RUNS],
@@ -1561,6 +1565,7 @@ const SEED_BATCHES = [
   ["logbook_seeded_v4", SEED_RUNS_V4],
   ["logbook_seeded_v5", SEED_RUNS_V5],
   ["logbook_seeded_v6", SEED_RUNS_V6],
+  ["logbook_seeded_v7", SEED_RUNS_V7],
 ];
 
 function LogBookTab(){
