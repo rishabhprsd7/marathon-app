@@ -1557,6 +1557,18 @@ const SEED_RUNS_V7 = [
   {date:"2026-08-01", week:10, distance:"7.37", pace:"10:05", hr:123, duration:"1:14:26", cal:501, effort:"Easy", sessionName:"45s/90s", note:"🏅 LONGEST RUN EVER — 7.37km, beating the old 6.09km best by 21%, and rated Easy. Run in Rovinj, Croatia, 23:21–00:35. Pacing executed perfectly: work intervals almost all inside 6:30–7:15/km after Thursday's 4:42s. Avg HR 123 (vs 137 Thu) and walk breaks lowered HR the whole way through (129→119, 125→114) instead of failing at halfway. Cadence avg 124.", shins:"No shin pain. LEFT FOOT front-side pain after the run — screening for metatarsal stress vs lace-pressure extensor tendinitis."},
 ];
 
+/* One-time field patches applied to entries that are ALREADY seeded, keyed by
+   date. Needed because SEED_BATCHES dedupes by date, so a later batch can add
+   a run but can never enrich one that was seeded earlier. */
+const SEED_PATCHES = [
+  ["logbook_patch_v1", {
+    "2026-08-01": {
+      distance: "7.38",
+      note: "🏅 LONGEST RUN EVER — 7.38km, beating the old 6.09km best by 21%, and rated Easy. Rovinj, Croatia, 23:21–00:35, over 61m of climbing. NEGATIVE SPLIT — 10:22 · 10:20 · 9:57 · 9:51 · 9:27 · 9:13 · 9:25 per km: got faster almost every kilometre, which is exactly the race-day pattern. Work intervals held inside 6:30–7:15/km after Thursday's 4:42s. Zones: 53:39 Zone 1, 15:22 Zone 2, 4:56 Zone 3, ZERO Zone 4/5, max 159. Walk breaks lowered HR the whole way through.",
+    },
+  }],
+];
+
 /* [localStorage flag, batch] — order matters only for dedupe-by-date. */
 const SEED_BATCHES = [
   ["logbook_seeded",    SEED_RUNS],
@@ -1591,6 +1603,14 @@ function LogBookTab(){
         .filter(r => !haveDates.has(r.date))
         .map(r => ({ id: new Date(r.date).getTime(), ...r }));
       current = [...current, ...seeded];
+      lsSet(flag, "true");
+    }
+    /* Apply patches after seeding so a batch added this session is patchable too. */
+    for (const [flag, patch] of SEED_PATCHES) {
+      if (lsGet(flag) === "true") continue;
+      if (current.some(e => patch[e.date])) {
+        current = current.map(e => patch[e.date] ? { ...e, ...patch[e.date] } : e);
+      }
       lsSet(flag, "true");
     }
     if (current !== existing) lsSet("logbook", JSON.stringify(current));
