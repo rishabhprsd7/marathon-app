@@ -333,7 +333,7 @@ function watchCfg(i, t){
 const PHASE_COLOR = {
   Foundation:"#5EC95A", Build:"#4DB8F5",
   Endurance:"#F5A028", Taper:"#D4A96A", "Race Week":"#FF5A35",
-  "Re-entry":"#5EC95A", "Base build":"#4DB8F5", Peak:"#FFBA4D"
+  "Re-entry":"#5EC95A", "Base build":"#4DB8F5", "Goal pace":"#FF5A35", Peak:"#FFBA4D"
 };
 
 const WEEK_TEMPLATE = [
@@ -396,30 +396,30 @@ const WEEKS = [
     {d:"Tue",i:"45s run / 90s walk", t:"60 min",km:"~6.0km",n:"Midweek bumped — you ran 5.66km on Thursday and called it nice, so there's clear headroom here. Same 45/90, conversational the whole way."},
     {d:"Thu",i:"45s run / 90s walk", t:"65 min",km:"~6.5km",n:"Biggest midweek run yet. Quick light feet, boring effort. No HR monitor now, so use the talk test: if you can't speak a full sentence during a run block, slow it down."},
     {d:"Sat",i:"45s run / 90s walk", t:"95 min",km:"~9.5km",n:"⚠️ Read before you go. Skipping last Saturday means this is a jump from your ACTUAL longest (7.38km), not from 8km — about +29% in one step. That's why I held it at 9.5 instead of raising it. Eat ~2h before, carry water, cool part of the day. ABORT AT 7KM if you're struggling — 7km is still a good session and there's no prize for grinding out the last two."}]},
-  {w:13,phase:"Base build",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"45s run / 90s walk", t:"50 min",km:"~5.0km",n:"⚕️ No longer a deload — two missed Saturdays have already been your deload. LEFT SHIN CHECK before you run: press along the inner edge of the bone. Diffuse or nothing → go. One coin-sized wince-spot, or pain walking → don't run, tell me."},
-    {d:"Thu",i:"45s run / 90s walk", t:"55 min",km:"~5.5km",n:"Easy. Quick light feet — cadence is your shin's best protection. Talk test: full sentence during run blocks or slow down."},
-    {d:"Sat",i:"45s run / 90s walk", t:"85 min",km:"~8.5km",n:"🔑 THE ONE THAT MATTERS. Your last long run was 1 Aug (7.38km) — two Saturdays gone means the whole ladder to race day now starts here. 8.5km is a deliberate +15% from that, not the 11km the old plan wanted. Protect this session above the midweek ones. Eat ~2h before, carry water, cool part of the day."}]},
-  {w:14,phase:"Build",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"52 min",km:"~5.5km",n:"Run blocks step to a full minute — the ratio is the only new thing today. Easy throughout."},
-    {d:"Thu",i:"60s run / 90s walk + strides", t:"57 min",km:"~6.0km",n:"First Boston 12 outing — start breaking them in on an easy run. Add 3-4 relaxed strides at the end: smooth, quick feet, never a sprint. Strides are the best cadence drill you have."},
-    {d:"Sat",i:"60s run / 90s walk + finisher", t:"95 min",km:"~10.0km",n:"Double digits, back in the Duramos. Drop the walks for the last 2-3 min, gentle continuous easy running. Shin, foot or Achilles soreness = repeat this distance next week instead of climbing. That rule is not optional."}]},
-  {w:15,phase:"Build",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"57 min",km:"~6.0km",n:"More Boston 12 break-in miles on easy legs. Familiar 60/90 — the long run does this week's growing."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"59 min",km:"~6.5km",n:"Preview 90s run blocks midweek, so the peak isn't the first taste. Matched with a full 90s walk. Longer, not faster. How this feels decides your race-day ratio."},
-    {d:"Sat",i:"60s run / 90s walk + finisher", t:"109 min",km:"~11.5km",n:"11.5km and close to two hours. Fuel properly 2h before, carry water. Settle early, hit every walk break on time, easy finisher. This is race-day patience rehearsed."}]},
+  {w:13,phase:"Goal pace",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"42 min",km:"~5.0km",n:"⚕️ GATE: only start the 2:45 build if the chest pain is cleared by a doctor and the left shin passes the press test (inner bone edge — diffuse is fine, one wince-spot is not). Ratio jumps straight to 60/90. ⚡ NEW RULE: WALK BRISKLY — target 10:00/km, not the 11:30–13:00 strolls you've been doing. Free speed, zero injury risk."},
+    {d:"Thu",i:"60s run / 90s walk", t:"46 min",km:"~5.5km",n:"Brisk walks again — arms driving, purposeful, like you're late for a train. Time a walk break: if it's slower than 10:30/km you're strolling. Run blocks stay easy at ~6:45/km."},
+    {d:"Sat",i:"60s run / 90s walk", t:"71 min",km:"~8.5km",n:"🔑 THE ONE THAT MATTERS. Last long run was 1 Aug (7.38km); two missed Saturdays mean the whole ladder restarts here. Protect this above the midweek runs. Practise brisk walking for the full distance — that habit alone is worth ~15 min on race day. Eat ~2h before, carry water."}]},
+  {w:14,phase:"Goal pace",shoe:"Mixed",deload:false,runs:[
+    {d:"Tue",i:"90s run / 90s walk", t:"44 min",km:"~5.5km",n:"Run blocks to 90s — you're now running 50% of the time, up from 33% two weeks ago. This is the main lever on your finish time. Easy pace, brisk walks."},
+    {d:"Thu",i:"90s run / 90s walk + strides", t:"48 min",km:"~6.0km",n:"First Boston 12 outing — break them in on an easy run. 3-4 relaxed strides at the end: smooth, quick feet, never a sprint."},
+    {d:"Sat",i:"90s run / 90s walk + finisher", t:"81 min",km:"~10.0km",n:"Double digits at the new ratio, back in the Duramos. Last 2-3 min continuous. Shin, foot or Achilles soreness = repeat this distance next week instead of climbing. Not optional."}]},
+  {w:15,phase:"Goal pace",shoe:"Boston 12",deload:false,runs:[
+    {d:"Tue",i:"90s run / 60s walk", t:"47 min",km:"~6.0km",n:"⚡ Walk break shortens to 60s — 60% running now. This is the ratio that puts 2:45 in range. If your HR (chest strap) or breathing says too much, drop back to 90/90 and we accept ~2:55."},
+    {d:"Thu",i:"90s run / 60s walk + strides", t:"50 min",km:"~6.5km",n:"Same ratio, Boston 12s. Light strides at the end. How this week feels decides your race-day ratio — be honest with yourself about it."},
+    {d:"Sat",i:"90s run / 60s walk + finisher", t:"89 min",km:"~11.5km",n:"11.5km at goal ratio — the real test of whether 2:45 is on. Check your average pace afterwards: under 8:00/km means 2:45 is live; over 8:30/km means we target ~2:55 and that is still excellent."}]},
   {w:16,phase:"Peak",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"54 min",km:"~6.0km",n:"PEAK WEEK. The long-run ratio catches up to 90/90; your legs already met it midweek. Nothing to prove today. Good week to ease off the cigarettes for your race-day lungs."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"59 min",km:"~6.5km",n:"Biggest midweek run of the plan, but still easy with a couple of light strides. Resist making this one count — Saturday is the whole point of the week."},
-    {d:"Sat",i:"90s run / 90s walk + finisher", t:"117 min",km:"~13.0km",n:"🏔️ THE BIG ONE — 13km, around two hours, race shoes. Run it at whichever ratio you'll race (60/90 or 90/90) — this is the dress rehearsal, so nothing on race day should be new. Go slow, walk every single break, eat 2h before, carry water. Finish this and you WILL finish the half."}]},
+    {d:"Tue",i:"90s run / 60s walk", t:"45 min",km:"~6.0km",n:"PEAK WEEK. Nothing to prove today — Saturday is the whole point. Good week to ease off the cigarettes for your race-day lungs."},
+    {d:"Thu",i:"90s run / 60s walk + strides", t:"49 min",km:"~6.5km",n:"Easy with a couple of light strides. Save everything for Saturday."},
+    {d:"Sat",i:"90s run / 60s walk + finisher", t:"98 min",km:"~13.0km",n:"🏔️ DRESS REHEARSAL — 13km at your exact race ratio, race shoes, race breakfast, brisk walks throughout. Whatever average pace you hold here is your honest race prediction: multiply it by 21.1. Nothing on race day should be new after this."}]},
   {w:17,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"45 min",km:"~5.0km",n:"Taper begins — volume drops hard, freshness rises. You're banking rest now; resist testing yourself. Keep easing off the cigarettes."},
-    {d:"Thu",i:"90s run / 90s walk + strides", t:"45 min",km:"~5.0km",n:"Short and easy with a couple of light strides to stay snappy. The hard work is already done."},
-    {d:"Sat",i:"90s run / 90s walk + finisher", t:"81 min",km:"~9.0km",n:"Last longer run, well short of peak. Relaxed, smooth, confidence-building. Protect what you've built — no heroics."}]},
+    {d:"Tue",i:"90s run / 60s walk", t:"39 min",km:"~5.0km",n:"Taper begins — volume drops hard, freshness rises. Hold the race ratio but cut the distance. Resist testing yourself."},
+    {d:"Thu",i:"90s run / 60s walk + strides", t:"39 min",km:"~5.0km",n:"Short and easy with light strides to stay snappy. The hard work is done."},
+    {d:"Sat",i:"90s run / 60s walk + finisher", t:"70 min",km:"~9.0km",n:"Last longer run, well short of peak, at race ratio and race pace. Should feel controlled — that's the confidence you carry to the start line."}]},
   {w:18,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"38 min",km:"~4.0km",n:"Legs should feel springy and restless — that's the taper working. Short and easy, shorter run blocks."},
-    {d:"Thu",i:"60s run / 90s walk", t:"38 min",km:"~4.0km",n:"Short shakeout. Stay loose, stay healthy, trust your training."},
-    {d:"Sat",i:"60s run / 90s walk", t:"57 min",km:"~6.0km",n:"Last real run before race week. Easy and joyful — the work is done. Sleep, hydrate, and arrive fresh."}]},
+    {d:"Tue",i:"90s run / 90s walk", t:"32 min",km:"~4.0km",n:"Legs should feel springy and restless — that's the taper working. Easier ratio, short distance."},
+    {d:"Thu",i:"90s run / 90s walk", t:"32 min",km:"~4.0km",n:"Short shakeout. Stay loose, stay healthy, trust your training."},
+    {d:"Sat",i:"90s run / 60s walk", t:"47 min",km:"~6.0km",n:"Last real run before race week — race ratio, easy and joyful. The work is done. Sleep, hydrate, arrive fresh."}]},
   {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
     {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
     {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
@@ -427,7 +427,7 @@ const WEEKS = [
     {d:"Thu",i:"60s / 120s walk", t:"12 min", km:"~1.2km",n:"Final shakeout. Loose legs, then done."},
     {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Carb-load lunch & dinner."},
     {d:"Sat",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear. Bib, shoes, gels, watch charged. Early to bed."},
-    {d:"Sun",i:"RACE DAY",        t:"~3h10",  km:"21.1km",n:"Sun Oct 4, Berlin Half, in the Boston 12s.\n\n⏱ INTERVAL PLAN — 60s run / 90s walk is your default. Use 90s/90s ONLY if you completed the Week 16 long run at that ratio and it felt easy. Whatever you pick, it must be a ratio you have already run for two hours. Nothing new on race day.\n\nTHE FIRST 5KM DECIDE THE RACE. Take your first walk break at minute one. Do not skip early breaks because you feel fresh and everyone is sprinting off around you — that is the single most common way this day goes wrong, and it is the one mistake you have made repeatedly in training. Easy effort means you can speak a full sentence; if you can't, walk sooner.\n\nWalk every water station regardless of where you are in your cycle. Keep cadence quick and light to protect the shins over 21.1km.\n\nIF YOU'RE STRUGGLING AFTER 15KM: shorten the RUN segments (drop to 30s run / 90s walk) rather than stopping. Keeping the rhythm gets you home; standing still doesn't.\n\nYour longest training run will be ~13km, so the last 8km is new ground. Lean on the walk breaks to carry you through it instead of gutting it out.\n\nHONEST TARGET: ~3h05–3h20 on run-walk. That is a real half marathon and a real achievement. ⚠️ CHECK YOUR RACE'S OFFICIAL CUTOFF TIME NOW — if it's near 3h, tell your coach so the plan can be adjusted while there's still time. Finishing healthy is the win, not the clock. Boring is the goal."}]},
+    {d:"Sun",i:"RACE DAY",        t:"2h45 goal", km:"21.1km",n:"Sun Oct 4, Berlin Half, Boston 12s. GOAL 2:45 = 7:49/km average.\n\n⏱ INTERVAL PLAN — 90s run / 60s walk, the ratio you rehearsed in Weeks 15–16. Fall back to 90s/90s if the dress rehearsal said so; that lands ~2:55 and is still a fine day. Never race a ratio you haven't already run for two hours.\n\n⚡ THE WALK BREAKS ARE WHERE 2:45 IS WON. Brisk, 10:00/km, arms driving — NOT the 11:30–13:00 stroll. Across 21.1km that habit alone is worth about 15 minutes. It is the cheapest time in this whole plan and it costs your legs nothing.\n\nTHE FIRST 5KM DECIDE THE RACE. First walk break at minute one. Do not skip early breaks because you feel fresh while everyone sprints past — that is exactly the mistake you made repeatedly in training. Run blocks at ~6:45/km, never faster. Banking time early does not work; it only moves your collapse forward.\n\nWalk every water station. Keep cadence quick and light for the shins.\n\nSTRUGGLING AFTER 15KM: shorten the RUN segments (90s → 60s → 30s) but keep walking briskly. Keep the rhythm; don't stop.\n\nYour longest training run will be ~13km, so the last 8km is new ground. Lean on the walk breaks to carry you.\n\nREALITY CHECK: 2:45 needs you running ~58% of the time for 21.1km. 2:30 would need ~84% — essentially continuous running — and that is not on the table from this base. If the build goes perfectly you finish 2:45–2:55; if it doesn't, ~3h, and that is still a real half marathon. ⚠️ CHECK THE OFFICIAL CUTOFF TIME NOW. Finishing healthy is still the win."}]},
 ];
 
 /* SVG icons for cross-training — line icons, no emoji */
@@ -949,7 +949,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
       <details className="card grain grain-dark" style={{marginBottom:14, padding:"14px 16px", borderColor:"rgba(94,201,90,0.28)"}}>
         <summary style={{listStyle:"none", cursor:"pointer", display:"flex", alignItems:"center", justifyContent:"space-between", gap:12}}>
           <div>
-            <div className="mono-cap" style={{color:"var(--sage)"}}>The four tools in this plan</div>
+            <div className="mono-cap" style={{color:"var(--sage)"}}>The five tools in this plan</div>
             <div style={{fontSize:12.5, color:"var(--paper-dim)", marginTop:4}}>Tap to learn what each session type does</div>
           </div>
           <span style={{color:"var(--paper-faint)", fontSize:11}}>▾</span>
@@ -957,6 +957,7 @@ function RunPlanTab({openWeek, setOpenWeek, done, toggleDone, runNotes, editingN
         <div style={{marginTop:14, paddingTop:12, borderTop:"1px solid var(--line)", display:"flex", flexDirection:"column", gap:14}}>
           {[
             {n:"Galloway intervals", c:"#5EC95A", w:"Every run", d:"Run/walk pattern (e.g. 60s run / 90s walk). The chassis of the plan. Walk breaks keep impact low — your shins' best friend. You'll race with these too."},
+            {n:"Brisk walk breaks", c:"#FF5A35", w:"Every walk break", d:"⚡ THE CHEAPEST TIME IN THE PLAN. Your walk breaks have been 11:30–13:00/km — that's a stroll. A purposeful walk is 10:00/km: upright, arms driving, like you're late for a train. At 90s/60s over 21.1km, walking 10:00 instead of 11:30 is worth roughly 15 MINUTES off your finish time — for zero extra impact on your shins and zero extra effort from your legs. Nothing else in this plan gives you that much for that little. Time one break on every run: slower than 10:30/km means you're strolling."},
             {n:"Cadence — NOT footstrike", c:"#F5A028", w:"Every run segment", d:"Cadence = how MANY steps per minute. Footstrike = which PART of the foot lands. They are independent — you can run 175 SPM heel-striking. Only cadence is worth changing. Target ~160 SPM first, then 165–175 over several weeks (your watch's run-average blends in walking, so it reads lower — check the per-interval breakdown for your true running number). ⛔ 175 is a ceiling, not a scoreboard: past ~180 at easy pace you're just taking tiny choppy steps, burning extra energy and tiring your calves for no gain. More is NOT better. The cue is SHORTER STEPS — that alone lands your foot under your hip instead of out in front, cutting the braking force that loads the shin. ⚠️ Do NOT deliberately land on your forefoot/toes. It doesn't reduce injury risk — it just moves load onto the Achilles, calf and metatarsals — and forcing it usually produces toe-reaching (foot pointed down but still landing out in front), which is the worst of both worlds. Land however you naturally land and forget about your feet."},
             {n:"Strides", c:"#B89AC7", w:"After Thu runs (wks 14–17)", d:"3–6 × 15s controlled-fast pickups on flat ground, full recovery between. Too short to stress shins; huge payoff for form and leg turnover. Doubles as your best cadence drill — turnover naturally goes quick here."},
             {n:"Continuous-run finisher", c:"#4DB8F5", w:"End of Sat long runs (wks 14–17)", d:"After the intervals, drop the walk breaks and run continuous Zone 2 for the last 2–3 min. Trains your body to keep moving without a break — and gives you a finish gear for the last stretch on race day."},
