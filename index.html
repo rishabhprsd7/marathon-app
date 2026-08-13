@@ -1561,6 +1561,10 @@ const SEED_RUNS_V7 = [
   {date:"2026-08-01", week:10, distance:"7.37", pace:"10:05", hr:123, duration:"1:14:26", cal:501, effort:"Easy", sessionName:"45s/90s", note:"🏅 LONGEST RUN EVER — 7.37km, beating the old 6.09km best by 21%, and rated Easy. Run in Rovinj, Croatia, 23:21–00:35. Pacing executed perfectly: work intervals almost all inside 6:30–7:15/km after Thursday's 4:42s. Avg HR 123 (vs 137 Thu) and walk breaks lowered HR the whole way through (129→119, 125→114) instead of failing at halfway. Cadence avg 124.", shins:"No shin pain. LEFT FOOT front-side pain after the run — screening for metatarsal stress vs lace-pressure extensor tendinitis."},
 ];
 
+const SEED_RUNS_V8 = [
+  {date:"2026-08-11", week:12, distance:"6.92", pace:"8:38", hr:"", duration:"59:48", cal:546, effort:"Moderate", sessionName:"45s/90s", note:"⚡ BIGGEST PACE JUMP YET — 8:38/km, a full 87 sec/km faster than the 10:05 of 1 Aug over a similar distance. Cadence up again to 133 avg (max 185). Splits even at 8:31–9:00 with an 8:03 surge over the last 0.9km. 51m climbing. No HR — this run predates the chest strap — but 546 kcal for 6.92km vs 392 kcal for 7.38km on 1 Aug says this was run considerably harder than an easy Tuesday should be. Max speed 14.2 kph.", shins:"Left shin sore around this period; foot fine."},
+];
+
 /* One-time field patches applied to entries that are ALREADY seeded, keyed by
    date. Needed because SEED_BATCHES dedupes by date, so a later batch can add
    a run but can never enrich one that was seeded earlier. */
@@ -1582,6 +1586,7 @@ const SEED_BATCHES = [
   ["logbook_seeded_v5", SEED_RUNS_V5],
   ["logbook_seeded_v6", SEED_RUNS_V6],
   ["logbook_seeded_v7", SEED_RUNS_V7],
+  ["logbook_seeded_v8", SEED_RUNS_V8],
 ];
 
 function LogBookTab(){
