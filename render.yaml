@@ -4,6 +4,13 @@ services:
     env: static
     buildCommand: ""
     staticPublishPath: .
+    # The whole app is one HTML file that changes whenever the plan changes.
+    # Without this the browser serves a stale plan and the runner trains the
+    # wrong session. no-cache = revalidate every load, not "never cache".
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache, max-age=0, must-revalidate
     routes:
       - type: rewrite
         source: /*
