@@ -333,6 +333,7 @@ function watchCfg(i, t){
 const PHASE_COLOR = {
   Foundation:"#5EC95A", Build:"#4DB8F5",
   Endurance:"#F5A028", Taper:"#D4A96A", "Race Week":"#FF5A35",
+  Interrupted:"#7A7A7A", "Final build":"#FF5A35",
   "Re-entry":"#5EC95A", "Base build":"#4DB8F5", "Goal pace":"#FF5A35", Peak:"#FFBA4D"
 };
 
@@ -396,38 +397,38 @@ const WEEKS = [
     {d:"Tue",i:"45s run / 90s walk", t:"60 min",km:"~6.0km",n:"Midweek bumped — you ran 5.66km on Thursday and called it nice, so there's clear headroom here. Same 45/90, conversational the whole way."},
     {d:"Thu",i:"45s run / 90s walk", t:"65 min",km:"~6.5km",n:"Biggest midweek run yet. Quick light feet, boring effort. No HR monitor now, so use the talk test: if you can't speak a full sentence during a run block, slow it down."},
     {d:"Sat",i:"60s run / 90s walk", t:"79 min",km:"~9.0km",n:"⚡ RATIO UPGRADE — run blocks to 60s, the first step of the 2:45 build. Trimmed 9.5→9.0 because you've already run 6.92 + 7.35km this week. Still +22% on your longest (7.38km), so respect it. BRISK WALKS at 10:00/km — that habit is worth ~15 min on race day. 🔄 FORM CHECKPOINT AT 5KM: that's where your posture starts to collapse and your shins pay for it. From 5km on, use every single walk break to stand tall and reset, then run the next block with quick light feet. Eat ~2h before, carry water, cool part of the day. Abort at 7km if you're struggling; that's still a good session."}]},
-  {w:13,phase:"Goal pace",shoe:"Duramo SL2",deload:false,runs:[
-    {d:"Tue",i:"Rest", t:"—",km:"—",n:"⚕️ REST — your own suggestion, and the better one. Two runs with three days between them beats three runs on a shin that's still sore to touch. You're right that Tuesday evening clears 72h, but the clock was never the real gate: the shin is. Walk, stretch calves, ice 10 min if tender."},
-    {d:"Wed",i:"60s run / 90s walk", t:"61 min",km:"~7.0km",n:"⚕️ SHIN GATE FIRST: press along the inner edge of the lower shin. Still tender, one coin-sized wince-spot, or sore walking → don't run, tell me. If clear: 7.0km — bumped from 6.0, and 0.35km under the last midweek run you did comfortably. This is where you learn 60/90 properly, the consolidation I should have given you before last Saturday. Easy. Avg HR under 135."},
-    {d:"Sat",i:"60s run / 90s walk", t:"83 min",km:"~9.5km+",n:"🎯 EARN THE EXTRA KILOMETRE. Start at 9.5km. At 9.5, check your average HR: UNDER 140 and feeling good → carry on to 10.5km, you've earned it. 140+ → stop at 9.5, that's the session. The distance is the reward for control, not a target competing with it — last Saturday you had a number to hit and ran it at 151. Cool part of the day, brisk walks, form reset every break from 5km. Above 155 at any point → walk more, slow the run blocks."}]},
-  {w:14,phase:"Goal pace",shoe:"Mixed",deload:false,runs:[
-    {d:"Tue",i:"60s run / 90s walk", t:"48 min",km:"~5.5km",n:"Easy. Same ratio — no new stressors this week, the long run does the growing."},
-    {d:"Thu",i:"60s run / 90s walk + strides", t:"52 min",km:"~6.0km",n:"First Boston 12 outing — break them in on a short, easy run. 3-4 relaxed strides at the end: smooth, quick feet, never a sprint."},
-    {d:"Sat",i:"60s run / 90s walk + finisher", t:"94 min",km:"~11.0km",n:"New longest, back in the Duramos — but only because last week proved you can hold HR down. Same rule: avg under 140. Last 2-3 min continuous. Shin sore afterwards = repeat this distance next week instead of climbing."}]},
-  {w:15,phase:"Goal pace",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"51 min",km:"~6.5km",n:"⚡ Run blocks to 90s — 50% running now. New ratio on a SHORT run first, properly this time. Boston 12 break-in."},
-    {d:"Thu",i:"90s run / 60s walk + strides", t:"55 min",km:"~7.0km",n:"Walk break shortens to 60s — 60% running, the ratio that puts 2:45 in range. Still a short run. If breathing or HR says too much, stay at 90/90 and we accept ~2:55."},
-    {d:"Sat",i:"90s run / 60s walk + finisher", t:"98 min",km:"~12.5km",n:"12.5km at goal ratio — the real test of whether 2:45 is on. Check average pace afterwards: under 8:00/km and 2:45 is live; over 8:30/km and we target ~2:55, which is still excellent."}]},
-  {w:16,phase:"Peak",shoe:"Boston 12",deload:false,runs:[
-    {d:"Tue",i:"90s run / 60s walk", t:"51 min",km:"~6.5km",n:"PEAK WEEK. Nothing to prove today — Saturday is the whole point. Good week to ease off the cigarettes for your race-day lungs."},
-    {d:"Thu",i:"90s run / 60s walk + strides", t:"55 min",km:"~7.0km",n:"Easy with a couple of light strides. Save everything for Saturday."},
-    {d:"Sat",i:"90s run / 60s walk + finisher", t:"110 min",km:"~14.0km",n:"🏔️ DRESS REHEARSAL — 14km at your exact race ratio, race shoes, race breakfast, brisk walks throughout. Two-thirds of the race distance. Whatever average pace you hold here is your honest prediction: multiply it by 21.1. Nothing on race day should be new after this."}]},
-  {w:17,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"90s run / 60s walk", t:"43 min",km:"~5.5km",n:"Taper begins — volume drops hard, freshness rises. Hold the race ratio, cut the distance. Resist testing yourself."},
-    {d:"Thu",i:"90s run / 60s walk + strides", t:"43 min",km:"~5.5km",n:"Short and easy with light strides to stay snappy. The hard work is done."},
-    {d:"Sat",i:"90s run / 60s walk + finisher", t:"78 min",km:"~10.0km",n:"Last longer run, well short of peak, at race ratio and race pace. Should feel controlled — that's the confidence you carry to the start line."}]},
-  {w:18,phase:"Taper",shoe:"Boston 12",deload:true,runs:[
-    {d:"Tue",i:"90s run / 90s walk", t:"37 min",km:"~4.5km",n:"Legs should feel springy and restless — that's the taper working. Easier ratio, short distance."},
-    {d:"Thu",i:"90s run / 90s walk", t:"37 min",km:"~4.5km",n:"Short shakeout. Stay loose, stay healthy, trust your training."},
-    {d:"Sat",i:"90s run / 60s walk", t:"51 min",km:"~6.5km",n:"Last real run before race week — race ratio, easy and joyful. The work is done. Sleep, hydrate, arrive fresh."}]},
-  {w:19,phase:"Race Week",shoe:"Boston 12",deload:false,runs:[
+  {w:13,phase:"Interrupted",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"Rest", t:"—",km:"—",n:"Missed — shin pain."},
+    {d:"Wed",i:"60s run / 90s walk", t:"72 min",km:"~7.6km",n:"✅ Ran 19 Aug. Avg HR 136 against a 135 target — the effort-control instruction worked. Shins sore to press afterwards and stayed sore."},
+    {d:"Sat",i:"Rest", t:"—",km:"—",n:"Missed — shins still tender."}]},
+  {w:14,phase:"Interrupted",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"Rest", t:"—",km:"—",n:"Missed — fever."},
+    {d:"Thu",i:"Rest", t:"—",km:"—",n:"Missed — fever, then orthopedist appointment Fri 28 Aug."},
+    {d:"Sat",i:"Rest", t:"—",km:"—",n:"Missed. Diagnosis 28.08.26: tibialis anterior + posterior tendinitis, both legs."}]},
+  {w:15,phase:"Interrupted",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"45s run / 90s walk", t:"56 min",km:"~4.2km",n:"✅ Ran 1 Sep — first run back after 12 days. Avg HR 122, pain 2/10, within limits. Second orthopedist confirmed the diagnosis the same day."},
+    {d:"Thu",i:"Rest", t:"—",km:"—",n:"Missed."},
+    {d:"Sat",i:"Rest", t:"—",km:"—",n:"Missed."}]},
+  {w:16,phase:"Final build",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"50 min",km:"~6.0km",n:"⏱ 18 REPS — warmup 300s, then 60s run / 90s walk ×18. Six days since the last run. Duramos, sleeves if you have them. Run legs 6:45/km, walks 10:00/km — on 1 Sep you ran 6:03 and walked 11:20, and fixing both costs nothing in finish time. Pain ≤3/10 or stop."},
+    {d:"Thu",i:"60s run / 90s walk", t:"60 min",km:"~7.0km",n:"⏱ 22 REPS. Easy. The isometric holds and banded inversion matter more than this run — do them daily."},
+    {d:"Sat",i:"60s run / 90s walk", t:"77 min",km:"~9.0km",n:"⏱ 29 REPS. ⚠️ +117% on your last run, on tendons that flared at 9.81km three weeks ago. This is the riskiest session of the block. Eat 2h before, carry water, cool part of the day. ABORT AT 6KM if pain passes 3/10 or climbs rep over rep — 6km is still a good session, a flare costs you the race."}]},
+  {w:17,phase:"Peak",shoe:"Duramo SL2",deload:false,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"60 min",km:"~7.0km",n:"⏱ 22 REPS. Easy. Race shoe is decided: the Duramos. The Boston 12 is firmer, lower and plated, so it loads the lower leg MORE — wrong shoe for inflamed tendons, and finishing beats a marginal time gain."},
+    {d:"Thu",i:"60s run / 90s walk", t:"62 min",km:"~7.5km",n:"⏱ 23 REPS. Easy, nothing to prove. Saturday is the whole point of the week."},
+    {d:"Sat",i:"60s run / 90s walk", t:"102 min",km:"~12.0km",n:"⚑ GO / NO-GO — 12km, 39 REPS, over 100 minutes. Full dress rehearsal: race shoes, race breakfast, sleeves, water. 12km at ≤3/10 with controlled effort and you race on 4 Oct. Short of it and we decide honestly, with two weeks still in hand."}]},
+  {w:18,phase:"Taper",shoe:"Duramo SL2",deload:true,runs:[
+    {d:"Tue",i:"60s run / 90s walk", t:"50 min",km:"~6.0km",n:"⏱ 18 REPS. Taper begins — volume drops so the tendons get their best two weeks of the block. Resist testing yourself."},
+    {d:"Thu",i:"60s run / 90s walk", t:"50 min",km:"~6.0km",n:"⏱ 18 REPS. Short and easy. The hard work is done — protect it."},
+    {d:"Sat",i:"60s run / 90s walk", t:"77 min",km:"~9.0km",n:"⏱ 29 REPS. Last longer run. Relaxed and controlled — that's the confidence you carry to the start line. Keep the rehab going right through race week."}]},
+  {w:19,phase:"Race Week",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Mon",i:"Rest",            t:"—",      km:"—",     n:"Full rest. Sleep 8h. Hydrate."},
-    {d:"Tue",i:"60s / 120s walk", t:"15 min", km:"~1.5km",n:"Shakeout only. Very easy."},
-    {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Hydrate."},
-    {d:"Thu",i:"60s / 120s walk", t:"12 min", km:"~1.2km",n:"Final shakeout. Loose legs, then done."},
+    {d:"Tue",i:"60s run / 90s walk", t:"35 min", km:"~4.0km",n:"⏱ 12 REPS. Easy shakeout."},
+    {d:"Wed",i:"Rest",            t:"—",      km:"—",     n:"Walk only. Hydrate. Keep doing the isometric holds."},
+    {d:"Thu",i:"60s run / 90s walk", t:"25 min", km:"~3.0km",n:"⏱ 8 REPS. Final shakeout. Loose legs, then done."},
     {d:"Fri",i:"Rest",            t:"—",      km:"—",     n:"Rest. Carb-load lunch & dinner."},
-    {d:"Sat",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out your gear. Bib, shoes, gels, watch charged. Early to bed."},
-    {d:"Sun",i:"RACE DAY",        t:"2h45 goal", km:"21.1km",n:"Sun Oct 4, Berlin Half, Boston 12s. GOAL 2:45 = 7:49/km average.\n\n⏱ INTERVAL PLAN — 90s run / 60s walk, the ratio you rehearsed in Weeks 15–16. Fall back to 90s/90s if the dress rehearsal said so; that lands ~2:55 and is still a fine day. Never race a ratio you haven't already run for two hours.\n\n⚡ THE WALK BREAKS ARE WHERE 2:45 IS WON. Brisk, 10:00/km, arms driving — NOT the 11:30–13:00 stroll. Across 21.1km that habit alone is worth about 15 minutes. It is the cheapest time in this whole plan and it costs your legs nothing.\n\nTHE FIRST 5KM DECIDE THE RACE. First walk break at minute one. Do not skip early breaks because you feel fresh while everyone sprints past — that is exactly the mistake you made repeatedly in training. Run blocks at ~6:45/km, never faster. Banking time early does not work; it only moves your collapse forward.\n\nWalk every water station. Keep cadence quick and light for the shins.\n\nSTRUGGLING AFTER 15KM: shorten the RUN segments (90s → 60s → 30s) but keep walking briskly. Keep the rhythm; don't stop.\n\nYour longest training run will be ~14km, so the last 7km is new ground. Lean on the walk breaks to carry you.\n\nREALITY CHECK: 2:45 needs you running ~58% of the time for 21.1km. 2:30 would need ~84% — essentially continuous running — and that is not on the table from this base. If the build goes perfectly you finish 2:45–2:55; if it doesn't, ~3h, and that is still a real half marathon. ⚠️ CHECK THE OFFICIAL CUTOFF TIME NOW. Finishing healthy is still the win."}]},
+    {d:"Sat",i:"Rest",            t:"—",      km:"—",     n:"Rest. Lay out gear: bib, Duramos, sleeves, phone charged, interval timer set to 60s/90s. Early to bed."},
+    {d:"Sun",i:"RACE DAY",        t:"FINISH", km:"21.1km",n:"Sun Oct 4, Berlin Half, DURAMO SL2 (not the Boston 12s — firmer and plated means more lower-leg load), compression sleeves.\n\n🎯 THE GOAL IS TO FINISH. Expect ~3h–3h20. You started running in May, on a tendinitis diagnosis, and you will have covered a half marathon. The clock is irrelevant beside that.\n\n⏱ 60s run / 90s walk from the very first minute — the ratio you rehearsed. Do NOT lengthen the run blocks because you feel good early; the tendons send the bill at km 15.\n\n⚡ BRISK WALK BREAKS, 10:00/km, arms driving. That habit is worth about 15 minutes across 21.1km and costs the tendons nothing.\n\nTHE FIRST 5KM DECIDE THE DAY. First walk break at minute one. Everyone will sprint past you — let them. Run legs at 6:45/km, easy enough to speak a full sentence.\n\nWalk every water station. Quick light cadence unloads both tendons.\n\nSTRUGGLING AFTER 12KM: shorten the RUN segments (60s → 45s → 30s), keep walking briskly. Keep the rhythm; don\'t stop.\n\nYour longest run will be ~12km, so the last 9km is new ground. The walk breaks carry you through it.\n\n⚕️ TAKE THE DNF IF: shin pain passes 5/10, you start limping, or your gait changes. A DNF costs one race. Running a tendon to a tear costs a year."}]},
 ];
 
 /* SVG icons for cross-training — line icons, no emoji */
@@ -478,14 +479,17 @@ const CROSS_LIST = [
 ];
 
 const PREHAB_LIST = [
-  {name:"Eccentric Calf Raises", sets:"3×15",   when:"Every run day", note:"Step edge. Lower 3 slow seconds. Most important exercise. Restarting after a layoff? Begin at 2×10 flat-footed, no slow tempo, and build back over ~3 weeks — a big eccentric dose on detrained calves gives you 48h DOMS you'll mistake for a shin problem.", anchor:true},
-  {name:"Tibialis Raises",        sets:"3×20",   when:"Every run day", note:"Back to wall, lift toes. Directly strengthens the shin muscle.", anchor:true},
+  {name:"Isometric Inversion Hold", sets:"5 × 30–45s", when:"DAILY — do these first", note:"⚕️ TIB. POSTERIOR REHAB, prescribed by BOTH orthopedists. Sit, loop a band round the inside of your forefoot, anchor it to the outside. Turn the sole inward against the band at ~70% effort and HOLD — don't move. Isometric holds genuinely reduce tendon pain, so do these on sore days too. The single most important thing on this list.", anchor:true},
+  {name:"Banded Inversion (slow)",  sets:"3×15",   when:"Every other day", note:"⚕️ TIB. POSTERIOR REHAB. Same setup, now moving: 3 seconds turning in, 3 seconds back out. Slow and heavy remodels a tendon; fast reps do nothing. Build resistance over weeks, never in one jump. Pain along the INNER ANKLE is this same tendon — it runs behind the ankle bone into the arch, so soreness anywhere on that line is one structure, not a second injury.", anchor:true},
+  {name:"Tibialis Raises",        sets:"3×20",   when:"Every run day", note:"⚕️ TIB. ANTERIOR REHAB. Back to wall, heels planted, lift toes toward your shins. Add a band round the forefoot once bodyweight feels easy, and slow it to 3s up / 3s down.", anchor:true},
+  {name:"Eccentric Calf Raises", sets:"3×15",   when:"Every run day", note:"Step edge, lower 3 slow seconds. Turn the foot slightly INWARD as you lower — that biases load onto tibialis posterior, the tendon that needs it. Returning from a layoff? Start 2×10 flat-footed, no slow tempo, build over ~3 weeks.", anchor:true},
+  {name:"Compression Sleeves",    sets:"2 pairs", when:"Every run + after", note:"⚕️ Prescribed 28.08.26 but NOT covered by GKV — sports sleeves aren't in the Hilfsmittelverzeichnis, so the Sanitätshaus was right that you self-pay. €15–20 Decathlon, €35–45 Bauerfeind. Size by measuring your calf at its widest. They're a comfort aid, NOT the treatment — the loading work above is. Never delay a run waiting for them."},
+  {name:"Contrast Hot/Cold",      sets:"3 rounds", when:"After every run", note:"⚕️ Prescribed by the second orthopedist 01.09.26. Alternate ~3 min warm and ~1 min cold on the lower legs, finishing cold, three rounds. Alternating dilation and constriction drives blood through the tendon, which is poorly vascularised and slow to heal. Replaces plain icing — ice alone just numbs it."},
   {name:"Belly Breathing",        sets:"5 min",  when:"Daily, lying down", note:"Hand on chest, hand on belly — only the belly hand should rise. Practising at rest makes it your default under load, so the diaphragm spasm stops recurring mid-run instead of needing to be fixed each time.", anchor:true},
   {name:"Clamshells",             sets:"3×15",   when:"Every run day", note:"Protect knees and hips as mileage rises. Weak hips are why posture collapses late in a long run — which is what your shins have been complaining about."},
   {name:"TKE (resistance band)",  sets:"3×15",   when:"Mon gym day",   note:"Best exercise for knee stability. VMO strength."},
   {name:"Hip Thrusts",            sets:"3×12",   when:"Mon gym day",   note:"Best exercise for glutes. Improves running economy."},
   {name:"Single-leg Calf Raises", sets:"2×12",   when:"From Week 3",   note:"Add once bilateral version feels easy."},
-  {name:"Post-run Ice",           sets:"10–15m", when:"If shins grumble", note:"Shins only. Frozen peas in a tea towel. Not routine — use it when they've actually complained."},
   {name:"Yoga / Stretching",      sets:"20–30m", when:"Every Sunday",  note:"Calves, hip flexors, hamstrings."},
 ];
 
@@ -755,6 +759,215 @@ function TabBar({tab, setTab}){
 }
 
 /* ───────── MY WEEK TAB ───────── */
+/* ── Morning check-in ──────────────────────────────────────────────────────
+   The 24-hour tendon rule and the resting-HR rule both depend on a number
+   taken BEFORE the day's run. Nothing else in the app captures it, and it is
+   the input that decides whether each session goes ahead. 15 seconds. */
+
+const SHIN_SCALE = [0,1,2,3,4,5,6];
+const LEGS_OPTS  = [{k:"fresh",l:"Fresh"},{k:"ok",l:"OK"},{k:"heavy",l:"Heavy"}];
+
+function shinColor(v){
+  if (v == null) return "rgba(247,240,220,0.12)";
+  if (v <= 1) return "var(--sage)";
+  if (v <= 3) return "var(--amber)";
+  return "var(--rust)";
+}
+
+/* Baseline = mean of the lower half of recent readings, so a few bad nights
+   can't inflate it and mask a genuine spike. */
+function rhrBaseline(log){
+  const vals = log.map(e=>e.rhr).filter(v=>Number.isFinite(v));
+  if (vals.length < 7) return null;
+  const recent = vals.slice(-14).sort((a,b)=>a-b);
+  const half = recent.slice(0, Math.max(3, Math.ceil(recent.length/2)));
+  return half.reduce((a,b)=>a+b,0)/half.length;
+}
+
+function checkinVerdict(log){
+  if (!log.length) return null;
+  const sorted = [...log].sort((a,b)=>a.date.localeCompare(b.date));
+  const today = sorted[sorted.length-1];
+  const prev  = sorted[sorted.length-2];
+
+  let streak = 0;
+  for (let i = sorted.length-1; i >= 0 && sorted[i].shin >= 4; i--) streak++;
+
+  if (streak >= 3) return {tone:"var(--rust)", head:"Stop running",
+    body:"Shins have been 4/10 or worse for "+streak+" days running. That's the three-bad-mornings line — book a follow-up rather than training through it."};
+  if (today.shin > 5) return {tone:"var(--rust)", head:"Don't run today",
+    body:"Above 5/10 is past the limit both orthopedists set. Rehab and rest only."};
+  if (streak === 2) return {tone:"var(--amber)", head:"Cut the next run by a third",
+    body:"Two mornings at 4/10 or worse. Reduce the next session and see if it settles."};
+  if (prev && today.shin > prev.shin && today.shin >= 3) return {tone:"var(--amber)", head:"Yesterday was too much",
+    body:"Worse than the morning before. The 24-hour rule says cut the next run by a third."};
+
+  const base = rhrBaseline(sorted);
+  if (base && Number.isFinite(today.rhr) && today.rhr >= base + 7)
+    return {tone:"var(--amber)", head:"Under-recovered",
+      body:"Resting HR "+today.rhr+" is "+Math.round(today.rhr-base)+" above your "+Math.round(base)+" baseline. Make today easy, or rest."};
+
+  if (today.legs === "heavy") return {tone:"var(--amber)", head:"Legs are heavy",
+    body:"Shins are fine, so run — but keep it genuinely easy and don't chase distance."};
+
+  return {tone:"var(--sage)", head:"Green light",
+    body:"Shins "+today.shin+"/10 and nothing flagged. Run as planned — easy legs, brisk walks."};
+}
+
+function MorningCheckIn(){
+  const [log, setLog] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [shin, setShin] = useState(null);
+  const [legs, setLegs] = useState(null);
+  const [rhr, setRhr]   = useState("");
+
+  const todayKey = TODAY.toISOString().slice(0,10);
+
+  useEffect(()=>{
+    const saved = lsGet("checkin");
+    if (saved) try { setLog(JSON.parse(saved)); } catch {}
+  },[]);
+
+  const todays = log.find(e => e.date === todayKey);
+
+  const save = () => {
+    if (shin === null) return;
+    const entry = {date:todayKey, shin, legs, rhr: rhr === "" ? null : Number(rhr)};
+    const next = [...log.filter(e=>e.date!==todayKey), entry].sort((a,b)=>a.date.localeCompare(b.date)).slice(-120);
+    lsSet("checkin", JSON.stringify(next));
+    setLog(next); setOpen(false);
+  };
+
+  const startEdit = () => {
+    setShin(todays ? todays.shin : null);
+    setLegs(todays ? todays.legs : null);
+    setRhr(todays && todays.rhr != null ? String(todays.rhr) : "");
+    setOpen(true);
+  };
+
+  const strip = [];
+  for (let i=13; i>=0; i--){
+    const d = new Date(TODAY); d.setDate(d.getDate()-i);
+    const key = d.toISOString().slice(0,10);
+    strip.push({key, entry: log.find(e=>e.date===key)});
+  }
+  const verdict = todays ? checkinVerdict(log) : null;
+  const base = rhrBaseline(log);
+  const rhrCount = log.filter(e=>Number.isFinite(e.rhr)).length;
+
+  return (
+    <div className="card grain grain-dark" style={{padding:"16px 16px 14px", marginBottom:18,
+      borderColor: todays ? "var(--line)" : "var(--line-warm)"}}>
+
+      <div style={{display:"flex", alignItems:"center", justifyContent:"space-between", gap:10}}>
+        <div className="mono-cap" style={{color: todays ? "var(--paper-dim)" : "var(--amber)"}}>
+          Morning check-in
+        </div>
+        {todays && !open && (
+          <button onClick={startEdit} style={{background:"transparent", border:"1px solid var(--line)",
+            borderRadius:99, padding:"3px 10px", fontSize:10.5, color:"var(--paper-dim)"}}>edit</button>
+        )}
+      </div>
+
+      {!todays && !open && (
+        <>
+          <div style={{fontSize:12.5, color:"var(--paper-mute)", marginTop:6, lineHeight:1.5}}>
+            Before you get out of bed: how are the shins? This is the number that decides today's run.
+          </div>
+          <button onClick={startEdit} style={{marginTop:12, width:"100%", padding:"11px 0",
+            borderRadius:12, border:"1px solid var(--line-warm)", background:"var(--amber-tint)",
+            color:"var(--amber-hot)", fontSize:13.5, fontWeight:600}}>
+            Log this morning
+          </button>
+        </>
+      )}
+
+      {open && (
+        <div className="fade-in" style={{marginTop:12}}>
+          <div style={{fontSize:11.5, color:"var(--paper-dim)", marginBottom:6}}>Shin pain when you press them</div>
+          <div style={{display:"flex", gap:5}}>
+            {SHIN_SCALE.map(v=>(
+              <button key={v} onClick={()=>setShin(v)} style={{
+                flex:1, padding:"9px 0", borderRadius:9, fontSize:13, fontWeight:600,
+                fontVariantNumeric:"tabular-nums",
+                border:"1px solid "+(shin===v ? shinColor(v) : "var(--line)"),
+                background: shin===v ? shinColor(v) : "transparent",
+                color: shin===v ? "var(--ink)" : "var(--paper-dim)"
+              }}>{v===6?"6+":v}</button>
+            ))}
+          </div>
+
+          <div style={{fontSize:11.5, color:"var(--paper-dim)", margin:"12px 0 6px"}}>Legs</div>
+          <div style={{display:"flex", gap:5}}>
+            {LEGS_OPTS.map(o=>(
+              <button key={o.k} onClick={()=>setLegs(o.k)} style={{
+                flex:1, padding:"9px 0", borderRadius:9, fontSize:12.5,
+                border:"1px solid "+(legs===o.k ? "var(--paper-dim)" : "var(--line)"),
+                background: legs===o.k ? "rgba(247,240,220,0.10)" : "transparent",
+                color: legs===o.k ? "var(--paper)" : "var(--paper-dim)"
+              }}>{o.l}</button>
+            ))}
+          </div>
+
+          <div style={{fontSize:11.5, color:"var(--paper-dim)", margin:"12px 0 6px"}}>
+            Resting HR <span style={{color:"var(--paper-faint)"}}>· optional, H10 or band</span>
+          </div>
+          <input value={rhr} onChange={e=>setRhr(e.target.value.replace(/[^0-9]/g,""))}
+            inputMode="numeric" placeholder="e.g. 58" style={{
+            width:"100%", padding:"9px 11px", borderRadius:9, border:"1px solid var(--line)",
+            background:"rgba(0,0,0,0.25)", color:"var(--paper)", fontSize:13.5,
+            fontVariantNumeric:"tabular-nums"}}/>
+
+          <div style={{display:"flex", gap:8, marginTop:12}}>
+            <button onClick={()=>setOpen(false)} style={{flex:1, padding:"10px 0", borderRadius:11,
+              border:"1px solid var(--line)", background:"transparent", color:"var(--paper-dim)", fontSize:13}}>
+              Cancel
+            </button>
+            <button onClick={save} disabled={shin===null} style={{flex:2, padding:"10px 0", borderRadius:11,
+              border:"1px solid "+(shin===null?"var(--line)":"var(--line-warm)"),
+              background: shin===null ? "transparent" : "var(--amber-tint)",
+              color: shin===null ? "var(--paper-faint)" : "var(--amber-hot)",
+              fontSize:13.5, fontWeight:600}}>
+              Save
+            </button>
+          </div>
+        </div>
+      )}
+
+      {todays && !open && verdict && (
+        <div style={{marginTop:10, paddingLeft:11, borderLeft:"2px solid "+verdict.tone}}>
+          <div style={{fontSize:13.5, fontWeight:600, color:verdict.tone}}>{verdict.head}</div>
+          <div style={{fontSize:12, color:"var(--paper-mute)", marginTop:2, lineHeight:1.5}}>{verdict.body}</div>
+        </div>
+      )}
+
+      {log.length > 0 && (
+        <div style={{marginTop:14}}>
+          <div style={{display:"flex", alignItems:"flex-end", gap:3, height:34}}>
+            {strip.map(s=>(
+              <div key={s.key} style={{flex:1, display:"flex", flexDirection:"column",
+                justifyContent:"flex-end", height:"100%"}}>
+                <div title={s.key} style={{
+                  height: s.entry ? Math.max(4, (s.entry.shin/6)*30)+"px" : "3px",
+                  borderRadius:3, background: shinColor(s.entry ? s.entry.shin : null)
+                }}/>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"flex", justifyContent:"space-between", marginTop:5,
+            fontSize:10, color:"var(--paper-faint)", letterSpacing:"0.04em"}}>
+            <span>14 days ago</span>
+            <span>
+              {base ? "resting HR baseline "+Math.round(base) : "resting HR baseline: "+rhrCount+"/7 readings"}
+            </span>
+            <span>today</span>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function MyWeekTab(){
   const dowMap = {Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6};
   const todayLabel = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][TODAY.getDay()];
@@ -771,6 +984,8 @@ function MyWeekTab(){
   return (
     <div className="fade-in" style={{padding:"22px 0 8px"}}>
       <SectionHead title="This week" sub={fmtLong(TODAY)}/>
+
+      <MorningCheckIn/>
 
       {/* Today spotlight */}
       {today && (
@@ -901,17 +1116,18 @@ function MyWeekTab(){
 
       {/* Rules card */}
       <div className="card grain grain-dark" style={{marginTop:14, padding:"18px 18px 14px"}}>
-        <div className="mono-cap" style={{color:"var(--amber)"}}>Eight rules that override everything</div>
+        <div className="mono-cap" style={{color:"var(--amber)"}}>Nine rules that override everything</div>
         <div style={{marginTop:14, display:"flex", flexDirection:"column", gap:12}}>
           {[
+            {t:"Fever = do not run. At all.", a:"Not a judgement call. Exercising with a fever risks myocarditis — inflammation of the heart muscle — rare but serious. NECK CHECK: symptoms above the neck only (runny nose, mild sore throat) → easy running is fine. Fever, body aches, chest symptoms, deep fatigue → no running. After a fever breaks, wait 48h feeling genuinely normal, then return at HALF distance. Roughly one to two easy days back per day ill.", c:"var(--rust)"},
             {t:"Chest pain = diaphragm spasm", a:"Assessed by your GP as diaphragm spasm — a stitch. Manage it: nothing to eat 2–3h before running, breathe into the belly, alternate the foot you exhale on. GO BACK IF THE CHARACTER CHANGES — pain spreading to jaw, neck, arm or back; nausea, cold sweat, dizziness or palpitations; pain at rest or at night; or pain that no longer settles when you slow down. None of those are stitch symptoms.", c:"var(--rust)"},
             {t:"Morning HR up 7+ bpm = back off", a:"Easiest route: wear a fitness band overnight and read its resting HR — automatic beats accurate here, because what matters is the TREND against your own baseline, not the absolute number. Otherwise: wet the H10, strap on, lie still 2 min before getting out of bed, read it in Elite HRV (free) or the Polar app. Either way, two weeks gives you a baseline. Once you have it: a morning 7+ bpm above baseline means under-recovered or something brewing — make that day easy or rest, whatever the plan says. Two mornings in a row: rest. This is the objective version of the tiredness you've pushed through before.", c:"var(--amber)"},
-            {t:"Sharp shin pain mid-run", a:"Stop. Walk home. Two full rest days.", c:"var(--rust)"},
+            {t:"The 24-hour tendon rule", a:"⚕️ Diagnosed 28.08.26 and confirmed 01.09.26: tibialis anterior + posterior tendinitis, both legs. Tendons need LOAD to heal, not rest — so running is allowed, inside limits. DURING a run: pain up to 3/10 is acceptable; above 4/10, stop. NEXT MORNING is the real test — it must be no worse than before the run. Worse the next day, or worsening run after run, means the last run was too much: cut the next by a third. Three bad mornings in a row = stop and go back to the doctor.", c:"var(--rust)"},
             {t:"Exhausted ≠ tired",        a:"Tired legs feel heavy and warm up after 10 min — keep going. Exhausted legs feel dead and never improve — end the run there. Stopping is the training working, not you failing.", c:"var(--rust)"},
             {t:"Long runs: avg HR under 140", a:"Now you have the strap, this is the number that matters. An easy long run averages 130–140 bpm. Your 15 Aug 9.81km averaged 151 with a quarter of it above 163 — that was a race effort, not a long run, and your shins paid for it two days later. If you're sitting above 155, walk more and slow the run blocks. Going long and going hard are two different sessions; never do both.", c:"var(--amber)"},
             {t:"Nothing hard after a long run", a:"The long run IS the session. An hour of dancing, kickboxing or a gym leg day straight afterwards doubles the load on legs that are already at their limit — and that stacking is what turns tired shins into injured ones. Sunday is for walking, stretching and food.", c:"var(--amber)"},
             {t:"Walk break stops working", a:"WITH a HR monitor: if walk breaks stop bringing your HR down, the session is over. WITHOUT one: if you can't speak a full sentence by the END of a walk break, the session is over. Either way walk home — a walk break exists to let you recover, and once it can't, every extra interval is fatigue with no benefit.", c:"var(--amber)"},
-            {t:"Boston 12 stays in the box", a:"Until Week 14, then easy midweek runs only. Never a new shoe on a long run.", c:"var(--sage)"},
+            {t:"Boston 12 stays in the box", a:"Shelved until after the race. Firmer, lower and plated than the Duramo SL2, so it loads the lower leg MORE — wrong shoe while the tibialis tendons are inflamed. Race in the Duramos (~100km on them, plenty of life). Never introduce a new shoe in a week that adds distance, and never on a trip with no fallback pair.", c:"var(--sage)"},
           ].map((r,i) => (
             <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
               <div className="data-num-tight" style={{
@@ -1607,6 +1823,14 @@ const SEED_RUNS_V10 = [
   {date:"2026-08-15", week:12, distance:"9.81", pace:"8:33", hr:151, duration:"1:23:59", cal:770, effort:"Hard", sessionName:"60s/90s", note:"🏅 LONGEST RUN EVER — 9.81km, +33% on the old 7.38km best, and the run where he first believed 21.1km was possible. But it was HARD, not easy: avg HR 151, max 185, only 9% of the run under 129 bpm and 28% above 163 (20:45 logged anaerobic). Three causes stacked — 27°C at 10am, the 60/90 ratio debuting on a long run, and a 33% distance jump. Form collapsed at 5km; he slowed deliberately, rebuilt form, recovered, and sprinted the finish. Chest pain brief and controlled by belly breathing. 77m climbing, cadence 138. 1,277ml fluid loss. Followed immediately by 1 hour of dancing.", shins:"Left LOWER shin painful to touch next day; calves tender. Described as 'extremely tired and used, not damaged'."},
 ];
 
+const SEED_RUNS_V11 = [
+  {date:"2026-08-19", week:13, distance:"7.61", pace:"9:30", hr:136, duration:"1:12:22", cal:615, effort:"Moderate", sessionName:"60s/90s", note:"✅ EFFORT CONTROL WORKED. Target was avg HR under 135; ran 136 — essentially on the number, versus 151 four days earlier. 43% of the run under 129 bpm (was 9% on 15 Aug). Opened properly slow: km1 at 12:11 and 108 bpm. Still 17% above 163 late on, HR drifting 108 → 153. Flat course (36m). Cadence 131.", shins:"Sore to press from this run onward — still tender 5+ days later despite no running. Persisting through complete rest is what prompted the orthopedist referral."},
+];
+
+const SEED_RUNS_V12 = [
+  {date:"2026-09-01", week:15, distance:"4.15", pace:"9:20", hr:122, duration:"55:51", cal:363, effort:"Easy", sessionName:"45s/90s · TEST RUN", note:"✅ FIRST RUN BACK after 12 days off and the tendinitis diagnosis. Ran ~4km in ~37 min (splits 8:27 / 9:10 / 8:43 / 11:02); the 13:27 avg pace Adidas shows includes ~18 min stopped at the end. Avg HR 122 — identical to the good 13 Aug run. Max 179 with 10% above 163: spikes explained by 12 days detraining, a 13:39 midday start and a 14 kph burst. Work legs averaged 6:03/km against a 6:45 target; recovery legs 11:20 against 10:00. Pain 2/10, inside the limit.", shins:"2/10 during. Inner-ankle pain too — same tibialis posterior tendon along its course. SECOND ORTHO 01.09.26 confirmed the diagnosis, prescribed band work and contrast hot/cold, and cleared him to race by choice."},
+];
+
 /* One-time field patches applied to entries that are ALREADY seeded, keyed by
    date. Needed because SEED_BATCHES dedupes by date, so a later batch can add
    a run but can never enrich one that was seeded earlier. */
@@ -1631,6 +1855,8 @@ const SEED_BATCHES = [
   ["logbook_seeded_v8", SEED_RUNS_V8],
   ["logbook_seeded_v9", SEED_RUNS_V9],
   ["logbook_seeded_v10", SEED_RUNS_V10],
+  ["logbook_seeded_v11", SEED_RUNS_V11],
+  ["logbook_seeded_v12", SEED_RUNS_V12],
 ];
 
 function LogBookTab(){
