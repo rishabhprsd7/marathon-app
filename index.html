@@ -411,8 +411,8 @@ const WEEKS = [
     {d:"Sat",i:"Rest", t:"—",km:"—",n:"Missed."}]},
   {w:16,phase:"Final build",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"60s run / 90s walk", t:"50 min",km:"~6.0km",n:"⏱ 18 REPS — warmup 300s, then 60s run / 90s walk ×18. Six days since the last run. Duramos, sleeves if you have them. Run legs 6:45/km, walks 10:00/km — on 1 Sep you ran 6:03 and walked 11:20, and fixing both costs nothing in finish time. Pain ≤3/10 or stop."},
-    {d:"Thu",i:"60s run / 90s walk", t:"60 min",km:"~7.0km",n:"⏱ 22 REPS. Easy. The isometric holds and banded inversion matter more than this run — do them daily."},
-    {d:"Sat",i:"60s run / 90s walk", t:"77 min",km:"~9.0km",n:"⏱ 29 REPS. ⚠️ +117% on your last run, on tendons that flared at 9.81km three weeks ago. This is the riskiest session of the block. Eat 2h before, carry water, cool part of the day. ABORT AT 6KM if pain passes 3/10 or climbs rep over rep — 6km is still a good session, a flare costs you the race."}]},
+    {d:"Thu",i:"60s run / 90s walk", t:"60 min",km:"~7.0km",n:"⏱ 22 REPS. ⚡ ONE JOB: WALK AT 10:00/km. Forget the run-leg target — you have run 6:03, 6:05, 6:05 across three sessions, so that is simply your pace and fighting it has not worked. The walk is the lever that does move: at your 6:05 run pace, walking 10:00 instead of 11:25 takes a 21.1km projection from 2h58 to 2h47, and costs the tendons nothing. Time one break and check."},
+    {d:"Sat",i:"60s run / 90s walk", t:"77 min",km:"~9.0km",n:"⏱ 29 REPS. ⚠️ +117% on your last run, on tendons that flared at 9.81km three weeks ago. This is the riskiest session of the block. Eat 2h before, carry water, cool part of the day. TWO ABORT TRIGGERS: pain past 3/10, OR your walk-break HR floor stops dropping below ~120. On 8 Sep that floor was already at 123 by set 18 — this asks for 29, so brisk walking is what buys you the extra sets. 6km is still a good session; a flare costs you the race."}]},
   {w:17,phase:"Peak",shoe:"Duramo SL2",deload:false,runs:[
     {d:"Tue",i:"60s run / 90s walk", t:"60 min",km:"~7.0km",n:"⏱ 22 REPS. Easy. Race shoe is decided: the Duramos. The Boston 12 is firmer, lower and plated, so it loads the lower leg MORE — wrong shoe for inflamed tendons, and finishing beats a marginal time gain."},
     {d:"Thu",i:"60s run / 90s walk", t:"62 min",km:"~7.5km",n:"⏱ 23 REPS. Easy, nothing to prove. Saturday is the whole point of the week."},
@@ -1126,7 +1126,7 @@ function MyWeekTab(){
             {t:"Exhausted ≠ tired",        a:"Tired legs feel heavy and warm up after 10 min — keep going. Exhausted legs feel dead and never improve — end the run there. Stopping is the training working, not you failing.", c:"var(--rust)"},
             {t:"Long runs: avg HR under 140", a:"Now you have the strap, this is the number that matters. An easy long run averages 130–140 bpm. Your 15 Aug 9.81km averaged 151 with a quarter of it above 163 — that was a race effort, not a long run, and your shins paid for it two days later. If you're sitting above 155, walk more and slow the run blocks. Going long and going hard are two different sessions; never do both.", c:"var(--amber)"},
             {t:"Nothing hard after a long run", a:"The long run IS the session. An hour of dancing, kickboxing or a gym leg day straight afterwards doubles the load on legs that are already at their limit — and that stacking is what turns tired shins into injured ones. Sunday is for walking, stretching and food.", c:"var(--amber)"},
-            {t:"Walk break stops working", a:"WITH a HR monitor: if walk breaks stop bringing your HR down, the session is over. WITHOUT one: if you can't speak a full sentence by the END of a walk break, the session is over. Either way walk home — a walk break exists to let you recover, and once it can't, every extra interval is fatigue with no benefit.", c:"var(--amber)"},
+            {t:"Watch the walk FLOOR, not the average", a:"⚕️ Your own number, from 8 Sep: the lowest HR you reach during a walk break. Over the first four sets it bottomed out near 104 bpm; over the last four it only fell to 123. That rise IS the session ending — the breaks have stopped clearing the load. RULE: once your walk floor stops dropping below ~120, you have a few sets left, not twenty. Finish the current block and walk home. Without a strap: if you can't speak a full sentence by the END of a walk break, same thing.", c:"var(--amber)"},
             {t:"Boston 12 stays in the box", a:"Shelved until after the race. Firmer, lower and plated than the Duramo SL2, so it loads the lower leg MORE — wrong shoe while the tibialis tendons are inflamed. Race in the Duramos (~100km on them, plenty of life). Never introduce a new shoe in a week that adds distance, and never on a trip with no fallback pair.", c:"var(--sage)"},
           ].map((r,i) => (
             <div key={i} style={{display:"flex", gap:14, alignItems:"flex-start"}}>
@@ -1831,6 +1831,10 @@ const SEED_RUNS_V12 = [
   {date:"2026-09-01", week:15, distance:"4.15", pace:"9:20", hr:122, duration:"55:51", cal:363, effort:"Easy", sessionName:"45s/90s · TEST RUN", note:"✅ FIRST RUN BACK after 12 days off and the tendinitis diagnosis. Ran ~4km in ~37 min (splits 8:27 / 9:10 / 8:43 / 11:02); the 13:27 avg pace Adidas shows includes ~18 min stopped at the end. Avg HR 122 — identical to the good 13 Aug run. Max 179 with 10% above 163: spikes explained by 12 days detraining, a 13:39 midday start and a 14 kph burst. Work legs averaged 6:03/km against a 6:45 target; recovery legs 11:20 against 10:00. Pain 2/10, inside the limit.", shins:"2/10 during. Inner-ankle pain too — same tibialis posterior tendon along its course. SECOND ORTHO 01.09.26 confirmed the diagnosis, prescribed band work and contrast hot/cold, and cleared him to race by choice."},
 ];
 
+const SEED_RUNS_V13 = [
+  {date:"2026-09-08", week:16, distance:"5.77", pace:"8:40", hr:133, duration:"50:00", cal:0, effort:"Moderate", sessionName:"60s/90s · 17 of 18 sets", note:"Distance is RECONSTRUCTED — a GPS bug zeroed the counter on each pause, so the stored 3.21km is wrong; 35 intact legs summed to 5.47km plus ~301m for the 2 lost legs. Run legs 6:05/km (target 6:45), walk legs 11:25/km (target 10:00) — third session running, and near-identical to 1 Sep's 6:03 / 11:20. Avg HR 133, max 172, drift +19. THE KEY FINDING: the walk-leg HR floor rose from ~104 bpm over the first four sets to ~123 over the last four, i.e. the walk breaks stopped clearing the load. Ran 23:40–00:30.", shins:"Not reported."},
+];
+
 /* One-time field patches applied to entries that are ALREADY seeded, keyed by
    date. Needed because SEED_BATCHES dedupes by date, so a later batch can add
    a run but can never enrich one that was seeded earlier. */
@@ -1857,6 +1861,7 @@ const SEED_BATCHES = [
   ["logbook_seeded_v10", SEED_RUNS_V10],
   ["logbook_seeded_v11", SEED_RUNS_V11],
   ["logbook_seeded_v12", SEED_RUNS_V12],
+  ["logbook_seeded_v13", SEED_RUNS_V13],
 ];
 
 function LogBookTab(){
