@@ -1848,6 +1848,10 @@ const SEED_RUNS_V13 = [
 ];
 
 
+const SEED_RUNS_V14 = [
+  {date:"2026-09-10", week:16, distance:"4.76", pace:"9:40", hr:126, duration:"45:56", cal:0, effort:"Easy", sessionName:"45s/90s · 15 of 15", note:"🏅 BEST-EXECUTED RUN OF THE BLOCK. The two pace errors are fixed: run legs 119m (target 111m, 6:17/km) and walk legs 145m (target 150m, 10:19/km). On 8 Sep he ran 33m FURTHER than he walked; now he walks 26m further than he runs — the gap is closed. Interval distance 3.97km against a 4.0km target, 15/15 sets, proper 7-min warm-up and 5-min cool-down. Avg HR 126, peak 158, ZERO time in Z5 and only 10% above 149 (8 Sep: 31%). Training load 77 vs 136 on 1 Sep. Negative split: 10:13 / 8:24 / 8:41 / 8:12. NOTE: the export reports +0 bpm drift, which is wrong — real drift is +9 on work-leg peaks (143→153). Still far better than +19 on 8 Sep. Walk floor rose only +7 (was +19), so the breaks were still clearing load at the end.", shins:"Not reported — needed before Saturday's 9km."},
+];
+
 /* One-time field patches applied to entries that are ALREADY seeded, keyed by
    date. Needed because SEED_BATCHES dedupes by date, so a later batch can add
    a run but can never enrich one that was seeded earlier. */
@@ -1875,6 +1879,7 @@ const SEED_BATCHES = [
   ["logbook_seeded_v11", SEED_RUNS_V11],
   ["logbook_seeded_v12", SEED_RUNS_V12],
   ["logbook_seeded_v13", SEED_RUNS_V13],
+  ["logbook_seeded_v14", SEED_RUNS_V14],
 ];
 
 function LogBookTab(){
